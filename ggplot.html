@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Basic Concepts of ggplot | Other Continuous Distributions</title>
+  <meta name="description" content="." />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Basic Concepts of ggplot | Other Continuous Distributions" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Basic Concepts of ggplot | Other Continuous Distributions" />
+  
+  <meta name="twitter:description" content="." />
+  
+
+<meta name="author" content="Ben Wallace" />
+
+
+<meta name="date" content="2021-07-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="Distributions.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="libs/viz-1.8.2/viz.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/grViz-binding-1.0.6.1/grViz.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Visualizing Probability Distributions with ggplot</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="ggplot.html"><a href="ggplot.html"><i class="fa fa-check"></i><b>2</b> Basic Concepts of ggplot</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ggplot.html"><a href="ggplot.html#geometries-and-aesthetic-mappings"><i class="fa fa-check"></i><b>2.1</b> Geometries and Aesthetic Mappings</a></li>
+<li class="chapter" data-level="2.2" data-path="ggplot.html"><a href="ggplot.html#altering-aesthetics-and-scalings"><i class="fa fa-check"></i><b>2.2</b> Altering Aesthetics and Scalings</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="Distributions.html"><a href="Distributions.html"><i class="fa fa-check"></i><b>3</b> Understanding Distributions</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="Distributions.html"><a href="Distributions.html#Uniform"><i class="fa fa-check"></i><b>3.1</b> Uniform Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="Discrete.html"><a href="Discrete.html"><i class="fa fa-check"></i><b>4</b> Other Discrete Distributions</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="Discrete.html"><a href="Discrete.html#Geometric"><i class="fa fa-check"></i><b>4.1</b> Geometric Distribution</a></li>
+<li class="chapter" data-level="4.2" data-path="Discrete.html"><a href="Discrete.html#Binomial"><i class="fa fa-check"></i><b>4.2</b> Binomial Distribution</a></li>
+<li class="chapter" data-level="4.3" data-path="Discrete.html"><a href="Discrete.html#negative-binomial-distribution"><i class="fa fa-check"></i><b>4.3</b> Negative Binomial Distribution</a></li>
+<li class="chapter" data-level="4.4" data-path="Discrete.html"><a href="Discrete.html#Poisson"><i class="fa fa-check"></i><b>4.4</b> Poisson Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="DiscreteContinuous.html"><a href="DiscreteContinuous.html"><i class="fa fa-check"></i><b>5</b> From Discrete to Continous Cases</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="DiscreteContinuous.html"><a href="DiscreteContinuous.html#normal-approximation-of-binomial-distribution"><i class="fa fa-check"></i><b>5.1</b> Normal Approximation of Binomial Distribution</a></li>
+<li class="chapter" data-level="5.2" data-path="DiscreteContinuous.html"><a href="DiscreteContinuous.html#normal-distribution"><i class="fa fa-check"></i><b>5.2</b> Normal Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="Continuous.html"><a href="Continuous.html"><i class="fa fa-check"></i><b>6</b> Other Continuous Distributions</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="Continuous.html"><a href="Continuous.html#T"><i class="fa fa-check"></i><b>6.1</b> t-Distribution</a></li>
+<li class="chapter" data-level="6.2" data-path="Continuous.html"><a href="Continuous.html#Exponential"><i class="fa fa-check"></i><b>6.2</b> Exponential Distribution</a></li>
+<li class="chapter" data-level="6.3" data-path="Continuous.html"><a href="Continuous.html#Gamma"><i class="fa fa-check"></i><b>6.3</b> Gamma Distribution</a></li>
+<li class="chapter" data-level="6.4" data-path="Continuous.html"><a href="Continuous.html#χ2-distribution"><i class="fa fa-check"></i><b>6.4</b> χ2 Distribution</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Other Continuous Distributions</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ggplot" class="section level1" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Basic Concepts of ggplot</h1>
+<p>A visualization can be anything. It can be a drawing, a photograph, a sculpture, a well-decorated cake… you get the idea. However, data scientists and statisticians are often not very skilled at all of these art forms, so they are limited to their tools at hand: functions, code, and geometries.</p>
+<p>This leads us to data visualizations. What separates a data visualization from a drawing is the tools used to construct it. In this guide, our blank canvas is a function called <code>ggplot</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="ggplot.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="ggplot.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>()</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:emptyplot"></span>
+<img src="famousdistrib_files/figure-html/emptyplot-1.png" alt="An empty plot" width="80%" />
+<p class="caption">
+Figure 2.1: An empty plot
+</p>
+</div>
+<div id="geometries-and-aesthetic-mappings" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Geometries and Aesthetic Mappings</h2>
+<p>Everytime that we want to visualize something, we must use this function. The stuff that fills up this space are called <strong>geometries</strong>. Here are just a few that ggplot has avaiable to us.</p>
+<ul>
+<li><code>geom_rect</code> produces rectangles.</li>
+<li><code>geom_point</code> creates dots.</li>
+<li><code>geom_line</code> draws lines.</li>
+<li><code>geom_bar</code> makes a barplot.</li>
+<li><code>geom_function</code> uses functions to draw a continuous curve.</li>
+</ul>
+<p>If the geometries are the shapes on our ggplot canvas, how do we put them on there? This is where aesthetics and mapping come in. When we call the function <code>ggplot</code> we need to connect our data to aesthetic mappings which are then applied to various geometries.</p>
+<p>But where do we use aesthetics mappings? The <code>mapping</code> argument in the <code>ggplot</code> and <code>geom</code> functions are what connect variables from our dataset. Lets look at a dataset of Marvel superheroes and apply the following aesthetics:</p>
+<p>Years since joining Marvel → x</p>
+<p>Appearances → y</p>
+<p>Gender → color</p>
+<p>Now we will use the <code>aes</code> function to define our mappings for a simple scatterplot. We will also use the <code>labs</code> function to label our axes and title and an additional <code>size</code> argument to make our points larger.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="ggplot.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> avengers, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> years_since_joining,</span>
+<span id="cb3-2"><a href="ggplot.html#cb3-2" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">y =</span> appearances,</span>
+<span id="cb3-3"><a href="ggplot.html#cb3-3" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">color =</span> gender)) <span class="sc">+</span></span>
+<span id="cb3-4"><a href="ggplot.html#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb3-5"><a href="ggplot.html#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;&#39;Age&#39; of Superheroes and Appearances&quot;</span>,</span>
+<span id="cb3-6"><a href="ggplot.html#cb3-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Years since Joining Marvel&quot;</span>,</span>
+<span id="cb3-7"><a href="ggplot.html#cb3-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Appearances&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:avengersplot"></span>
+<img src="famousdistrib_files/figure-html/avengersplot-1.png" alt="Basic Avengers scatterplot" width="80%" />
+<p class="caption">
+Figure 2.2: Basic Avengers scatterplot
+</p>
+</div>
+<p>We used two arguments in the gpplot function: data and mapping. Next, we added the geometry <code>geom_point</code> using a plus sign (+). The aesthetic mapping in the ggplot function are then passed onto <code>geom_point</code>.</p>
+<p>Even though we must include data and mappings to produce a visualization, we do not always have to name the arguments themselves. For instance, we could simply write:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="ggplot.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(avengers, <span class="fu">aes</span>(<span class="at">x =</span> years_since_joining,</span>
+<span id="cb4-2"><a href="ggplot.html#cb4-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span> appearances,</span>
+<span id="cb4-3"><a href="ggplot.html#cb4-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">color =</span> gender)) <span class="sc">+</span></span>
+<span id="cb4-4"><a href="ggplot.html#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p>Aesthetic mappings can also produce different geometries by simply changing the function. For example, instead of using <code>geom_point</code> we can use <code>geom_rect</code> to draw rectangles or squares.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="ggplot.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(avengers, <span class="fu">aes</span>(<span class="at">x =</span> years_since_joining,</span>
+<span id="cb5-2"><a href="ggplot.html#cb5-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span> appearances,</span>
+<span id="cb5-3"><a href="ggplot.html#cb5-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">fill =</span> gender)) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="ggplot.html#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> years_since_joining <span class="sc">-</span> <span class="dv">1</span>,</span>
+<span id="cb5-5"><a href="ggplot.html#cb5-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">xmax =</span> years_since_joining <span class="sc">+</span> <span class="dv">1</span>,</span>
+<span id="cb5-6"><a href="ggplot.html#cb5-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">ymin =</span> appearances <span class="sc">-</span> <span class="dv">100</span>,</span>
+<span id="cb5-7"><a href="ggplot.html#cb5-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">ymax =</span> appearances <span class="sc">+</span> <span class="dv">100</span>)) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="ggplot.html#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;&#39;Age&#39; of Superheroes and Appearances&quot;</span>,</span>
+<span id="cb5-9"><a href="ggplot.html#cb5-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Years since Joining Marvel&quot;</span>,</span>
+<span id="cb5-10"><a href="ggplot.html#cb5-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Appearances&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="famousdistrib_files/figure-html/avengersplot_rect-1.png" alt="Avengers scatterplot with rectangles" width="80%" />
+<p class="caption">
+(#fig:avengersplot_rect)Avengers scatterplot with rectangles
+</p>
+</div>
+<p>Notice in Figure ___ that the <code>geom_rect</code> geometry requires aesthetic mappings beyond those in <code>geom_point</code>, including the minimums and maximums for x and y. The color aesthetic of <code>geom_point</code> turns to fill in <code>geom_rect</code> since the rectangles are not points; they are shapes with empty space.</p>
+<p>So far we have established that aesthetics can be passed onto different geometries.</p>
+<p>Figure __ recaps where we are at now.</p>
+<div class="figure" style="text-align: center">
+<div id="htmlwidget-a1e62f4ab46ef6b8df3b" style="width:80%;height:504px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a1e62f4ab46ef6b8df3b">{"x":{"diagram":"digraph {\n\ngraph [layout = dot, rankdir = LR]\n\n# define the global styles of the nodes. We can override these in box if we wish\nnode [shape = rectangle, style = filled, fillcolor = Linen]\n\ndata [label = \"Data\"]\nggplot [label = \"ggplot\"]\nmap [label =  \"Mappings \n Aesthetics\"]\ngeometries [label = \"Geometries\"]\nplot [label= \"Plot\"]\n\n# edge definitions with the node IDs\n{data map}  -> ggplot -> geometries -> plot\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<p class="caption">
+(#fig:ggplot_diagram)ggplot diagram
+</p>
+</div>
+<p>Generally, we want to provide mappings to the ggplot function so that they pass to all of our geometries. Including them in every line of code would be repetitive.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="ggplot.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Don&#39;t do this!</span></span>
+<span id="cb6-2"><a href="ggplot.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(avengers, <span class="fu">aes</span>(<span class="at">x =</span> years_since_joining,</span>
+<span id="cb6-3"><a href="ggplot.html#cb6-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span> appearances,</span>
+<span id="cb6-4"><a href="ggplot.html#cb6-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">color =</span> gender)) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="ggplot.html#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> years_since_joining,</span>
+<span id="cb6-6"><a href="ggplot.html#cb6-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> appearances,</span>
+<span id="cb6-7"><a href="ggplot.html#cb6-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> gender))</span>
+<span id="cb6-8"><a href="ggplot.html#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="ggplot.html#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Do this instead!</span></span>
+<span id="cb6-10"><a href="ggplot.html#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(avengers, <span class="fu">aes</span>(<span class="at">x =</span> years_since_joining,</span>
+<span id="cb6-11"><a href="ggplot.html#cb6-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span> appearances,</span>
+<span id="cb6-12"><a href="ggplot.html#cb6-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">color =</span> gender)) <span class="sc">+</span></span>
+<span id="cb6-13"><a href="ggplot.html#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p>But there are plenty of instances in which we wouldn’t want to keep our aesthetics limited to the ggplot function line–for example, plots with two different groups or those with different scales on the y axis (although it is not generally recommended to have multiple scales on an axis since it is confusing). Let’s return to the Avengers plot but keep the <code>color</code> argument in <code>geom_point</code> so that the color of our text doesn’t differ by gender.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="ggplot.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(avengers, <span class="fu">aes</span>(<span class="at">x =</span> years_since_joining, <span class="at">y =</span> appearances)) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="ggplot.html#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> gender), <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="ggplot.html#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> name_alias), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="ggplot.html#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;&#39;Age&#39; of Superheroes and Appearances&quot;</span>,</span>
+<span id="cb7-5"><a href="ggplot.html#cb7-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Years since Joining Marvel&quot;</span>,</span>
+<span id="cb7-6"><a href="ggplot.html#cb7-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Appearances&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="famousdistrib_files/figure-html/avengersplot_gender-1.png" alt="Avengers scatterplot with unique color and label aesthetic assignments" width="80%" />
+<p class="caption">
+(#fig:avengersplot_gender)Avengers scatterplot with unique color and label aesthetic assignments
+</p>
+</div>
+<p>Figure ___ doesn’t look pretty but you get the idea. A general rule to follow with data visualizations is to avoid mapping one aesthetic to multiple variables. For instance, a plot in which the color is used to illustrate both an Avenger’s gender and their name would be confusing.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="ggplot.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Don&#39;t do this!</span></span>
+<span id="cb8-2"><a href="ggplot.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(avengers, <span class="fu">aes</span>(<span class="at">x =</span> years_since_joining, <span class="at">y =</span> appearances)) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="ggplot.html#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> gender), <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="ggplot.html#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">color =</span> name_alias, <span class="at">label =</span> name_alias), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="ggplot.html#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;&#39;Age&#39; of Superheroes and Appearances&quot;</span>,</span>
+<span id="cb8-6"><a href="ggplot.html#cb8-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Years since Joining Marvel&quot;</span>,</span>
+<span id="cb8-7"><a href="ggplot.html#cb8-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Appearances&quot;</span>)</span></code></pre></div>
+<p><img src="famousdistrib_files/figure-html/avengersplot_wrong-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>Sadly, Steve Rogers is not a gender and neither are the other Avenger names in the legend. This is why we should not map one aesthetic to more than one variable.</p>
+</div>
+<div id="altering-aesthetics-and-scalings" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Altering Aesthetics and Scalings</h2>
+<p>Now, let’s introduce a way to change our aesthetics further. There are some arguments within geom functions that allow us to do this. For instance, you might have noticed that I used <code>size</code> to make points and labels larger in the previous plots. We can also use <code>color</code> or <code>fill</code> to make adjustments to our geoms.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="ggplot.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(avengers, <span class="fu">aes</span>(<span class="at">x =</span> years_since_joining,</span>
+<span id="cb9-2"><a href="ggplot.html#cb9-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span> appearances)) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="ggplot.html#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;tomato&quot;</span>, <span class="at">size =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="famousdistrib_files/figure-html/avengersplot_red-1.png" alt="Avengers scatterplot in red!" width="80%" />
+<p class="caption">
+(#fig:avengersplot_red)Avengers scatterplot in red!
+</p>
+</div>
+<p>But previously we have related color with an Avenger’s gender. ggplot uses some default colors to differentiate male and female Avengers but we can change this further with <strong>scales</strong>. Every scale function has three components:</p>
+<ol style="list-style-type: decimal">
+<li><code>scale_</code></li>
+<li>The name of the aesthetic we are scaling. In this case, <code>color</code>.</li>
+<li>A method of applying the scale. In this case, we’ll use <code>manual</code>.</li>
+</ol>
+<p>So to combine all of the previous steps together, we would call the function<code>scale_color_manual</code> to directly alter the colors of our aesthetic related to gender.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="ggplot.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(avengers, <span class="fu">aes</span>(<span class="at">x =</span> years_since_joining,</span>
+<span id="cb10-2"><a href="ggplot.html#cb10-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span> appearances,</span>
+<span id="cb10-3"><a href="ggplot.html#cb10-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">color =</span> gender)) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="ggplot.html#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb10-5"><a href="ggplot.html#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Tomato&quot;</span>, <span class="st">&quot;Navy&quot;</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="famousdistrib_files/figure-html/avengersplot_scale-1.png" alt="Avengers scatterplot using `scale_color_manual`" width="80%" />
+<p class="caption">
+(#fig:avengersplot_scale)Avengers scatterplot using <code>scale_color_manual</code>
+</p>
+</div>
+<p>We’ve not only learned about the gender gap in the Marvel universe but also how to apply scales to our aesthetics! There are a number of scales that we can use further. For example, <code>scale_alpha_binned</code> allows us to alter the transparency of points after providing a <code>range</code> between 0-1. The <code>breaks</code> argument separates our observations into different groups.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="ggplot.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(avengers, <span class="fu">aes</span>(<span class="at">x =</span> years_since_joining,</span>
+<span id="cb11-2"><a href="ggplot.html#cb11-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span> appearances,</span>
+<span id="cb11-3"><a href="ggplot.html#cb11-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">alpha =</span> appearances)) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="ggplot.html#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="ggplot.html#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_alpha_continuous</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="dv">1</span>),</span>
+<span id="cb11-6"><a href="ggplot.html#cb11-6" aria-hidden="true" tabindex="-1"></a>                         <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">3000</span>, <span class="dv">4000</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="famousdistrib_files/figure-html/avengersplot_alpha-1.png" alt="Avengers scatterplot with `scale_alpha_continuous`" width="80%" />
+<p class="caption">
+(#fig:avengersplot_alpha)Avengers scatterplot with <code>scale_alpha_continuous</code>
+</p>
+</div>
+<p>An important fact to remember is that mapping a variable to more than one aesthetic sometimes exaggerate differences in data. In this case, using two aesthetics–y and alpha–for appearance count draws the eye to the Avengers with the most appearances. This is why any data scientist must consider the <a href="https://socviz.co/index.html#preface">principles of data visualization</a> and how certain techniques mislead or distort data.</p>
+<p>So far, we have learned how to call the <code>ggplot</code> function, apply aesthetic mappings, layer geometries, and alter aesthetics with scales. Any data visualization, regardless of its complexity, follows this formula.</p>
+<p>Hopefully this chapter has provided you a some more confidence as you begin producing your own visualizations. However, this is by no means an exhaustive tutorial. To learn more about data visualizations here are some useful resources:</p>
+<ul>
+<li><a href="https://www.amazon.com/gp/product/0596809158/ref=as_li_tf_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0596809158&amp;linkCode=as2&amp;tag=cooforr09-20">R Cookbook</a></li>
+<li><a href="http://www.cookbook-r.com/">Cookbook for R</a></li>
+<li><a href="https://www.r-graph-gallery.com/index.html">The R Graph Gallery</a></li>
+<li><a href="https://www.rfordatasci.com/">R for Data Science Online Community</a></li>
+</ul>
+<p>The rest of this guide specifically uses our new visualization tool to learn about the statistical distributions that govern our world. Click on to learn more!</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="Distributions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/01-ggplot.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["famousdistrib.pdf", "famousdistrib.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

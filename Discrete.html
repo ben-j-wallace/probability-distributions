@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Other Discrete Distributions | Other Continuous Distributions</title>
+  <meta name="description" content="." />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Other Discrete Distributions | Other Continuous Distributions" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Other Discrete Distributions | Other Continuous Distributions" />
+  
+  <meta name="twitter:description" content="." />
+  
+
+<meta name="author" content="Ben Wallace" />
+
+
+<meta name="date" content="2021-07-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="Distributions.html"/>
+<link rel="next" href="DiscreteContinuous.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="libs/viz-1.8.2/viz.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/grViz-binding-1.0.6.1/grViz.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Visualizing Probability Distributions with ggplot</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="ggplot.html"><a href="ggplot.html"><i class="fa fa-check"></i><b>2</b> Basic Concepts of ggplot</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ggplot.html"><a href="ggplot.html#geometries-and-aesthetic-mappings"><i class="fa fa-check"></i><b>2.1</b> Geometries and Aesthetic Mappings</a></li>
+<li class="chapter" data-level="2.2" data-path="ggplot.html"><a href="ggplot.html#altering-aesthetics-and-scalings"><i class="fa fa-check"></i><b>2.2</b> Altering Aesthetics and Scalings</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="Distributions.html"><a href="Distributions.html"><i class="fa fa-check"></i><b>3</b> Understanding Distributions</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="Distributions.html"><a href="Distributions.html#Uniform"><i class="fa fa-check"></i><b>3.1</b> Uniform Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="Discrete.html"><a href="Discrete.html"><i class="fa fa-check"></i><b>4</b> Other Discrete Distributions</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="Discrete.html"><a href="Discrete.html#Geometric"><i class="fa fa-check"></i><b>4.1</b> Geometric Distribution</a></li>
+<li class="chapter" data-level="4.2" data-path="Discrete.html"><a href="Discrete.html#Binomial"><i class="fa fa-check"></i><b>4.2</b> Binomial Distribution</a></li>
+<li class="chapter" data-level="4.3" data-path="Discrete.html"><a href="Discrete.html#negative-binomial-distribution"><i class="fa fa-check"></i><b>4.3</b> Negative Binomial Distribution</a></li>
+<li class="chapter" data-level="4.4" data-path="Discrete.html"><a href="Discrete.html#Poisson"><i class="fa fa-check"></i><b>4.4</b> Poisson Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="DiscreteContinuous.html"><a href="DiscreteContinuous.html"><i class="fa fa-check"></i><b>5</b> From Discrete to Continous Cases</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="DiscreteContinuous.html"><a href="DiscreteContinuous.html#normal-approximation-of-binomial-distribution"><i class="fa fa-check"></i><b>5.1</b> Normal Approximation of Binomial Distribution</a></li>
+<li class="chapter" data-level="5.2" data-path="DiscreteContinuous.html"><a href="DiscreteContinuous.html#normal-distribution"><i class="fa fa-check"></i><b>5.2</b> Normal Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="Continuous.html"><a href="Continuous.html"><i class="fa fa-check"></i><b>6</b> Other Continuous Distributions</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="Continuous.html"><a href="Continuous.html#T"><i class="fa fa-check"></i><b>6.1</b> t-Distribution</a></li>
+<li class="chapter" data-level="6.2" data-path="Continuous.html"><a href="Continuous.html#Exponential"><i class="fa fa-check"></i><b>6.2</b> Exponential Distribution</a></li>
+<li class="chapter" data-level="6.3" data-path="Continuous.html"><a href="Continuous.html#Gamma"><i class="fa fa-check"></i><b>6.3</b> Gamma Distribution</a></li>
+<li class="chapter" data-level="6.4" data-path="Continuous.html"><a href="Continuous.html#χ2-distribution"><i class="fa fa-check"></i><b>6.4</b> χ2 Distribution</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Other Continuous Distributions</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="Discrete" class="section level1" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Other Discrete Distributions</h1>
+<div id="Geometric" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Geometric Distribution</h2>
+<p>For the next distribution, imagine a basketball player that is not particularly good. Whenever he takes a free throw, there is a 10% probability that he makes it. How many free throws can we expect him to shoot before he makes one?</p>
+<p>The geometric distribution helps us answer this question. We can think of this as a spread of N trials required to reach a probability p in the following equation.</p>
+<p><span class="math display">\[P(N = n) = (1-p)^{n} p \hspace{0.7cm}for\hspace{0.2cm} n=0,1,...,\infty\]</span></p>
+<p>Since trials can only be measured in integers, the geometric distribution is a type of <strong>discrete distribution</strong>.</p>
+<p>Although there is a more in-depth proof, the formula for this distribution is already quite intuitive. First, the geometric distribution needs n failures and one success for N to equal n. Likewise, if the probability of a success is represented by <span class="math inline">\(p\)</span>, the probability of a failure must be <span class="math inline">\(1-p\)</span>.</p>
+<p>When can we use a geometric distribution, and does it apply to the free throw example? In order to model a random process with the geometric distribution, it must meet the following assumptions:</p>
+<ol style="list-style-type: decimal">
+<li><p>Every “trial” must be independent of each other. In other words, the outcome of one trial does not have any bearing on the other outcomes.</p></li>
+<li><p>There are only “successes” and “failures.” If a response has more than two outcomes, we should not use the geometric distribution.</p></li>
+<li><p>The probability of success remains consistent for each trial.</p></li>
+</ol>
+<p>It is possible that these assumptions may not be fully met in our case study. For example, does the basketball player get tired over time, thus decreasing the probability of a successful free throw? This would violate the third assumption.</p>
+<p>The geometric distribution has a mean or expected value of <span class="math inline">\(\frac{1-p}{p}\)</span>. This means that if we had many similar basketball players shoot free throws, their long run average “failures” would be (<span class="math inline">\(\frac{1-0.1}{0.1}=9\)</span>), i.e. their average “successful” free throw would be on shot 10.</p>
+<hr />
+<p>Now that we have found the long run mean of the geometric distribution, let’s see how we can visualize the first thirty shots that the basketball player takes. Again, we’ll use a d(density) function (in this case called <code>dgeom</code>) to produce the individual densities for each of the shots in the total distribution. <code>dgeom</code> has 3 arguments.</p>
+<ol style="list-style-type: decimal">
+<li><p>A vector of integers in order to return their corresponding densities. We can imagine this as the probability of <span class="math inline">\(x\)</span> failures before the first success. Here, we’ll use <code>0:30</code> to represent the integers 0, 1, 2, … , 29, 30.</p></li>
+<li><p>The <code>prob</code> or probability of a successful free throw.</p></li>
+<li><p>An optional <code>log</code> argument.</p></li>
+</ol>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="Discrete.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame with the first 30 values, incremented by 1, as well as a geometric distribution.</span></span>
+<span id="cb24-2"><a href="Discrete.html#cb24-2" aria-hidden="true" tabindex="-1"></a>dgeom <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">failures =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">30</span>,</span>
+<span id="cb24-3"><a href="Discrete.html#cb24-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">density =</span> <span class="fu">dgeom</span>(<span class="at">x =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">30</span>, <span class="at">prob =</span> <span class="fl">0.1</span>, <span class="at">log =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb24-4"><a href="Discrete.html#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="Discrete.html#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create plot</span></span>
+<span id="cb24-6"><a href="Discrete.html#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dgeom) <span class="sc">+</span></span>
+<span id="cb24-7"><a href="Discrete.html#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> failures, <span class="at">y =</span> density), <span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb24-8"><a href="Discrete.html#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Missed Shots&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
+<p><img src="famousdistrib_files/figure-html/unnamed-chunk-14-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>Each ith value on the x axis and its corresponding jth y value can be conceptualized as “There is a j probability that the basketball player had i failures before his first successful free throw.”</p>
+<p>As suggested in the plot above, the probability that a shot is the first success approaches 0 as the observation number approaches infinity.</p>
+<p>Now let’s talk about the <code>stat</code> argument in <code>geom_bar</code>. By default, this is set to <code>"count"</code>. This means that the height of an x-value’s bar is determined by the number of times that it appears in a dataset. By changing this argument to <code>"identity</code>", ggplot looks for a corresponding y aesthetic to determine the height of the bar.</p>
+<p>If we don’t alter the behavior of <code>geom_bar</code> we would get a plot that looks like this:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="Discrete.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Don&#39;t do this!</span></span>
+<span id="cb25-2"><a href="Discrete.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dgeom) <span class="sc">+</span></span>
+<span id="cb25-3"><a href="Discrete.html#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> failures)) <span class="sc">+</span></span>
+<span id="cb25-4"><a href="Discrete.html#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Missed Shots&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
+<p><img src="famousdistrib_files/figure-html/unnamed-chunk-15-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<hr />
+<p>To calculate the probability of a range of outcomes we can use the function <code>pgeom()</code>. For example, how likely is it that the player can make a free throw in 9 or fewer shots? To find this, we’ll plug in <span class="math inline">\(q = 8\)</span>.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="Discrete.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a cumulative density function</span></span>
+<span id="cb26-2"><a href="Discrete.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pgeom</span>(<span class="dv">8</span>, <span class="fl">0.1</span>)</span></code></pre></div>
+<pre><code>## [1] 0.6125795</code></pre>
+<p>We plug in <span class="math inline">\(q=8\)</span> instead of <span class="math inline">\(q=9\)</span> because the first argument of function requires the number of failures until the first succcess. In other words, the value that <code>pgeom</code> returns can be thought of as the probability that we have less than or equal to 8 failures before the first successful free throw.</p>
+<p>When using a “p” or distribution function with <code>lower.tail = TRUE</code>, the first argument is our right bound. If we change to <code>lower.tail = FALSE</code>, the first argument becomes our left bound.</p>
+<p>We can think of our calculation above as the same as finding the area of the binomial distribution from 0 to 8–i.e. the total area of the first nine rectangles. We will fill the first nine bars blue and the rest gray.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="Discrete.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dgeom) <span class="sc">+</span> <span class="co"># Insert the vector of densities into the data argument</span></span>
+<span id="cb28-2"><a href="Discrete.html#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> failures, <span class="at">y =</span> density),</span>
+<span id="cb28-3"><a href="Discrete.html#cb28-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>,</span>
+<span id="cb28-4"><a href="Discrete.html#cb28-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="fu">ifelse</span>(dgeom<span class="sc">$</span>failures <span class="sc">&lt;=</span> <span class="dv">8</span>, <span class="st">&quot;skyblue1&quot;</span>, <span class="st">&quot;grey35&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb28-5"><a href="Discrete.html#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Failed Shots&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
+<p><img src="famousdistrib_files/figure-html/unnamed-chunk-17-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>Here are a few things to remember from the code above before we move on.</p>
+<p>-The <code>ifelse(test, yes, no)</code> function is in base R and allows us to set a condition for the fill aesthetic of our bar plot. We are essentially telling ggplot to fill each bar blue if the <code>shot_num</code> is less than or equal to 9. Otherwise, fill the rest of the bars gray.</p>
+<p>-By default, the <code>lower.tail</code> argument is set to <code>TRUE</code>, meaning that we are finding the area of the distribution from the first shot to the ninth shot. However, if we set the <code>lower.tail</code> argument to <code>FALSE</code>, we will get the area of the distribution after the eighth shot.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="Discrete.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pgeom</span>(<span class="dv">8</span>, <span class="at">prob =</span> <span class="fl">0.1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## [1] 0.3874205</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="Discrete.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># As represented on a bar plot</span></span>
+<span id="cb31-2"><a href="Discrete.html#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dgeom) <span class="sc">+</span></span>
+<span id="cb31-3"><a href="Discrete.html#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> failures, <span class="at">y =</span> density),</span>
+<span id="cb31-4"><a href="Discrete.html#cb31-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>,</span>
+<span id="cb31-5"><a href="Discrete.html#cb31-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="fu">ifelse</span>(dgeom<span class="sc">$</span>failures <span class="sc">&gt;</span> <span class="dv">8</span>, <span class="st">&quot;skyblue1&quot;</span>, <span class="st">&quot;grey35&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb31-6"><a href="Discrete.html#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Failed Shots&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
+<p><img src="famousdistrib_files/figure-html/unnamed-chunk-19-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<hr />
+<p>The <code>qgeom()</code> function can be thought of as the inverse of <code>pgeom()</code>. Because of this, we enter in a cumulative density (value from 0-1) into the function and it returns the shot number in which we would expect to reach that cumulative density, from left to right on a number line.</p>
+<p>Like <code>pgeom()</code>, keep in mind that <code>lower.tail</code> is set to <code>TRUE</code> by default.</p>
+<p>By what shot can we begin expecting the player have already made a free throw? To answer this question, we will enter 50% as a cumulative density.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="Discrete.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qgeom</span>(<span class="fl">0.5</span>, <span class="at">prob =</span> <span class="fl">0.1</span>)</span></code></pre></div>
+<pre><code>## [1] 6</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="Discrete.html#cb34-1" aria-hidden="true" tabindex="-1"></a>dgeom <span class="ot">&lt;-</span> dgeom <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="Discrete.html#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cume_dist =</span> <span class="fu">cumsum</span>(density))</span>
+<span id="cb34-3"><a href="Discrete.html#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="Discrete.html#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dgeom) <span class="sc">+</span></span>
+<span id="cb34-5"><a href="Discrete.html#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> failures, <span class="at">y =</span> density),</span>
+<span id="cb34-6"><a href="Discrete.html#cb34-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>,</span>
+<span id="cb34-7"><a href="Discrete.html#cb34-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="fu">ifelse</span>(dgeom<span class="sc">$</span>cume_dist <span class="sc">&lt;=</span>.<span class="dv">5</span>, <span class="st">&quot;skyblue1&quot;</span>, <span class="st">&quot;grey35&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb34-8"><a href="Discrete.html#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Shot Number&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
+<p><img src="famousdistrib_files/figure-html/unnamed-chunk-21-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>There is quite a bit to unpack here. We use <code>mutate()</code> to create a new variable for the cumulative density at each shot. This is the sum of a shot’s density and all of the previous shots before it.</p>
+<p>Next, we return to the <code>ifelse()</code> function to determine which bars to fill. We can interpret our code as “If the cumulative density of this shot is less than or equal to .5, fill it blue; otherwise, fill it gray.”</p>
+<hr />
+<p>Finally, imagine that 1,000 exact copies of the basketball player shoot free throws. Below is the distribution of those outcomes. The function <code>rgeom()</code> simulates each of the 1,000 players and returns the number of their first successful shot.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="Discrete.html#cb35-1" aria-hidden="true" tabindex="-1"></a>rand_geom <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">deviates =</span> <span class="fu">rgeom</span>(<span class="dv">1000</span>, <span class="fl">0.1</span>))</span>
+<span id="cb35-2"><a href="Discrete.html#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="Discrete.html#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(rand_geom) <span class="sc">+</span></span>
+<span id="cb35-4"><a href="Discrete.html#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> deviates),</span>
+<span id="cb35-5"><a href="Discrete.html#cb35-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">binwidth =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb35-6"><a href="Discrete.html#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;First Shot&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>) <span class="sc">+</span></span>
+<span id="cb35-7"><a href="Discrete.html#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">80</span>, <span class="dv">10</span>)) <span class="co"># Added more ticks on x axis</span></span></code></pre></div>
+<p><img src="famousdistrib_files/figure-html/unnamed-chunk-22-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>As stated at the beginning of this chapter, the geometric distribution can be thought of the spread of N trials required to get probability p. Because of this, as we increase the number of simulated basketball players, we reach a distribution more and more similar to the actual binomial distribution.</p>
+<p>To visualize this, we’ll generate four plots: three randomly-sampled geometric distributions and a “true” geometric distribution. To simplify our code, we’ll start by writing a new function called <code>geom_plot</code>. If function-writing is unfamiliar to you, I encourage you to read this <a href="https://r4ds.had.co.nz/functions.html">friendly introduction</a>.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="Discrete.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a function that randomly samples from geometric distribution with sample size n</span></span>
+<span id="cb36-2"><a href="Discrete.html#cb36-2" aria-hidden="true" tabindex="-1"></a>geom_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(prob, n){</span>
+<span id="cb36-3"><a href="Discrete.html#cb36-3" aria-hidden="true" tabindex="-1"></a>  temp <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">deviates =</span> <span class="fu">rgeom</span>(n, prob))</span>
+<span id="cb36-4"><a href="Discrete.html#cb36-4" aria-hidden="true" tabindex="-1"></a>  plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(temp, <span class="fu">aes</span>(<span class="at">x =</span> deviates)) <span class="sc">+</span> </span>
+<span id="cb36-5"><a href="Discrete.html#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb36-6"><a href="Discrete.html#cb36-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">80</span>, <span class="dv">20</span>)) <span class="sc">+</span></span>
+<span id="cb36-7"><a href="Discrete.html#cb36-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">caption =</span> <span class="fu">str_c</span>(n, <span class="st">&quot;simulations&quot;</span>, <span class="at">sep =</span> <span class="st">&quot; &quot;</span>))</span>
+<span id="cb36-8"><a href="Discrete.html#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(plot)</span>
+<span id="cb36-9"><a href="Discrete.html#cb36-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb36-10"><a href="Discrete.html#cb36-10" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb36-11"><a href="Discrete.html#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate random samples and plots</span></span>
+<span id="cb36-12"><a href="Discrete.html#cb36-12" aria-hidden="true" tabindex="-1"></a>sample_1000 <span class="ot">&lt;-</span> <span class="fu">geom_plot</span>(<span class="fl">0.1</span>, <span class="dv">1000</span>) <span class="sc">+</span></span>
+<span id="cb36-13"><a href="Discrete.html#cb36-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Count&quot;</span>,</span>
+<span id="cb36-14"><a href="Discrete.html#cb36-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Random Deviates&quot;</span>)</span>
+<span id="cb36-15"><a href="Discrete.html#cb36-15" aria-hidden="true" tabindex="-1"></a>sample_10000 <span class="ot">&lt;-</span> <span class="fu">geom_plot</span>(<span class="fl">0.1</span>, <span class="dv">10000</span>)</span>
+<span id="cb36-16"><a href="Discrete.html#cb36-16" aria-hidden="true" tabindex="-1"></a>sample_100000 <span class="ot">&lt;-</span> <span class="fu">geom_plot</span>(<span class="fl">0.1</span>, <span class="dv">100000</span>)</span>
+<span id="cb36-17"><a href="Discrete.html#cb36-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-18"><a href="Discrete.html#cb36-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-19"><a href="Discrete.html#cb36-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate true geometric distribution </span></span>
+<span id="cb36-20"><a href="Discrete.html#cb36-20" aria-hidden="true" tabindex="-1"></a>dgeom <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">shot_num =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">80</span>,</span>
+<span id="cb36-21"><a href="Discrete.html#cb36-21" aria-hidden="true" tabindex="-1"></a>                <span class="at">density =</span> <span class="fu">dgeom</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">80</span>, <span class="at">prob =</span> <span class="fl">0.1</span>, <span class="at">log =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb36-22"><a href="Discrete.html#cb36-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-23"><a href="Discrete.html#cb36-23" aria-hidden="true" tabindex="-1"></a>true_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dgeom) <span class="sc">+</span></span>
+<span id="cb36-24"><a href="Discrete.html#cb36-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> shot_num, <span class="at">y =</span> density), <span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">width =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb36-25"><a href="Discrete.html#cb36-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;First Shot&quot;</span>, </span>
+<span id="cb36-26"><a href="Discrete.html#cb36-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>, </span>
+<span id="cb36-27"><a href="Discrete.html#cb36-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Geometric Distribution&quot;</span>) <span class="sc">+</span></span>
+<span id="cb36-28"><a href="Discrete.html#cb36-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">80</span>, <span class="dv">20</span>))</span>
+<span id="cb36-29"><a href="Discrete.html#cb36-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-30"><a href="Discrete.html#cb36-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot all together in a grid</span></span>
+<span id="cb36-31"><a href="Discrete.html#cb36-31" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(<span class="cn">NULL</span>, true_plot, <span class="cn">NULL</span>, sample_1000, sample_10000, sample_100000, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="famousdistrib_files/figure-html/unnamed-chunk-23-1.png" width="80%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="Binomial" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Binomial Distribution</h2>
+<p>While we would use the geometric distribution to model the number of failed free throws until a successful shot, the <strong>binomial distribution</strong> instead considers the probability of successful free throws in a fixed number of attempts. It is defined belowbelow:</p>
+<p><span class="math display">\[P(K = k) = C_{n,k}p^{k}(1-p)^{n-k}\\\textrm{where} \hspace{0.2cm}C_{n,k}\hspace{0.2cm}\textrm{is the number of ways that we can pick k successes in n trials.}\]</span></p>
+<p>At first glance, this formula is complicated, but it can be easily divided into two parts:</p>
+<ul>
+<li><p><span class="math inline">\(C_{k,n}\)</span> represents the number of ways we can select k successes in n trials. This combination can be calculated as <span class="math inline">\(C_{n,k}=\frac{n!}{k!(n-k)!}\)</span>.</p></li>
+<li><p><span class="math inline">\(p^{k}(1-p)^{n-k}\)</span> or the probability of getting k successes and therefore n-k failures.</p></li>
+</ul>
+<p>We multiply the scenarios term by the probability term to account for the fact that there are multiple ways that we can get to the kth success. A basketball player does not need to make k shots in a particular order.</p>
+<p>For example, if we are interested in the probability that the basketball player shoots 30 free throws and makes 3 of them, we can plug these numbers into our equation.</p>
+<ul>
+<li><p>We have n = 30 independent trials, assuming that the player shoots at the same place and does not get tired.</p></li>
+<li><p>We want to have k = 3 successful free throws and n- k = 27 unsuccessful ones.</p></li>
+<li><p>Recall that the probability of a successful shot is p = 10%. Thus, a missed shot has probability 1 - p = 90%.</p></li>
+</ul>
+<p>Thus, our density formula allows us to find the probability of a basketball player making 3 shots using simple multiplication.</p>
+<p><span class="math display">\[P(K = 3) = C_{30,3}(.10)^{3}(1-.10)^{27}\approx.2361\]</span></p>
+<p>With R, the function <code>dbinom()</code> similarly accomplishes this.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="Discrete.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The arguments do not all need to be named, but I will do so here.</span></span>
+<span id="cb37-2"><a href="Discrete.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">3</span>, <span class="at">size =</span> <span class="dv">30</span>, <span class="at">prob =</span> .<span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] 0.2360879</code></pre>
+<p>In other words, the probability that the basketball player shoots 30 free throws and makes <strong>exactly</strong> 3 of them is about 0.2361.</p>
+<p>As we begin visualizing this with <code>ggplot()</code>, we should return to our strategy from the geometric chapter by creating a data frame or tibble with two columns–one to signify all of the possible number of successes that we can have, and another of their corresponding probabilities or densities.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="Discrete.html#cb39-1" aria-hidden="true" tabindex="-1"></a>dbinom <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">shots =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">30</span>,</span>
+<span id="cb39-2"><a href="Discrete.html#cb39-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">density =</span> <span class="fu">dbinom</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">30</span>, <span class="at">size =</span> <span class="dv">30</span>, <span class="at">prob =</span> .<span class="dv">1</span>))</span></code></pre></div>
+<p>We can now plot this with <code>geom_bar()</code>.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="Discrete.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dbinom) <span class="sc">+</span></span>
+<span id="cb40-2"><a href="Discrete.html#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> shots, <span class="at">y =</span> density),</span>
+<span id="cb40-3"><a href="Discrete.html#cb40-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb40-4"><a href="Discrete.html#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Successful Shots&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>) <span class="sc">+</span></span>
+<span id="cb40-5"><a href="Discrete.html#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="dv">2</span>))</span></code></pre></div>
+<p><img src="famousdistrib_files/figure-html/unnamed-chunk-26-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>As seen above, it is quite unlikely that the basketball player will make more than 10 shots. In fact, their probabilities aren’t even large enough for the bars to register on the plot.</p>
+<hr />
+<p>In some scenarios in the statistics world, we aren’t only interested in the probability of getting <strong>exactly</strong> k successes; we may want to consider a range of outcomes. For example, a personal coach who records the basketball player’s progress wants to determine the probability that he makes 3 <strong>or fewer</strong> shots out of 30.</p>
+<p>Using the previous chapters, we can assume that we would want to use the distribution function <code>pbinom()</code> to answer this question.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="Discrete.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Before you continue, think about what the four arguments mean. Why would we set the lower.tail to TRUE instead of FALSE?</span></span>
+<span id="cb41-2"><a href="Discrete.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="dv">3</span>, <span class="dv">30</span>, <span class="fl">0.1</span>, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] 0.6474392</code></pre>
+<p>The first argument in the above function is similar to the other “p” functions since it can be thought of as the “right bound” of interest. We can imagine the <code>pbinom()</code> function as finding the area of the binomial distribution from 0 to 3.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="Discrete.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dbinom) <span class="sc">+</span></span>
+<span id="cb43-2"><a href="Discrete.html#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> shots, <span class="at">y =</span> density),</span>
+<span id="cb43-3"><a href="Discrete.html#cb43-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>,</span>
+<span id="cb43-4"><a href="Discrete.html#cb43-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="fu">ifelse</span>(dbinom<span class="sc">$</span>shots <span class="sc">&lt;=</span> <span class="dv">3</span>, <span class="st">&quot;purple2&quot;</span>, <span class="st">&quot;lightgray&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb43-5"><a href="Discrete.html#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Successful Shots&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
+<p><img src="famousdistrib_files/figure-html/unnamed-chunk-28-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>Just as we used it in the geometric distribution section, the <code>ifelse()</code> function allows us to fill our bars with different colors depending on the “shot” value. The interpretation here is “fill the bar purple if number of successful shots is three or fewer. If not, fill the bar gray.”</p>
+<hr />
+<p>Like the other “r” functions,<code>rbinom()</code> randomly simulates the outcomes of a distribution. In this case, the function returns the number of successful free throws made all of the simulations. This is useful because it helps us better understand the natural random process.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="Discrete.html#cb44-1" aria-hidden="true" tabindex="-1"></a>ranbinom <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">deviates =</span> <span class="fu">rbinom</span>(<span class="dv">1000</span>, <span class="dv">30</span>, .<span class="dv">10</span>))</span>
+<span id="cb44-2"><a href="Discrete.html#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="Discrete.html#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(ranbinom)</span></code></pre></div>
+<pre><code>## Rows: 1,000
+## Columns: 1
+## $ deviates &lt;int&gt; 2, 1, 2, 6, 0, 2, 3, 6, 4, 1, 3, 4, 8, 1, 3, 0, 5, 3, 3, 3, 4~</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="Discrete.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ranbinom) <span class="sc">+</span></span>
+<span id="cb46-2"><a href="Discrete.html#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> deviates), <span class="at">stat =</span> <span class="st">&quot;count&quot;</span>) <span class="sc">+</span></span>
+<span id="cb46-3"><a href="Discrete.html#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">10</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb46-4"><a href="Discrete.html#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Successful Shots&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>)</span></code></pre></div>
+<p><img src="famousdistrib_files/figure-html/unnamed-chunk-29-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<hr />
+</div>
+<div id="negative-binomial-distribution" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Negative Binomial Distribution</h2>
+<p>Next, we’ll introduce the <strong>negative binomial distribution</strong>. Similar to the from the geometric distribution, we are interested in modeling the number of failures in a binary process. However, we are not only interested in how long it takes for one success; we are interested in modeling the number of failures until a particular number (<span class="math inline">\(r\)</span>) of successes.</p>
+<p><span class="math display">\[\begin{equation}
+P(Y=y) = \binom{y + r - 1}{r-1} (1-p)^{y}(p)^r \quad \textrm{for}\quad y = 0, 1, \ldots, \infty.
+\end{equation}\]</span></p>
+<p>An interesting case appears when we set <span class="math inline">\(r=1\)</span>, i.e. the number of failures until one success.</p>
+<p><span class="math display">\[\begin{split}
+P(Y=1) &amp;= \binom{y + 1 - 1}{1-1} (1-p)^{y} (p)^1 \\ &amp;= \binom{y}{0} (1-p)^yp \\ &amp;=(1-p)^yp \quad \textrm{for} \quad y = 0, 1, \ldots, \infty
+\end{split}\]</span></p>
+<p>Notice how the last line of this looks exactly like the <strong>geometric distribution</strong>? This is because the geometric distribution is a special case of the negative binomial distribution.</p>
+<p>Now let’s return to the basketball example. As we have established before, there is about a 4% chance that our player makes 8 failures before his first successful shot. What is the probability that he makes 8 failures before his second successful shot?</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="Discrete.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dnbinom</span>(<span class="dv">8</span>, <span class="dv">2</span>, <span class="fl">0.1</span>)</span></code></pre></div>
+<pre><code>## [1] 0.03874205</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="Discrete.html#cb49-1" aria-hidden="true" tabindex="-1"></a>dnbinom <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">failures =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">30</span>,</span>
+<span id="cb49-2"><a href="Discrete.html#cb49-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">density =</span> <span class="fu">dnbinom</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">30</span>, <span class="dv">2</span>, <span class="fl">0.1</span>))</span>
+<span id="cb49-3"><a href="Discrete.html#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="Discrete.html#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dnbinom, <span class="fu">aes</span>(<span class="at">x =</span> failures, <span class="at">y =</span> density)) <span class="sc">+</span></span>
+<span id="cb49-5"><a href="Discrete.html#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;turquoise1&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb49-6"><a href="Discrete.html#cb49-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Failed Shots&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>, </span>
+<span id="cb49-7"><a href="Discrete.html#cb49-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Number of Failures until Second Free Throw&quot;</span>)</span></code></pre></div>
+<p><img src="famousdistrib_files/figure-html/unnamed-chunk-30-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>Now that we have a new parameter r, how does the distribution change as it increases or decreases?</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="Discrete.html#cb50-1" aria-hidden="true" tabindex="-1"></a>nbinom_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(x, size, prob){</span>
+<span id="cb50-2"><a href="Discrete.html#cb50-2" aria-hidden="true" tabindex="-1"></a>  temp <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">failures =</span> x,</span>
+<span id="cb50-3"><a href="Discrete.html#cb50-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">density =</span> <span class="fu">dnbinom</span>(x, size, prob),</span>
+<span id="cb50-4"><a href="Discrete.html#cb50-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">cume_density =</span> <span class="fu">cumsum</span>(density))</span>
+<span id="cb50-5"><a href="Discrete.html#cb50-5" aria-hidden="true" tabindex="-1"></a>  median <span class="ot">&lt;-</span> temp <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">between</span>(cume_density, .<span class="dv">5</span>, .<span class="dv">55</span>))</span>
+<span id="cb50-6"><a href="Discrete.html#cb50-6" aria-hidden="true" tabindex="-1"></a>  plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(temp, <span class="fu">aes</span>(<span class="at">x =</span> failures, <span class="at">y =</span> density)) <span class="sc">+</span></span>
+<span id="cb50-7"><a href="Discrete.html#cb50-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_density</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb50-8"><a href="Discrete.html#cb50-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> median<span class="sc">$</span>failures[<span class="dv">1</span>]) <span class="sc">+</span></span>
+<span id="cb50-9"><a href="Discrete.html#cb50-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span>
+<span id="cb50-10"><a href="Discrete.html#cb50-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(plot)</span>
+<span id="cb50-11"><a href="Discrete.html#cb50-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb50-12"><a href="Discrete.html#cb50-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-13"><a href="Discrete.html#cb50-13" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">nbinom_plot</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">3</span>, <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb50-14"><a href="Discrete.html#cb50-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;r = 3, prob = 0.1&quot;</span>)</span>
+<span id="cb50-15"><a href="Discrete.html#cb50-15" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">nbinom_plot</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">5</span>, <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb50-16"><a href="Discrete.html#cb50-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;r = 5, prob = 0.1&quot;</span>) <span class="sc">+</span></span>
+<span id="cb50-17"><a href="Discrete.html#cb50-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Failures&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>)</span>
+<span id="cb50-18"><a href="Discrete.html#cb50-18" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">nbinom_plot</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">7</span>, <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb50-19"><a href="Discrete.html#cb50-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;r = 7, prob = 0.1&quot;</span>)</span>
+<span id="cb50-20"><a href="Discrete.html#cb50-20" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">nbinom_plot</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">5</span>, <span class="fl">0.15</span>) <span class="sc">+</span></span>
+<span id="cb50-21"><a href="Discrete.html#cb50-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;r = 5, prob = 0.15&quot;</span>)</span>
+<span id="cb50-22"><a href="Discrete.html#cb50-22" aria-hidden="true" tabindex="-1"></a>p5 <span class="ot">&lt;-</span> <span class="fu">nbinom_plot</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">5</span>, <span class="fl">0.08</span>) <span class="sc">+</span></span>
+<span id="cb50-23"><a href="Discrete.html#cb50-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;r = 5, prob = 0.05&quot;</span>)</span>
+<span id="cb50-24"><a href="Discrete.html#cb50-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-25"><a href="Discrete.html#cb50-25" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_grid</span>(p1, <span class="cn">NULL</span>, p4, <span class="cn">NULL</span>, p2, <span class="cn">NULL</span>, p3, <span class="cn">NULL</span>, p5, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">nrow =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="famousdistrib_files/figure-html/unnamed-chunk-31-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>As you can see, the center of the distribution moves right as <span class="math inline">\(r\)</span> increases or the probability of a success decreases.</p>
+</div>
+<div id="Poisson" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Poisson Distribution</h2>
+<p>Unlike those based on Bernoulli processes (binary and independent outcomes), a <strong>Poisson</strong> process considers the number of times an event occurs in a given time or space. If <span class="math inline">\(K\)</span>, for instance, is the number of events in an interval, we’ll model it with the <strong>Poisson Distribution</strong>.</p>
+<p><span class="math display">\[
+P(K=k) = \frac{e^{-\lambda}\lambda^k}{k!} \quad \textrm{for} \quad \mathrm{k} = 0, 1, \ldots, \infty \\
+\textrm{Where} \enspace \lambda \enspace \textrm{is the average number of events in a unit of time}
+\]</span></p>
+<p>Now, we’ll put this formula into practice.</p>
+<p>Consider a pet shelter which has an average of 10 adoptions per month. Every month, they rescue 9 pets. If the shelter currently has 40 pets, what is the probability that have less than 45 pets at the end of the month in order to prevent overcrowding?</p>
+<p>From above, we can deduce that the shelter would need to have <em>more than</em> 4 adoptions in order to prevent overcrowding.</p>
+<p><span class="math display">\[ \begin{split} \textrm{Current pets} \enspace + \enspace \textrm{Rescues} \enspace - \enspace \textrm{Adoptions} &amp;= \textrm{Total pets} \\ 40 + 9 - \textrm{Adoptions} &amp;&lt;45 \\ \textrm{Adoptions} &amp;&gt; 4 \end{split} \]</span></p>
+<p>Plugging in <span class="math inline">\(\lambda = 10\)</span> and <span class="math inline">\(k=5,6,7,\ldots40\)</span></p>
+<p><span class="math display">\[ \begin{split}
+P(K=5) + P(K=6) \ldots + P(K=40) &amp;= \frac{e^{-10}10^5}{5!} &amp;+ \frac{e^{-10}10^6}{6!} &amp;+ \ldots + \frac{e^{-10}10^{40}}{40!} \\ &amp;=\frac{2500}{3e^{10}} &amp;+ \frac{12500}{9e^{10}} &amp;+ \ldots + \frac{10^{40}}{e^{10}40!} \\ &amp;= 0.03783 &amp;+ 0.06305 &amp;+ \ldots +0 \\ &amp;\approx 0.97075 \end{split}\]</span></p>
+<p>There is about a 97% probability that the pet rescue center has at least 5 adoptions. In other words, it’s quite likely that they will not have overcrowding.</p>
+<p>Using R, we can use the density function <code>dpois</code> and more easily calculate the densities from 5 to 40 adoptions.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="Discrete.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">dpois</span>(<span class="dv">5</span><span class="sc">:</span><span class="dv">40</span>, <span class="at">lambda =</span> <span class="dv">10</span>))</span></code></pre></div>
+<pre><code>## [1] 0.9707473</code></pre>
+<p>The <code>ppois</code> distribution function also work here.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="Discrete.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ppois</span>(<span class="dv">4</span>, <span class="dv">10</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>) <span class="co"># 4 is not included</span></span></code></pre></div>
+<pre><code>## [1] 0.9707473</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="Discrete.html#cb55-1" aria-hidden="true" tabindex="-1"></a>adoptions <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">num_adopt =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">40</span>,</span>
+<span id="cb55-2"><a href="Discrete.html#cb55-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">density =</span> <span class="fu">dpois</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">40</span>, <span class="dv">10</span>))</span>
+<span id="cb55-3"><a href="Discrete.html#cb55-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-4"><a href="Discrete.html#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(adoptions, <span class="fu">aes</span>(<span class="at">x =</span> num_adopt, <span class="at">y =</span> density)) <span class="sc">+</span></span>
+<span id="cb55-5"><a href="Discrete.html#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">width =</span> <span class="fl">0.5</span>, <span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, </span>
+<span id="cb55-6"><a href="Discrete.html#cb55-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="fu">ifelse</span>(<span class="fu">between</span>(adoptions<span class="sc">$</span>num_adopt, <span class="dv">5</span>, <span class="dv">40</span>), <span class="st">&quot;orchid1&quot;</span>, <span class="st">&quot;black&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb55-7"><a href="Discrete.html#cb55-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Number of Adoptions per Month&quot;</span>,</span>
+<span id="cb55-8"><a href="Discrete.html#cb55-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
+<p><img src="famousdistrib_files/figure-html/unnamed-chunk-34-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>As we have established, the probability mass function for a poisson distribution has a mean of <span class="math inline">\(E(K) = \lambda\)</span>. The above plot seems to agree with this, since the distribution is roughly symmetric about 10.</p>
+<p>The <strong>standard deviation</strong> of a poisson distribution is <span class="math inline">\(\sqrt{\lambda}\)</span>. In this case, one standard deviation would be <span class="math inline">\(\sqrt{10}\approx3.16\)</span>.</p>
+<p>How does the distribution change as we manipulate our parameter <span class="math inline">\(\lambda\)</span>? Applied to our example, how do the overall spread of adoptions change as the average number of adoptions change per month?</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="Discrete.html#cb56-1" aria-hidden="true" tabindex="-1"></a>pois_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(x, lambda){</span>
+<span id="cb56-2"><a href="Discrete.html#cb56-2" aria-hidden="true" tabindex="-1"></a>  temp <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">num_adopt =</span> x,</span>
+<span id="cb56-3"><a href="Discrete.html#cb56-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">density =</span> <span class="fu">dpois</span>(x, lambda),</span>
+<span id="cb56-4"><a href="Discrete.html#cb56-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">cume_density =</span> <span class="fu">cumsum</span>(density))</span>
+<span id="cb56-5"><a href="Discrete.html#cb56-5" aria-hidden="true" tabindex="-1"></a>  plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(temp, <span class="fu">aes</span>(<span class="at">x =</span> num_adopt, <span class="at">y =</span> density)) <span class="sc">+</span></span>
+<span id="cb56-6"><a href="Discrete.html#cb56-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb56-7"><a href="Discrete.html#cb56-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span>
+<span id="cb56-8"><a href="Discrete.html#cb56-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(plot)</span>
+<span id="cb56-9"><a href="Discrete.html#cb56-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb56-10"><a href="Discrete.html#cb56-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-11"><a href="Discrete.html#cb56-11" aria-hidden="true" tabindex="-1"></a>adoptplot_1 <span class="ot">&lt;-</span> <span class="fu">pois_plot</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">40</span>, <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb56-12"><a href="Discrete.html#cb56-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Lambda = 2&quot;</span>)</span>
+<span id="cb56-13"><a href="Discrete.html#cb56-13" aria-hidden="true" tabindex="-1"></a>adoptplot_2 <span class="ot">&lt;-</span> <span class="fu">pois_plot</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">40</span>, <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb56-14"><a href="Discrete.html#cb56-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Lambda = 3&quot;</span>)</span>
+<span id="cb56-15"><a href="Discrete.html#cb56-15" aria-hidden="true" tabindex="-1"></a>adoptplot_3 <span class="ot">&lt;-</span> <span class="fu">pois_plot</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">40</span>, <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb56-16"><a href="Discrete.html#cb56-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Lambda = 5&quot;</span>)</span>
+<span id="cb56-17"><a href="Discrete.html#cb56-17" aria-hidden="true" tabindex="-1"></a>adoptplot_4 <span class="ot">&lt;-</span> <span class="fu">pois_plot</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">40</span>, <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb56-18"><a href="Discrete.html#cb56-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Lambda = 10&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Number of Adoptions&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>)</span>
+<span id="cb56-19"><a href="Discrete.html#cb56-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-20"><a href="Discrete.html#cb56-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_grid</span>(<span class="cn">NULL</span>, adoptplot_4, <span class="cn">NULL</span>, adoptplot_1, adoptplot_2, adoptplot_3, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="famousdistrib_files/figure-html/unnamed-chunk-35-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>As you the plots above illustrate, the poisson distribution becomes more symmetric as <span class="math inline">\(\lambda\)</span> increases. When <span class="math inline">\(\lambda\)</span> is relatively small, the distribution is more right-skewed.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="Distributions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="DiscreteContinuous.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/03-other_discrete.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["famousdistrib.pdf", "famousdistrib.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
