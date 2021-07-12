@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 6 Other Continuous Distributions | Other Continuous Distributions</title>
+  <title>Chapter 6 Other Continuous Distributions | Visualizing Probability Distributions with ggplot</title>
   <meta name="description" content="." />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 6 Other Continuous Distributions | Other Continuous Distributions" />
+  <meta property="og:title" content="Chapter 6 Other Continuous Distributions | Visualizing Probability Distributions with ggplot" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 6 Other Continuous Distributions | Other Continuous Distributions" />
+  <meta name="twitter:title" content="Chapter 6 Other Continuous Distributions | Visualizing Probability Distributions with ggplot" />
   
   <meta name="twitter:description" content="." />
   
@@ -182,7 +182,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Other Continuous Distributions</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Visualizing Probability Distributions with ggplot</a>
           </h1>
         </div>
 
@@ -208,9 +208,9 @@ x_5 &amp;= 9
 <span id="cb77-3"><a href="Continuous.html#cb77-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>)) <span class="sc">+</span></span>
 <span id="cb77-4"><a href="Continuous.html#cb77-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tplot"></span>
-<img src="famousdistrib_files/figure-html/tplot-1.png" alt="t-distribution with 5 degrees of freedom`" width="80%" />
+<img src="famousdistrib_files/figure-html/tplot-1.png" alt="t-distribution with 5 degrees of freedom" width="80%" />
 <p class="caption">
-Figure 6.1: t-distribution with 5 degrees of freedom`
+Figure 6.1: t-distribution with 5 degrees of freedom
 </p>
 </div>
 <p>I don’t recommend that you use ggplot without something in the data argument since it limits your ability to alter aesthetics. However, for the purpose of simply visualizing continuous curves like the t-distribution, we can use <code>geom_function</code>.</p>
@@ -232,7 +232,12 @@ Figure 6.1: t-distribution with 5 degrees of freedom`
 <span id="cb78-12"><a href="Continuous.html#cb78-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> Distribution)) <span class="sc">+</span></span>
 <span id="cb78-13"><a href="Continuous.html#cb78-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_d</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Normal&quot;</span>, <span class="st">&quot;t, df = 3&quot;</span>, <span class="st">&quot;t, df = 5&quot;</span>, <span class="st">&quot;t, df = 7&quot;</span>)) <span class="sc">+</span></span>
 <span id="cb78-14"><a href="Continuous.html#cb78-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>))</span></code></pre></div>
-<p><img src="famousdistrib_files/figure-html/unnamed-chunk-53-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:tplots"></span>
+<img src="famousdistrib_files/figure-html/tplots-1.png" alt="t-distributions and normal distribution" width="80%" />
+<p class="caption">
+Figure 6.2: t-distributions and normal distribution
+</p>
+</div>
 <p>The concept of degrees of freedom alone can be covered more in-depth <a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=&amp;ved=2ahUKEwj6guTEn9zxAhWSFlkFHbpRDrcQFjAJegQIAxAD&amp;url=http%3A%2F%2Fweb.pdx.edu%2F~stipakb%2Fdownload%2FPA551%2FDegreesOfFreedom.pdf&amp;usg=AOvVaw31ywhyELwYqUyDvu85-19L">here</a>.</p>
 </div>
 <div id="Exponential" class="section level2" number="6.2">
@@ -275,7 +280,12 @@ P(Y &lt; 7) &amp;= \int_{0}^{7} \frac{1}{3} e^{-1/3y}dy \\ &amp;= \frac{1}{3} \i
 <span id="cb85-14"><a href="Continuous.html#cb85-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb85-15"><a href="Continuous.html#cb85-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">30</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">xend =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">30</span>, <span class="at">yend =</span> <span class="fu">dexp</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">30</span>, <span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)), <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb85-16"><a href="Continuous.html#cb85-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Days Between Adoptions&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
-<p><img src="famousdistrib_files/figure-html/unnamed-chunk-58-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center">
+<img src="famousdistrib_files/figure-html/exp%20comparison-1.png" alt="Correct and incorrect layering of exponential distribution layers" width="60%" />
+<p class="caption">
+(#fig:exp comparison)Correct and incorrect layering of exponential distribution layers
+</p>
+</div>
 <p>Notice how the plot on the left looks much better? They are also placed so that the blue fill does not cover the curve? The jagged edges on the right plot results from placing the function geometry before the area geometry.</p>
 <p>Because a large majority of the plot below 7 is colored in, it is quite likely that 2 pets would be adopted in a week. As the number of days “waiting” approaches 30, the probability approaches 0.</p>
 <hr />
@@ -290,7 +300,12 @@ P(Y &lt; 7) &amp;= \int_{0}^{7} \frac{1}{3} e^{-1/3y}dy \\ &amp;= \frac{1}{3} \i
 <p>First, load the new <code>ggimage</code> package. This allows us to include image files and other graphic objects in our visualizations. To learn more about it, you can read ggimage’s documentation <a href="https://cran.r-project.org/web/packages/ggimage/index.html">here</a>.</p>
 <div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="Continuous.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggimage) <span class="co"># Remember to use install.packages(&quot;ggimage&quot;) first</span></span></code></pre></div>
 <p>In particular, we’ll need the package to include emojis of dogs and illustrate the average time period between adoptions. Think of adding the emojis as adding any other geometry. Beyond a coordinate position, the <code>geom_emoji</code> function requires an aesthetic called “image.” The special unicode required for dogs is “1f415.” We can also set the size of the image similar to geometries like <code>geom_point</code>.</p>
-<p><img src="famousdistrib_files/figure-html/unnamed-chunk-61-1.png" width="20%" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-27"></span>
+<img src="famousdistrib_files/figure-html/unnamed-chunk-27-1.png" alt="Dog emoji" width="20%" />
+<p class="caption">
+Figure 6.3: Dog emoji
+</p>
+</div>
 <p>…</p>
 <div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="Continuous.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb89-2"><a href="Continuous.html#cb89-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(</span>
@@ -312,7 +327,12 @@ P(Y &lt; 7) &amp;= \int_{0}^{7} \frac{1}{3} e^{-1/3y}dy \\ &amp;= \frac{1}{3} \i
 <span id="cb89-18"><a href="Continuous.html#cb89-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="fl">2.75</span>, <span class="at">y =</span> <span class="fu">dexp</span>(<span class="dv">1</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fl">0.01</span>, </span>
 <span id="cb89-19"><a href="Continuous.html#cb89-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">&quot;On average, two pets are adopted every three days&quot;</span>) <span class="sc">+</span></span>
 <span id="cb89-20"><a href="Continuous.html#cb89-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
-<p><img src="famousdistrib_files/figure-html/dogplot-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:dogplot"></span>
+<img src="famousdistrib_files/figure-html/dogplot-1.png" alt="Exponential plot with dogs" width="60%" />
+<p class="caption">
+Figure 6.4: Exponential plot with dogs
+</p>
+</div>
 <hr />
 </div>
 <div id="Gamma" class="section level2" number="6.3">
@@ -359,7 +379,7 @@ If the <span class="math inline">\(\Gamma\)</span> (Gamma) function in the equat
 <span id="cb94-18"><a href="Continuous.html#cb94-18" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;r = 5, lambda = 1/3&quot;</span>,</span>
 <span id="cb94-19"><a href="Continuous.html#cb94-19" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;r = 5, lambda = 2/3&quot;</span>,</span>
 <span id="cb94-20"><a href="Continuous.html#cb94-20" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;r = 5, lambda = 1/6&quot;</span>))</span></code></pre></div>
-<p><img src="famousdistrib_files/figure-html/gammaplot-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="famousdistrib_files/figure-html/gamma%20plot-1.png" width="60%" style="display: block; margin: auto;" /></p>
 <p>!! write something about viridis palletes being colorblind-friendly.</p>
 <hr />
 </div>

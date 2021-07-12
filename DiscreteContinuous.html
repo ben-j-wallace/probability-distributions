@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 From Discrete to Continous Cases | Other Continuous Distributions</title>
+  <title>Chapter 5 From Discrete to Continous Cases | Visualizing Probability Distributions with ggplot</title>
   <meta name="description" content="." />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 From Discrete to Continous Cases | Other Continuous Distributions" />
+  <meta property="og:title" content="Chapter 5 From Discrete to Continous Cases | Visualizing Probability Distributions with ggplot" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 From Discrete to Continous Cases | Other Continuous Distributions" />
+  <meta name="twitter:title" content="Chapter 5 From Discrete to Continous Cases | Visualizing Probability Distributions with ggplot" />
   
   <meta name="twitter:description" content="." />
   
@@ -182,7 +182,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Other Continuous Distributions</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Visualizing Probability Distributions with ggplot</a>
           </h1>
         </div>
 
@@ -263,12 +263,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb65-5"><a href="DiscreteContinuous.html#cb65-5" aria-hidden="true" tabindex="-1"></a>demoivre_plot <span class="sc">+</span></span>
 <span id="cb65-6"><a href="DiscreteContinuous.html#cb65-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">25</span>) <span class="sc">+</span></span>
 <span id="cb65-7"><a href="DiscreteContinuous.html#cb65-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Heads&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Count&quot;</span>)</span></code></pre></div>
-<p><img src="famousdistrib_files/figure-html/unnamed-chunk-42-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center">
+<img src="famousdistrib_files/figure-html/coin%20plot%20histogram-1.png" alt="Coin game simulation with geom_histogram" width="60%" />
+<p class="caption">
+(#fig:coin plot histogram)Coin game simulation with geom_histogram
+</p>
+</div>
 <p>You can start to see the bell shape taking form. However, this is even easier to see with <code>geom_density()</code> which takes the same aesthetic mapping as <code>geom_histogram</code>.</p>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="DiscreteContinuous.html#cb66-1" aria-hidden="true" tabindex="-1"></a>demoivre_plot <span class="sc">+</span></span>
 <span id="cb66-2"><a href="DiscreteContinuous.html#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">fill =</span> <span class="st">&quot;lightsteelblue&quot;</span>) <span class="sc">+</span></span>
 <span id="cb66-3"><a href="DiscreteContinuous.html#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Heads&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
-<p><img src="famousdistrib_files/figure-html/unnamed-chunk-43-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center">
+<img src="famousdistrib_files/figure-html/coin%20density%20plot-1.png" alt="Coin game simulation with geom_density" width="60%" />
+<p class="caption">
+(#fig:coin density plot)Coin game simulation with geom_density
+</p>
+</div>
 <p>This unique bellcurve roughly follows the <strong>normal distribution</strong>.</p>
 <p>This distribution is useful beyond the coin flipping game. It is also explains many everyday phenomena such as heights, IQ scores, salaries, and blood pressure. Because of this, when we know that an outcomes, people, or observations are independent and random, we can make <em>inferences</em> about the larger picture.</p>
 <hr />
@@ -306,7 +316,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb70-9"><a href="DiscreteContinuous.html#cb70-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Height (inches)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>)</span>
 <span id="cb70-10"><a href="DiscreteContinuous.html#cb70-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb70-11"><a href="DiscreteContinuous.html#cb70-11" aria-hidden="true" tabindex="-1"></a>normal_plot</span></code></pre></div>
-<p><img src="famousdistrib_files/figure-html/unnamed-chunk-46-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center">
+<img src="famousdistrib_files/figure-html/normal%20plot-1.png" alt="Normal distribution of U.S. male heights" width="60%" />
+<p class="caption">
+(#fig:normal plot)Normal distribution of U.S. male heights
+</p>
+</div>
 <p>Unlike the geometric and binomal distributions, the normal distribution is symmetric about the mean. When a height is much greater or smaller than the average, it is less likely to occur.</p>
 <hr />
 <p>Now that we have made our density plot, we can again capture an interval of values in the distribution with our “p” distribution function <code>pnorm()</code>. If the shortest Duke basketball player (in the 2020-21 season) is 6 feet or 72 inches tall, what percentage of the American male population is shorter than the basketball team?</p>
@@ -327,7 +342,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb73-12"><a href="DiscreteContinuous.html#cb73-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">args =</span> normal</span>
 <span id="cb73-13"><a href="DiscreteContinuous.html#cb73-13" aria-hidden="true" tabindex="-1"></a>                ) <span class="sc">+</span></span>
 <span id="cb73-14"><a href="DiscreteContinuous.html#cb73-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Height (inches)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
-<p><img src="famousdistrib_files/figure-html/unnamed-chunk-48-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center">
+<img src="famousdistrib_files/figure-html/pnorm%20distribution%20plot-1.png" alt="U.S. male heights below 72 inches" width="60%" />
+<p class="caption">
+(#fig:pnorm distribution plot)U.S. male heights below 72 inches
+</p>
+</div>
 <p>As the blue portion of the plot makes clear, a majority of American men have heights below 72 inches.</p>
 <hr />
 <p>We use <code>rnorm</code> whenever we want to draw random samples from the normal distribution. On its own, the function helps us better understand the natural variation of real world processes that draw from normal distributions. If we repeat this sampling many times, we’ll have a plot that more closely resembles the <em>true</em> distribution.</p>
@@ -338,13 +358,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb74-4"><a href="DiscreteContinuous.html#cb74-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot as a histogram</span></span>
 <span id="cb74-5"><a href="DiscreteContinuous.html#cb74-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sample_50, <span class="fu">aes</span>(<span class="at">x =</span> deviates)) <span class="sc">+</span></span>
 <span id="cb74-6"><a href="DiscreteContinuous.html#cb74-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>)</span></code></pre></div>
-<p><img src="famousdistrib_files/figure-html/unnamed-chunk-49-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center">
+<img src="famousdistrib_files/figure-html/sample%20US%20heights-1.png" alt="Heights of U.S. men, n = 50" width="60%" />
+<p class="caption">
+(#fig:sample US heights)Heights of U.S. men, n = 50
+</p>
+</div>
 <p>If we took a larger sample, we would get something that looks more normally distributed.</p>
 <div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="DiscreteContinuous.html#cb75-1" aria-hidden="true" tabindex="-1"></a>sample_5000 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">deviates =</span> <span class="fu">rnorm</span>(<span class="dv">5000</span>, <span class="dv">70</span>, <span class="dv">2</span>))</span>
 <span id="cb75-2"><a href="DiscreteContinuous.html#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb75-3"><a href="DiscreteContinuous.html#cb75-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sample_5000, <span class="fu">aes</span>(<span class="at">x =</span> deviates)) <span class="sc">+</span></span>
 <span id="cb75-4"><a href="DiscreteContinuous.html#cb75-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>)</span></code></pre></div>
-<p><img src="famousdistrib_files/figure-html/unnamed-chunk-50-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center">
+<img src="famousdistrib_files/figure-html/larger%20sample%20US%20heights-1.png" alt="Heights of U.S. men, n = 5000" width="60%" />
+<p class="caption">
+(#fig:larger sample US heights)Heights of U.S. men, n = 5000
+</p>
+</div>
 <p>The plots below will more finely measure this progression as sample sizes increase:</p>
 <div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="DiscreteContinuous.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a function that randomly samples from normal distribution</span></span>
 <span id="cb76-2"><a href="DiscreteContinuous.html#cb76-2" aria-hidden="true" tabindex="-1"></a>norm_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(mean, sd, n){</span>
@@ -361,7 +391,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb76-13"><a href="DiscreteContinuous.html#cb76-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb76-14"><a href="DiscreteContinuous.html#cb76-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot together</span></span>
 <span id="cb76-15"><a href="DiscreteContinuous.html#cb76-15" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(<span class="cn">NULL</span>, normal_plot, <span class="cn">NULL</span>, sample_50, sample_500, sample_5000, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="famousdistrib_files/figure-html/unnamed-chunk-51-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center">
+<img src="famousdistrib_files/figure-html/height%20samples%20compared-1.png" alt="Comparison of samples to normal distribution" width="60%" />
+<p class="caption">
+(#fig:height samples compared)Comparison of samples to normal distribution
+</p>
+</div>
 <p>Now that we have looked at the normal distribution, let’s continue to look at other continuous random variables.</p>
 
 </div>

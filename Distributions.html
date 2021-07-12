@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Understanding Distributions | Other Continuous Distributions</title>
+  <title>Chapter 3 Understanding Distributions | Visualizing Probability Distributions with ggplot</title>
   <meta name="description" content="." />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Understanding Distributions | Other Continuous Distributions" />
+  <meta property="og:title" content="Chapter 3 Understanding Distributions | Visualizing Probability Distributions with ggplot" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Understanding Distributions | Other Continuous Distributions" />
+  <meta name="twitter:title" content="Chapter 3 Understanding Distributions | Visualizing Probability Distributions with ggplot" />
   
   <meta name="twitter:description" content="." />
   
@@ -182,7 +182,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Other Continuous Distributions</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Visualizing Probability Distributions with ggplot</a>
           </h1>
         </div>
 
@@ -214,10 +214,10 @@ Where x can equal 0 or 1. we can interpret the statement above as “the probabi
 <span id="cb12-5"><a href="Distributions.html#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;x&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>) <span class="sc">+</span></span>
 <span id="cb12-6"><a href="Distributions.html#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>)) <span class="sc">+</span></span>
 <span id="cb12-7"><a href="Distributions.html#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;h&quot;</span>))</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-5"></span>
-<img src="famousdistrib_files/figure-html/unnamed-chunk-5-1.png" alt="Remember Scales? See if you can understand the code" width="80%" />
+<div class="figure" style="text-align: center">
+<img src="famousdistrib_files/figure-html/uniform%20basic-1.png" alt="Remember Scales? See if you can understand the code" width="60%" />
 <p class="caption">
-Figure 3.1: Remember Scales? See if you can understand the code
+(#fig:uniform basic)Remember Scales? See if you can understand the code
 </p>
 </div>
 <p>We have the height as <span class="math inline">\(\frac{1}{(b-a)}\)</span>. We know this since the cumulative area of a distribution must be 1 and the width is b-a. Using the area of a rectangle with h being the height of the uniform distribution.</p>
@@ -246,7 +246,12 @@ Figure 3.1: Remember Scales? See if you can understand the code
 <span id="cb15-3"><a href="Distributions.html#cb15-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
 <span id="cb15-4"><a href="Distributions.html#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;x&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>) <span class="sc">+</span></span>
 <span id="cb15-5"><a href="Distributions.html#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>), <span class="at">y =</span> <span class="dv">1</span>), <span class="at">size =</span> <span class="dv">5</span>, <span class="at">color =</span> <span class="st">&quot;navy&quot;</span>)</span></code></pre></div>
-<p><img src="famousdistrib_files/figure-html/unnamed-chunk-7-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center">
+<img src="famousdistrib_files/figure-html/geom_rect%20plot-1.png" alt="Uniform distribution with marked densities" width="60%" />
+<p class="caption">
+(#fig:geom_rect plot)Uniform distribution with marked densities
+</p>
+</div>
 <p>The <code>punif()</code> function helps us find the cumulative density between at the qth quantile. Using a different rectangle with <span class="math inline">\(a = 0\)</span>, <span class="math inline">\(b = 4\)</span>, and <span class="math inline">\(h = 1/4\)</span>, we can find the proportion of the distribution between the minimum of 0 and maximum of 2 by writing the following:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="Distributions.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">punif</span>(<span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>) <span class="co"># Remember: we don&#39;t always have to name our arguments if we know the order.</span></span></code></pre></div>
 <pre><code>## [1] 0.5</code></pre>
@@ -265,7 +270,12 @@ Figure 3.1: Remember Scales? See if you can understand the code
 <span id="cb20-8"><a href="Distributions.html#cb20-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">fill =</span> <span class="cn">NA</span>, </span>
 <span id="cb20-9"><a href="Distributions.html#cb20-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
 <span id="cb20-10"><a href="Distributions.html#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;x&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
-<p><img src="famousdistrib_files/figure-html/unnamed-chunk-10-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center">
+<img src="famousdistrib_files/figure-html/punif%20plot-1.png" alt="Uniform distribution with cumulative density marked" width="60%" />
+<p class="caption">
+(#fig:punif plot)Uniform distribution with cumulative density marked
+</p>
+</div>
 <p><span class="math display">\[ area \hspace{0.2 cm}= \hspace{0.2 cm}base \hspace{0.2cm} * \hspace{0.2 cm}height\]</span></p>
 <p><span class="math display">\[area = 2*0.25=0.5\]</span></p>
 <p>Now we will consider the opposite scenario where we want to find the x-value that correponds with the 50th percentile of our distribution. This is the purpose of <code>qunif()</code>. We already know from using the distribution function <code>punif()</code> that this is 2.</p>
@@ -291,7 +301,12 @@ Figure 3.1: Remember Scales? See if you can understand the code
 <span id="cb23-11"><a href="Distributions.html#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> unif_dev, <span class="at">y =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>), <span class="at">size =</span> <span class="dv">5</span>, <span class="at">color =</span> <span class="st">&quot;navy&quot;</span>) <span class="sc">+</span> <span class="co"># Plot deviates</span></span>
 <span id="cb23-12"><a href="Distributions.html#cb23-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;x&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>) <span class="sc">+</span></span>
 <span id="cb23-13"><a href="Distributions.html#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">4</span>, <span class="at">by =</span> <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">4</span>, <span class="at">by =</span> <span class="dv">1</span>))</span></code></pre></div>
-<p><img src="famousdistrib_files/figure-html/unnamed-chunk-12-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center">
+<img src="famousdistrib_files/figure-html/uniform%20deviates-1.png" alt="Uniform distribution with random deviates" width="60%" />
+<p class="caption">
+(#fig:uniform deviates)Uniform distribution with random deviates
+</p>
+</div>
 
 </div>
 </div>
