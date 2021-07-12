@@ -2,6 +2,8 @@
 
 This guide was created as a resource for those wishing to learn more about the probability distributions that govern the statistics world. It is meant for those that are somewhat new to statistics and/or data science. In the process, this tutorial will help students visualize concepts using `ggplot`.
 
+![]
+
 ## Chapters
 - Introduction
 - Basics of ggplot. Geometries and aesthetics mapping, altering aesthetics and scales.
