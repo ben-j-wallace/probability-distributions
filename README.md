@@ -8,10 +8,15 @@ See the current website build [here](https://ben-j-wallace.github.io/probability
 
 ## Chapters
 **1. Introduction**
+
 **2. Basics of ggplot**. Geometries and aesthetics mapping, altering aesthetics and scales.
+
 **3. Understanding Distribution Theory**. Uniform distribution.
+
 **4. Other Discrete Distributions**. Geometric, binomial, Negative binomial, Poisson distributions.
+
 **5. From Discrete to Continuous Cases**. Normal approximation of binomial distribution, normal distribution.
+
 **6. Other Continuous Distributions**. t, exponential, gamma, and chi-square distribution.
 
 ## Resources
