@@ -4,9 +4,9 @@ This is a guide to understanding and visualizing several important discrete and 
 
 - `stats` (installed by default in RStudio) to retrieve statistical distributions.
 
-- `tidyverse` to coerce data frames into tibbles and produce visualizations with `ggplot`.
+- `tidyverse` to coerce data frames into [tidy](https://r4ds.had.co.nz/tibbles.html) format and produce visualizations with `ggplot`.
 
-This guide is intended for those that are new to statistics and/or data science and are somewhat familiar with the R language. If you would like a more comprehensive introduction to R, I recommend both of these free and accessible books:
+I created the book primarily for those that are new to statistics and/or data science and are somewhat familiar with the R language. If you would like a more comprehensive introduction to R, I recommend both of these free and accessible books:
 
 1. [R for Data Science](https://r4ds.had.co.nz/)
 
