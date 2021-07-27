@@ -24,7 +24,7 @@
 <meta name="author" content="Ben Wallace" />
 
 
-<meta name="date" content="2021-07-12" />
+<meta name="date" content="2021-07-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -160,7 +160,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5" data-path="DiscreteContinuous.html"><a href="DiscreteContinuous.html"><i class="fa fa-check"></i><b>5</b> From Discrete to Continous Cases</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="DiscreteContinuous.html"><a href="DiscreteContinuous.html#normal-approximation-of-binomial-distribution"><i class="fa fa-check"></i><b>5.1</b> Normal Approximation of Binomial Distribution</a></li>
+<li class="chapter" data-level="5.1" data-path="DiscreteContinuous.html"><a href="DiscreteContinuous.html#normal-approximation-and-demoivres-problem"><i class="fa fa-check"></i><b>5.1</b> Normal Approximation and DeMoivre’s Problem</a></li>
 <li class="chapter" data-level="5.2" data-path="DiscreteContinuous.html"><a href="DiscreteContinuous.html#normal-distribution"><i class="fa fa-check"></i><b>5.2</b> Normal Distribution</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="Continuous.html"><a href="Continuous.html"><i class="fa fa-check"></i><b>6</b> Other Continuous Distributions</a>
@@ -168,7 +168,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1" data-path="Continuous.html"><a href="Continuous.html#T"><i class="fa fa-check"></i><b>6.1</b> t-Distribution</a></li>
 <li class="chapter" data-level="6.2" data-path="Continuous.html"><a href="Continuous.html#Exponential"><i class="fa fa-check"></i><b>6.2</b> Exponential Distribution</a></li>
 <li class="chapter" data-level="6.3" data-path="Continuous.html"><a href="Continuous.html#Gamma"><i class="fa fa-check"></i><b>6.3</b> Gamma Distribution</a></li>
-<li class="chapter" data-level="6.4" data-path="Continuous.html"><a href="Continuous.html#χ2-distribution"><i class="fa fa-check"></i><b>6.4</b> χ2 Distribution</a></li>
+<li class="chapter" data-level="6.4" data-path="Continuous.html"><a href="Continuous.html#χ2-distribution"><i class="fa fa-check"></i><b>6.4</b> χ2 Distribution</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="Continuous.html"><a href="Continuous.html#chi-square-and-normal-relationship"><i class="fa fa-check"></i><b>6.4.1</b> Chi-square and Normal Relationship</a></li>
+<li class="chapter" data-level="6.4.2" data-path="Continuous.html"><a href="Continuous.html#using-chi-square-distributions-for-testing"><i class="fa fa-check"></i><b>6.4.2</b> Using Chi-square Distributions for Testing</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -197,8 +201,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span class="math display">\[X = \{0,1\}\]</span></p>
 <p>You might be asking yourself: “What does this have to do with probability?” We begin by defining the random variable so that we can later discover its mathematical attributes, such as its mean or variance, for example.</p>
 <p>We can also define the probability that the random variable <span class="math inline">\(X\)</span> (the coin) takes the form of heads or tails by using probability notation.</p>
-<p><span class="math display">\[P(X = x)\]</span>
-Where x can equal 0 or 1. we can interpret the statement above as “the probability that the random variable X equals x.” So what is that probability? By common sense, we can conclude that the probability that you get heads is <span class="math inline">\(P(X=1)=1/2\)</span>. We can extend this logic to show that the sum of probabilities for any random variable is 1.</p>
+<p><span class="math display">\[P(X = x)\]</span></p>
+<p>Where x can equal 0 or 1. We can interpret the statement above as “the probability that the random variable X equals x.” So what is that probability? By common sense, we can conclude that the probability that you get heads is <span class="math inline">\(P(X=1)=1/2\)</span>. We can extend this logic to show that <strong>the sum of probabilities for any random variable is 1</strong>.</p>
 <p><span class="math display">\[P(X = 0) + P(X = 1)= 1/2 + 1/2 = 1\]</span></p>
 <p>In other, more complicated probability distributions, we use random variables such as <span class="math inline">\(X\)</span> to mark these processes without having to explain them each time.</p>
 <div id="Uniform" class="section level2" number="3.1">
@@ -206,7 +210,7 @@ Where x can equal 0 or 1. we can interpret the statement above as “the probabi
 <p>We’ll begin our journey with uniform distribution. Given <span class="math inline">\(a &lt; b\)</span>, we can define this distribution’s <strong>density</strong> as:</p>
 <p><span class="math display">\[ P(X=x) = \frac{1}{b-a}\quad \textrm{for} \enspace a \leq x \leq b \]</span></p>
 <p>When we refer to densities we are talking about probabilities. The two terms are interchangeable, but the term <strong>density</strong> emphasizes the finite probability space that a distribution occupies. As mentioned previously, the sum of probabilities for any distribution is 1.</p>
-<p>How do we get this equation? Imagine drawing a rectangle in the interval (a,b) with height 1/(b-a).</p>
+<p>How do we get this equation? Imagine drawing a rectangle in the interval (a,b) with height 1/(b-a) as in Figure <a href="Distributions.html#fig:uniform-basic">3.1</a>.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="Distributions.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb12-2"><a href="Distributions.html#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> <span class="dv">0</span>, <span class="at">xmax =</span> <span class="dv">1</span>, <span class="at">ymin =</span> <span class="dv">0</span>, <span class="at">ymax =</span> <span class="dv">1</span>), </span>
 <span id="cb12-3"><a href="Distributions.html#cb12-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">fill =</span> <span class="cn">NA</span>,</span>
@@ -214,16 +218,16 @@ Where x can equal 0 or 1. we can interpret the statement above as “the probabi
 <span id="cb12-5"><a href="Distributions.html#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;x&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>) <span class="sc">+</span></span>
 <span id="cb12-6"><a href="Distributions.html#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>)) <span class="sc">+</span></span>
 <span id="cb12-7"><a href="Distributions.html#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;h&quot;</span>))</span></code></pre></div>
-<div class="figure" style="text-align: center">
-<img src="famousdistrib_files/figure-html/uniform%20basic-1.png" alt="Remember Scales? See if you can understand the code" width="60%" />
+<div class="figure" style="text-align: center"><span id="fig:uniform-basic"></span>
+<img src="famousdistrib_files/figure-html/uniform-basic-1.png" alt="Remember Scales? See if you can understand the code" width="80%" />
 <p class="caption">
-(#fig:uniform basic)Remember Scales? See if you can understand the code
+Figure 3.1: Remember Scales? See if you can understand the code
 </p>
 </div>
 <p>We have the height as <span class="math inline">\(\frac{1}{(b-a)}\)</span>. We know this since the cumulative area of a distribution must be 1 and the width is b-a. Using the area of a rectangle with h being the height of the uniform distribution.</p>
 <p><span class="math display">\[(b-a)h=1\]</span></p>
 <p>For the equation to hold, h must equal 1/(b-a).</p>
-<p>Let’s define X as a <strong>discrete</strong> random variable that is uniform on 1 through 10. The term “discrete” means that X can only be integers, and the fact that its probabilities are uniform means that every integer has an equal probability of occurring. Therefore:</p>
+<p>Let’s define X as a <strong>discrete</strong> random variable that is uniform on 1 through 10. The term “discrete” means that <span class="math inline">\(X\)</span> can only be integers, and the fact that its probabilities are uniform means that every integer has an equal probability of occurring. Therefore:</p>
 <p><span class="math display">\[
 \begin{split}
 &amp;X=\{1,2,...,10\}\\&amp;P(X=x)=\frac{1}{10-1}=1/9\quad\textrm{for}\quad1\leq x\leq 10 
@@ -239,17 +243,17 @@ Where x can equal 0 or 1. we can interpret the statement above as “the probabi
 <p>We’ll return to our example where the beginning and end of the uniform distribution is at x = 1 and x = 10, respectively. What are the densities at x = 1, 5, and 10?</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="Distributions.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dunif</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>), <span class="at">min =</span> <span class="dv">1</span>, <span class="at">max =</span> <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## [1] 0.1111111 0.1111111 0.1111111</code></pre>
-<p>You are correct if you guessed 1/9 or approximatey 0.111! If <span class="math inline">\(a = 1\)</span>, <span class="math inline">\(b = 10\)</span> then by definition <span class="math inline">\(h = 1/9\)</span>. Thus, as we calculated earlier, every point in the distribution has a density of 1/9.</p>
+<p>You are correct if you guessed 1/9 or approximately 0.111! If <span class="math inline">\(a = 1\)</span>, <span class="math inline">\(b = 10\)</span> then by definition <span class="math inline">\(h = 1/9\)</span>. Thus, as we calculated earlier, every point in the distribution has a density of 1/9.</p>
 <p>We can visualize this by drawing a rectangle using <code>geom_rect</code> and then adding points with <code>geom_point</code>. Remember that certain geometries require aesthetics beyond x and y.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="Distributions.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb15-2"><a href="Distributions.html#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> <span class="dv">1</span>, <span class="at">xmax =</span> <span class="dv">10</span>, <span class="at">ymin =</span> <span class="dv">0</span>, <span class="at">ymax =</span> <span class="dv">1</span>), <span class="at">fill =</span> <span class="cn">NA</span>, </span>
 <span id="cb15-3"><a href="Distributions.html#cb15-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
 <span id="cb15-4"><a href="Distributions.html#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;x&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>) <span class="sc">+</span></span>
 <span id="cb15-5"><a href="Distributions.html#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>), <span class="at">y =</span> <span class="dv">1</span>), <span class="at">size =</span> <span class="dv">5</span>, <span class="at">color =</span> <span class="st">&quot;navy&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center">
-<img src="famousdistrib_files/figure-html/geom_rect%20plot-1.png" alt="Uniform distribution with marked densities" width="60%" />
+<div class="figure" style="text-align: center"><span id="fig:geomrect-plot"></span>
+<img src="famousdistrib_files/figure-html/geomrect-plot-1.png" alt="Uniform distribution with marked densities" width="80%" />
 <p class="caption">
-(#fig:geom_rect plot)Uniform distribution with marked densities
+Figure 3.2: Uniform distribution with marked densities
 </p>
 </div>
 <p>The <code>punif()</code> function helps us find the cumulative density between at the qth quantile. Using a different rectangle with <span class="math inline">\(a = 0\)</span>, <span class="math inline">\(b = 4\)</span>, and <span class="math inline">\(h = 1/4\)</span>, we can find the proportion of the distribution between the minimum of 0 and maximum of 2 by writing the following:</p>
@@ -270,15 +274,15 @@ Where x can equal 0 or 1. we can interpret the statement above as “the probabi
 <span id="cb20-8"><a href="Distributions.html#cb20-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">fill =</span> <span class="cn">NA</span>, </span>
 <span id="cb20-9"><a href="Distributions.html#cb20-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
 <span id="cb20-10"><a href="Distributions.html#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;x&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center">
-<img src="famousdistrib_files/figure-html/punif%20plot-1.png" alt="Uniform distribution with cumulative density marked" width="60%" />
+<div class="figure" style="text-align: center"><span id="fig:punif-plot"></span>
+<img src="famousdistrib_files/figure-html/punif-plot-1.png" alt="Uniform distribution with cumulative density marked" width="80%" />
 <p class="caption">
-(#fig:punif plot)Uniform distribution with cumulative density marked
+Figure 3.3: Uniform distribution with cumulative density marked
 </p>
 </div>
 <p><span class="math display">\[ area \hspace{0.2 cm}= \hspace{0.2 cm}base \hspace{0.2cm} * \hspace{0.2 cm}height\]</span></p>
 <p><span class="math display">\[area = 2*0.25=0.5\]</span></p>
-<p>Now we will consider the opposite scenario where we want to find the x-value that correponds with the 50th percentile of our distribution. This is the purpose of <code>qunif()</code>. We already know from using the distribution function <code>punif()</code> that this is 2.</p>
+<p>Now we will consider the opposite scenario where we want to find the x-value that corresponds with the 50th percentile of our distribution. This is the purpose of <code>qunif()</code>. We already know from using the distribution function <code>punif()</code> that this is 2.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="Distributions.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qunif</span>(<span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">4</span>) <span class="co">#lower.tail is also set to TRUE by default</span></span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p>The last function <code>runif()</code> generates random deviates within the distribution. There are three arguments in this function:</p>
@@ -301,12 +305,13 @@ Where x can equal 0 or 1. we can interpret the statement above as “the probabi
 <span id="cb23-11"><a href="Distributions.html#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> unif_dev, <span class="at">y =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>), <span class="at">size =</span> <span class="dv">5</span>, <span class="at">color =</span> <span class="st">&quot;navy&quot;</span>) <span class="sc">+</span> <span class="co"># Plot deviates</span></span>
 <span id="cb23-12"><a href="Distributions.html#cb23-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;x&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>) <span class="sc">+</span></span>
 <span id="cb23-13"><a href="Distributions.html#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">4</span>, <span class="at">by =</span> <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">4</span>, <span class="at">by =</span> <span class="dv">1</span>))</span></code></pre></div>
-<div class="figure" style="text-align: center">
-<img src="famousdistrib_files/figure-html/uniform%20deviates-1.png" alt="Uniform distribution with random deviates" width="60%" />
+<div class="figure" style="text-align: center"><span id="fig:uniform-deviates"></span>
+<img src="famousdistrib_files/figure-html/uniform-deviates-1.png" alt="Uniform distribution with random deviates" width="80%" />
 <p class="caption">
-(#fig:uniform deviates)Uniform distribution with random deviates
+Figure 3.4: Uniform distribution with random deviates
 </p>
 </div>
+<p>The fact that the deviates appeared on non-integer values (i.e. those that would normally be represented by fractions or decimals) reveals that the uniform distribution is not always discrete. In this case, as well as others later in this guide, distributions are labeled <strong>continuous</strong>. As we investigate several other types of distributions, we’ll start with the discrete cases and then transition to the continuous ones.</p>
 
 </div>
 </div>

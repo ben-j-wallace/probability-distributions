@@ -1,0 +1,432 @@
+---
+output:
+    bookdown::html_document2: default
+---
+# Other Continuous Distributions {#Continuous}
+```{r, warning = FALSE, message= FALSE, include = FALSE}
+library(tidyverse)
+library(cowplot)
+library(ggimage)
+theme_set(theme_light())
+set.seed(0)
+```
+
+## t-Distribution {#T}
+
+We often don't know the true variance (and thus the standard deviation) of normally-distributed populations. However, we can still make estimations and inferences by adding a new parameter $t$, the **degrees of freedom**. After doing this, we have created a t-distribution. This is also known as a student's t-distribution.
+
+Simply put, degrees of freedom comes from the number of observations in our sample that are able to, or have the *freedom*, to vary given our constraints. Since the only parameter that limits the freedom of our sample is the mean, we have $t = n-1$ degrees of freedom in a t-distribution.
+
+Let's say that you have a sample of 5 observations: 1, 3, 5, 7, and an unknown number $x_5$. If we know that that the mean of the data is $\bar{x}=5$, we can conclude that $x_5=9$ given the definition of means.
+
+$$\begin{split} \bar{x} &= \frac{\sum_{1}^p x_i}{p} = \frac{x_1+x_2+\ldots+x_p}{p} \\
+5 &= \frac{1+3+5+7+x_5}{5} \\
+x_5 &= 9
+\end{split}$$
+
+In other words, if we impose the mean as a constraint on our data, all but 1 observation in our sample is able to vary. Since $n$ is the sample size, having larger samples means more degrees of freedom.
+
+Regardless of the degrees of freedom a t-distribution has, it will look like an approximately-normal curve with greater variability than the normal distribution when plotted. This why some describe the distribution as having thick "tails."
+
+```{r tplot, fig.align="center", out.width="80%", fig.cap = "t-distribution with 5 degrees of freedom"}
+ggplot() +
+  geom_function(fun = dt, args = list(df = 5), color = "darkred") +
+  xlim(c(-3, 3)) +
+  labs(y = "Density")
+```
+
+I don't recommend that you use ggplot without something in the data argument since it limits your ability to alter aesthetics. However, for the purpose of simply visualizing continuous curves like the t-distribution, we can use `geom_function`.
+
+As you see above, we need to provide `geom_function` a function as the first argument. `dt` is the density function for the t-distribution. By specifying the limits on the x-axis with `xlim` to -3 and 3, we isolated the visualization to the most important part of the curve.
+
+As mentioned earlier, a t-distribution gains more degrees of freedom as the sample size increases. If we plot several curves with different degrees of freedom next to each other, we would notice that t-distributions with larger degrees of freedom have narrower tails and look closer to a normal distribution. This is because the magnitude of the last non-independent observation's effect on the mean weakens as there are more observations.  
+
+Why is this the case? Imagine that you are working for an polling firm and want to measure the public's attitudes towards a new policy. You use a [feeling thermometer](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwj2i9-mgujxAhUJ-Z4KHQx3DYUQFnoECAMQAA&url=https%3A%2F%2Felectionstudies.org%2F2007anes_gallup_questioncomparisons%2F&usg=AOvVaw0Q8BKck04Z4eMBT0hWyUqj) to gauge each individual's favorability on a scale from 0 to 100, where numbers higher than 50 represent favorable views.
+
+Unless we poll every member in the public, we do not know the true mean or variance of the population's views towards the policy. Thus, we introduce the sample mean ($\bar{x}$) as a constraint, since we assume that random samples would accurately approximate the average person's views, given that the sample is **large enough** to be representative.
+
+However, we must also make several other assumptions before using the t-distribution. For one, the response of poll participants must be **normally distributed** (or near normal). 
+
+As mentioned previously, the sample size must also be **large enough** to avoid randomly-produced error. Although there is no definitive cutoff, polls with larger samples are usually more accurate. The impact of each respondent's opinion on the result of the poll decreases, meaning that the variability of distribution decreases.
+
+```{r}
+# Remember to set seeds before random processes!
+set.seed(0)
+
+# Generate random samples with mean = 50, sd = 12. Larger samples produce better approximations
+
+sample_error <- function(true_mean, simulations, n) {
+  mean(abs(true_mean - replicate(simulations, mean(rnorm(n, 50, 12)))))
+}
+
+tibble(`n = 2` = sample_error(50, 1000, 2),
+       `25` = sample_error(50, 1000, 25),
+       `250` = sample_error(50, 1000, 250),
+) %>% knitr::kable(digits = 3, caption = "Average Error of Sample Means after 1000 Simulations")
+
+x <- as_vector(c(2, 25, 250))
+
+sample_error(50, 1000, c(2, 25, 250))
+```
+
+The change in variability as sample sizes increase is what gives some t-distributions thinner tails. Below, we'll plot several different t-distributions with various degrees of freedom as well as a normal distribution.
+
+```{r, tplots, fig.align="center", out.width="80%", fig.cap = "t-distributions and normal distribution"}
+# Make a tibble or dataframe with five curves
+
+df <- tibble(x = seq(-3, 3, by = 0.001),
+             t1 = dt(x, 3),
+             t2 = dt(x, 5),
+             t3 = dt(x, 7),
+             norm = dnorm(x)) %>% 
+  pivot_longer(cols = 2:5, names_to = "Distribution", values_to = "Density") # Transform into three columns
+
+# Plot
+ggplot(df, aes(x = x, y = Density)) +
+  geom_line(aes(color = Distribution)) +
+  scale_color_viridis_d(labels = c("Normal", "t, df = 3", "t, df = 5", "t, df = 7")) +
+  xlim(c(-3, 3))
+```
+
+The concept of degrees of freedom alone can be covered more in-depth [here](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwj6guTEn9zxAhWSFlkFHbpRDrcQFjAJegQIAxAD&url=http%3A%2F%2Fweb.pdx.edu%2F~stipakb%2Fdownload%2FPA551%2FDegreesOfFreedom.pdf&usg=AOvVaw31ywhyELwYqUyDvu85-19L). 
+
+## Exponential Distribution {#Exponential}
+
+Recall the earlier section in which we discussed [Poisson](#Poisson) processes. The exponential distribution models a waiting time with $\lambda$ as the rate. This is similar to the [geometric](# geometric) distribution, which models the number of failures until one "success"; however, in this case, we are considering events and not successes/failures.
+
+If $\lambda$ is the rate of a Poisson process, the density function can be written as:
+
+$$f(y)=\lambda e^{-\lambda y} \quad \textrm{for} \enspace y>0$$
+
+Thus, the probability that $Y=y$ can be interpreted as "the likelihood that two events occurred in y units of time."
+
+Let's return to the adoption center example. Recall that the center has 10 adoptions per month on average. What is the probability that two pets are adopted in a week?
+
+If each month has 30 days then people are adopting $1/3$ of a pet each day on average (even though you can't adopt a fraction of an animal!). We can then determine the rate as $\lambda=1/3$. 
+
+Plugging the parameter $y<7$ and $\lambda=1/3$:
+
+$$\begin{split}
+P(Y < 7) &= \int_{0}^{7} \frac{1}{3} e^{-1/3y}dy \\ &= \frac{1}{3} \int_{0}^{7} e^{-1/3y}dy \\ &= \frac{1}{3} [-3e^{-1/3y}]^{7}_{0} \\ &= 1-\frac{1}{e^{7/3}} \approx 0.903
+\end{split}$$
+
+Our final answer can be thought of as: "There is a 90.3% chance probability that two animals are adopted before the end of a week."
+
+If you prefer to avoid calculus, you can also use R to answer this problem using `pexp`, the corresponding distribution function.
+
+```{r, pexp}
+pexp(7, rate = 1/3, lower.tail = TRUE) # i.e. P(Y < 7) since lower.tail = TRUE
+```
+
+Why can't we we simply find the the sum of the densities `1:6`? Remember that the exponential distribution is continuous, not discrete! So only calculating the individual densities at integer values would give us an underestimate.
+
+```{r, pexp_alt}
+sum(dexp(1:6, 1/3))
+```
+
+Instead, we are required to provide an integral. To write a definite integral using R, we must provide a function and the two bounds.
+
+```{r, expfunction}
+exp_fun <- function(y) 1/3*exp(-1/3*y) # Write exponential function
+integrate(exp_fun, 0, 7)
+```
+
+How can we visualize our interval between 0 and 7 days? Let's again use `stat_function` to draw a curve.
+
+```{r, exp correct, eval=F}
+exp_correct <- ggplot() +
+  stat_function(
+    fun = dexp,
+    args = list(rate = 1/3),
+    xlim = c(0, 7),
+    geom = "area",
+    fill = "skyblue1"
+  ) +
+  stat_function(
+    fun = dexp,
+    args = list(rate = 1/3), # Remember, the arguments must be provided in a list
+    xlim = c(0, 30),
+    geom = "function", # Choose a curve as the geometry
+    size = 0.5) +
+  geom_segment(aes(x = 0:30, y = 0, xend = 0:30, yend = dexp(0:30, rate = 1/3)), size = 0.5) +
+  labs(x = "Days Between Adoptions", y = "Density")
+```
+```{r, exp comparison, fig.align="center",out.width="60%", echo=FALSE, fig.cap= "Correct and incorrect layering of exponential distribution layers"}
+exp_correct <- ggplot() +
+  stat_function(
+    fun = dexp,
+    args = list(rate = 1/3),
+    xlim = c(0, 7),
+    geom = "area",
+    fill = "skyblue1"
+  ) +
+  stat_function(
+    fun = dexp,
+    args = list(rate = 1/3), 
+    xlim = c(0, 30),
+    geom = "function", 
+    size = 0.5) +
+  geom_segment(aes(x = 0:30, y = 0, xend = 0:30, yend = dexp(0:30, rate = 1/3)), size = 0.5) +
+  labs(x = "Days Between Adoptions", y = "Density", title = "Correct Layering")
+
+exp_incorrect <- ggplot() + 
+  stat_function(
+    fun = dexp,
+    args = list(rate = 1/3), 
+    xlim = c(0, 30),
+    geom = "function", 
+    size = 0.5) +
+  stat_function(
+    fun = dexp,
+    args = list(rate = 1/3),
+    xlim = c(0, 7),
+    geom = "area",
+    fill = "skyblue1"
+  ) +
+  geom_segment(aes(x = 0:30, y = 0, xend = 0:30, yend = dexp(0:30, rate = 1/3)), size = 0.5) +
+    labs(x = "Days Between Adoptions", y = "Density", title = "Incorrect Layering")
+
+plot_grid(exp_correct, exp_incorrect)
+```
+
+Notice how the plot on the left looks much better? They are also placed so that the blue fill does not cover the curve? The jagged edges on the right plot results from placing the function geometry before the area geometry.
+
+Because a large majority of the plot below 7 is colored in, it is quite likely that 2 pets would be adopted in a week. As the number of days "waiting" approaches 30, the probability approaches 0. 
+
+***
+
+By what point after one adoption can we begin expecting another? To answer this question, we can look for the median of the distribution. 
+
+Recall that "q" functions return a x-value after providing a quantile in the distribution. Here, we'll use `qexp`.
+
+```{r, qexp}
+qexp(0.5, rate = 1/3)
+```
+
+The other measure of center for an exponential distribution is the mean. This is much easier to solve; if K is a Poisson random variable, $E(K)=\frac{1}{\lambda}$. So on average, we can expect an adoption on day $\frac{1}{1/3}=3$.
+
+***
+
+Imagine that you are working for a rescue shelter for pets and want to present the information that you just learned--that there are about 3 days on average between any two adoptions in a month.  
+
+We'll build a deliverable visualization using the power of `ggplot`, `ggimage`, as well as your knowledge about the exponential distribution.
+
+First, load the new `ggimage` package. This allows us to include image files and other graphic objects in our visualizations. To learn more about it, you can read ggimage's documentation [here](https://cran.r-project.org/web/packages/ggimage/index.html).
+
+```{r, load ggimage}
+library(ggimage) # Remember to use install.packages("ggimage") first
+```
+
+In particular, we'll need the package to include emojis of dogs and illustrate the average time period between adoptions. Think of adding the emojis as adding any other geometry. Beyond a coordinate position, the `geom_emoji` function requires an aesthetic called "image." The special unicode required for dogs is "1f415". We can also set the size of the image similar to geometries like `geom_point`.
+
+```{r, fig.align="center",out.width="20%", echo=FALSE, fig.cap = "Dog emoji"}
+ggplot() +
+  geom_emoji(aes(x = 1, y = 1, image = "1f415"), size = 0.3) +
+  theme_void()
+```
+
+...
+
+```{r, dogplot, fig.align="center", out.width="60%", fig.cap= "Exponential plot with dogs"}
+ggplot() +
+  stat_function(
+    fun = dexp,
+    args = list(rate = 1/3),
+    xlim = c(0, 3),
+    geom = "area",
+    fill = "skyblue1"
+  ) +
+  stat_function(
+    fun = dexp,
+    args = list(rate = 1/3), 
+    xlim = c(0, 5),
+    geom = "function",
+    size = 0.5) +
+  geom_segment(aes(x = 0:5, y = 0, xend = 0:5, yend = dexp(0:5, rate = 1/3)), size = 0.5) +
+  labs(x = "Days Between Adoptions", y = "Probability") +
+  geom_emoji(aes(x = c(0.05,3), y = c(dexp(c(0,3), rate = 1/3)) + 0.025, image = "1f415"), size = 0.1) +
+  annotate(geom = "text", x = 2.75, y = dexp(1, 1/3) + 0.01, 
+           label = "On average, two pets are adopted every three days") +
+  theme_classic()
+```
+
+***
+
+## Gamma Distribution {#Gamma}
+
+The exponential distribution is quite similar to the [geometric](#geometric) distribution since they both consider the amount of time it takes for one event to occur. The main difference between the two is that geometric random variables model Bernoulli or binary processes and exponential random variables model poisson ones. Bernoulli processes consider independent trials, so if each trial is a day then we would ignore the possibility of having more than one adoption or "success" per day. Some might consider changing the trial unit to each animal in the shelter, but we cannot determine the probability of each animal being adopted, and we also can't assume that they each animal's probability is the same. 
+
+If $N$ is based on poisson processes and has parameter $\lambda$, the rate, $N$ represents the amount of time we must wait until $r$ events, thus following the **gamma distribution**.
+
+$$ P(N=n)=\frac{\lambda^r}{\Gamma(r)}n^{r-1}e^{-\lambda n} \quad \textrm{for} \enspace k>0$$
+If the $\Gamma$ (Gamma) function in the equation looks new to you, you can read more about it [here](https://www.cantorsparadise.com/the-beautiful-gamma-function-and-the-genius-who-discovered-it-8778437565dc).
+
+When $r=1$ the equation simplifies to the exponential distribution, making it a special case similar to the geometric distribution.
+
+$$ \begin{split}f(k)&=\frac{\lambda^1}{\Gamma(1)}k^{1-1}e^{-\lambda k} \\
+&= \frac{\lambda}{1}k^0e^{-\lambda k} \\
+&= \lambda e^{-\lambda k}
+\end{split}$$
+
+Returning to the adoption example, the gamma distribution lets us figure out the number of days that it takes for **more than** one adoption to occur in an interval of time.
+
+For example, what is the probability that it takes less than 2 weeks for 3 pets to be adopted if 10 pets are adopted every month?
+
+Recall that $\lambda = 1/3$, assuming that an adoption is equally likely to occur every day of the month. Therefore, if $K$ is a gamma random variable for the number of days it takes for 3 adoptions to occur, we can write the probability of $K<14 \enspace \textrm{days}$
+
+$$ P(K<14) = \int_0^{14} \frac{{1/3}^3}{\Gamma(3)}k^{3-1}e^{-k/3}dk \approx 0.844$$
+
+Or, two ways using R:
+
+```{r, pgamma and integral}
+# Using the gamma distribution function
+pgamma(14, shape = 3, rate = 1/3)
+
+# Is the same as writing this definite integral
+gamma_fun <- function(k, lambda = 1/3, r = 3) (lambda^r)/(gamma(r)) * k^(r-1) * exp(-lambda * k)
+integrate(gamma_fun, 0, 14)
+```
+
+So there is an approximate 84.4% probability that the center has 3 adoptions in two weeks. How do you think that this probability changes as we alter $r$ or $\lambda$?
+
+```{r, gamma plot, fig.align="center", out.width="60%", warning=FALSE, message=FALSE}
+# Create a vector of "day" values
+x <- seq(0, 30, by = 0.01)
+
+# Create a tibble with four gamma distributions, each with different r and lambda values
+df <- tibble(x, 
+             gamma_1 = dgamma(x, 3, 1/3), 
+             gamma_2 = dgamma(x, 5, 1/3),
+             gamma_3 = dgamma(x, 5, 2/3),
+             gamma_4 = dgamma(x, 5, 1/6)) %>% 
+  # Transform the data frame into longer format
+  pivot_longer(cols = 2:5, names_to = "Distribution", values_to = "Density")
+
+# Now plot!
+ggplot(df, aes(x = x, y = Density, color = Distribution)) +
+  geom_line(aes(group = Distribution)) +
+  labs(x = "Days", y = "Density") +
+  scale_color_viridis_d(labels = c("r = 3, lambda = 1/3",
+                                "r = 5, lambda = 1/3",
+                                "r = 5, lambda = 2/3",
+                                "r = 5, lambda = 1/6"))
+```
+
+***
+
+## χ2 Distribution
+
+The $\chi^2$ distribution is extremely helpful in the statistics world, whether used for hypothesis testing as well as modeling. For instance, **$\chi^2$ tests of independence** are used to determine whether associations between variables/categories are *significant*. The test statistic that results from **$\chi^2$ goodness of fit tests** also follow a $\chi^2$ distribution and is equipped when researchers want to investigate whether observed data follow certain ratios. Although modeling is beyond the lens of this guide, the test statistic from [likelihood ratio tests](https://www.itl.nist.gov/div898/handbook/apr/section2/apr233.htm) follow a $\chi^2$ distribution and assess whether newer and larger models significantly improve upon older and simpler ones. 
+
+We now know the uses of the $\chi^2$ distribution. But what actually is it? In a previous section, we learned that the [gamma](#gamma) distribution models the probability of $r$ events occurring in a certain period of time, given that it is based on Poisson processes. The $\chi^2$ distribution is a specific case of the gamma distribution in which the parameters $\lambda = 1/2$ and $r=k/2$ where k is the degrees of freedom. After plugging in these parameters, this form of the gamma distribution can be written as:
+
+$$f(x)=\frac{x^{k/2-1}e^{-x/2}}{2^{k/2}\Gamma(k/2)} \enspace \textrm{for} \enspace x \geq 0$$
+
+Below is a plot of several $\chi^2$ distributions with different degrees of freedom.
+
+```{r, multChisq, fig.align="center",out.width="60%", fig.cap= "Chi-square Distributions with 1, 4, and 8 degrees of freedom", warning=FALSE, message=FALSE}
+
+x <- seq(0, 10, by = 0.2) # Vector of possible values
+
+chisq_1 <- dchisq(x, 1)
+chisq_2 <- dchisq(x, 4)
+chisq_3 <- dchisq(x, 8)
+
+df <- tibble(x, chisq_1, chisq_2, chisq_3) %>%
+  rename(`1` = chisq_1, `4` = chisq_2, `8` = chisq_3) %>% 
+  pivot_longer(cols = 2:4, names_to = "Degrees of Freedom", values_to = "Density")
+
+ggplot(df, aes(x = x, y = Density, color = `Degrees of Freedom`)) +
+  geom_line() +
+  scale_x_continuous(name = "Value", breaks = seq(0, 10, by = 2))
+```
+
+***
+### Chi-square and Normal Relationship
+
+We previously learned that random deviates from the normal distribution can be taken using `rnorm`. All Chi-square distributions can be thought of as the sum of these squared and independent deviates. We can therefore also write the Chi-square distribution with k degrees of freedom as:
+
+$$\sum_{i=1}^{k}Z_i^2 = Z_1^2 + Z^2_2 + \ldots + Z^2_k \sim \chi^2_{(k)}$$
+
+Where each of the $Z^2_1,Z^2_2\ldots Z^2_k$ are independent and squared random variables following the standard normal distribution. 
+
+The simplest chi-square distribution is derived from one squared and standard normal random variable (i.e. mean = 0, standard deviation = 1). If the new random variable $Y=Z_1^2$, then we can define Y as a chi-square random variable with $k=1$ degrees of freedom, $\chi^2_{(1)}$. 
+
+The plot below shows the relationship between the two random variables. It is difficult to decipher visually, but the densities for each value of the chi-square distribution are the same as normal distribution at the square root of those values. This perhaps most obvious at the intercept at `x=1` since the square root of 1 is 1. We can also draw a segment between 3 and $\sqrt{3}$.
+
+
+```{r, chisqnormal, fig.align="center", fig.cap = "Plot of the Chi-square distribution with 1 df and standard normal distribution",out.width="60%", warning=FALSE, message=FALSE}
+ggplot() +
+  stat_function(fun = dnorm,
+                color = "darkblue") +
+  stat_function(fun = dchisq,
+                args = list(df = 1),
+                color = "forestgreen") +
+  annotate(label = "Normal Distribution", geom = "label", x = 0.5, y = 0.15, color = "darkblue") +
+  annotate(label = "Chi-square Distribution", geom = "label", x = 2, y = 0.3, color = "forestgreen") +
+  labs(x = "Value", y = "Density") +
+  xlim(0, 4) +
+  ylim(0, 0.5)
+```
+
+We can use this specific chi-square distribution with one degree of freedom to find the cumulative densities in a normal distribution. All that we have to do is acknowledge that our chi-square random variable is a standard normal random variable squared. In other words, if $P(Z=x)=P(Z^2=x^2)$, i.e. the cumulative densities do not change after rewriting this chi-square distribution as the standard normal distribution squared.
+
+For instance, the probability that a normal random variable $Z$ is between -1.28 and 1.28 can be calculated with two methods: first by using the standard normal distribution and the second using the chi-square distribution with $k=1$ degrees of freedom.
+
+$$ P(-1.28 < Z <1.28) \approx 0.8 \\ P(Z^2<1.28^2) = P(|Z| < 1.28) =(\chi^2_{(1)}<1.6384) \approx 0.8$$
+
+Similarly with R,
+
+```{r}
+pnorm(1.28) - pnorm(1.28, lower.tail = FALSE)
+pchisq(1.6384, df = 1)
+```
+
+Both of which can be rounded to 0.8.
+
+We eventually use the chi-square distribution to observe more complicated situations with multiple independent and normal processes. For more the derivation of chi-square distributions with greater than 1 degrees of freedom, or if you want to learn more about this topic, see a full proof [here](https://en.wikipedia.org/wiki/Proofs_related_to_chi-squared_distribution).
+
+***
+### Using Chi-square Distributions for Testing
+
+Similar to previous distributions used for testing, we must reasonably assume that each observation in the data is independent of each other. The size condition can be confirmed by looking at whether each category in the analysis has at least $x$ observations. In general, statisticians look to make sure that the observed counts are greater than 5, but the threshold can change depending on the circumstance.
+
+The degrees of freedom can be calculated as $k=(n-1)(i-1)$ where the sample as $n$ observations and there are $i$ categories. Similar to the t-distribution, the degrees of freedom increases as we use larger data sets with more categories or observations.
+
+After we have determined the degrees of freedom, we calculate the $\chi^2$ test statistic using the following:
+
+$$ \begin{split} 
+&\chi^2 =  \sum_{i=1}^{n}\frac{(O_i-E_i)^2}{E_i} \\
+\textrm{Where} \enspace &O_i \enspace \textrm{is the observed count of the ith category} \\ 
+&E_i \enspace \textrm{is the expected count of the ith category}
+\end{split}$$
+
+The function `chisq.test` also accomplishes this. What you provide in the function depends on whether you are doing a test for goodness of fit or independence.
+
+For **goodness of fit** tests (whether observed data follows expected ratios), you need to create two vectors:
+
+``` {r}
+# Create vector of probabilities
+predicted <- c(0.6, 0.3, 0.1)
+
+# Create vector of observed values
+observed <- c(66, 27, 15)
+
+chisq.test(observed, p = predicted)
+```
+
+For tests of **independence** (whether associations exist between rows and columns), you need to provide a matrix:
+
+```{r}
+ matrix <- matrix(c(103, 150, 103, 102, 140, 97),
+                 nrow = 2, ncol = 3, byrow = TRUE, 
+                 dimnames = list(c("Group A", "Group B"), 
+                                 c("Variable 1", "Variable 2", "Variable 3")))
+
+knitr::kable(matrix)
+
+chisq.test(matrix)
+```
+
+Great! This concludes the last distribution in this guide. Thank you so much for reading this guide, and I wish you luck as you continue your statistics journey! :)
+

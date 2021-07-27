@@ -24,7 +24,7 @@
 <meta name="author" content="Ben Wallace" />
 
 
-<meta name="date" content="2021-07-12" />
+<meta name="date" content="2021-07-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -160,7 +160,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5" data-path="DiscreteContinuous.html"><a href="DiscreteContinuous.html"><i class="fa fa-check"></i><b>5</b> From Discrete to Continous Cases</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="DiscreteContinuous.html"><a href="DiscreteContinuous.html#normal-approximation-of-binomial-distribution"><i class="fa fa-check"></i><b>5.1</b> Normal Approximation of Binomial Distribution</a></li>
+<li class="chapter" data-level="5.1" data-path="DiscreteContinuous.html"><a href="DiscreteContinuous.html#normal-approximation-and-demoivres-problem"><i class="fa fa-check"></i><b>5.1</b> Normal Approximation and DeMoivre’s Problem</a></li>
 <li class="chapter" data-level="5.2" data-path="DiscreteContinuous.html"><a href="DiscreteContinuous.html#normal-distribution"><i class="fa fa-check"></i><b>5.2</b> Normal Distribution</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="Continuous.html"><a href="Continuous.html"><i class="fa fa-check"></i><b>6</b> Other Continuous Distributions</a>
@@ -168,7 +168,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1" data-path="Continuous.html"><a href="Continuous.html#T"><i class="fa fa-check"></i><b>6.1</b> t-Distribution</a></li>
 <li class="chapter" data-level="6.2" data-path="Continuous.html"><a href="Continuous.html#Exponential"><i class="fa fa-check"></i><b>6.2</b> Exponential Distribution</a></li>
 <li class="chapter" data-level="6.3" data-path="Continuous.html"><a href="Continuous.html#Gamma"><i class="fa fa-check"></i><b>6.3</b> Gamma Distribution</a></li>
-<li class="chapter" data-level="6.4" data-path="Continuous.html"><a href="Continuous.html#χ2-distribution"><i class="fa fa-check"></i><b>6.4</b> χ2 Distribution</a></li>
+<li class="chapter" data-level="6.4" data-path="Continuous.html"><a href="Continuous.html#χ2-distribution"><i class="fa fa-check"></i><b>6.4</b> χ2 Distribution</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="Continuous.html"><a href="Continuous.html#chi-square-and-normal-relationship"><i class="fa fa-check"></i><b>6.4.1</b> Chi-square and Normal Relationship</a></li>
+<li class="chapter" data-level="6.4.2" data-path="Continuous.html"><a href="Continuous.html#using-chi-square-distributions-for-testing"><i class="fa fa-check"></i><b>6.4.2</b> Using Chi-square Distributions for Testing</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -195,13 +199,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="T" class="section level2" number="6.1">
 <h2><span class="header-section-number">6.1</span> t-Distribution</h2>
 <p>We often don’t know the true variance (and thus the standard deviation) of normally-distributed populations. However, we can still make estimations and inferences by adding a new parameter <span class="math inline">\(t\)</span>, the <strong>degrees of freedom</strong>. After doing this, we have created a t-distribution. This is also known as a student’s t-distribution.</p>
-<p>Simply put, degrees of freedom equals the number of observations in our sample that are able to, or have the <em>freedom</em>, to vary given our constraints. Since the only parameter that limits the freedom of our sample is the mean, we have <span class="math inline">\(t = n-1\)</span> degrees of freedom in a t-distribution.</p>
-<p>Let’s say that you have a sample of 5 observations: 1, 3, 5, 7, and an unknown number <span class="math inline">\(x_5\)</span>. Let’s say we also know that the mean of the data is <span class="math inline">\(\bar{x}=5\)</span>. Therefore, we can conclude using the definition of means that the <span class="math inline">\(x_5=9\)</span>.</p>
-<p><span class="math display">\[\begin{split} \bar{x} &amp;= \frac{x_1+x_2+\ldots+x_p}{p} \\
+<p>Simply put, degrees of freedom comes from the number of observations in our sample that are able to, or have the <em>freedom</em>, to vary given our constraints. Since the only parameter that limits the freedom of our sample is the mean, we have <span class="math inline">\(t = n-1\)</span> degrees of freedom in a t-distribution.</p>
+<p>Let’s say that you have a sample of 5 observations: 1, 3, 5, 7, and an unknown number <span class="math inline">\(x_5\)</span>. If we know that that the mean of the data is <span class="math inline">\(\bar{x}=5\)</span>, we can conclude that <span class="math inline">\(x_5=9\)</span> given the definition of means.</p>
+<p><span class="math display">\[\begin{split} \bar{x} &amp;= \frac{\sum_{1}^p x_i}{p} = \frac{x_1+x_2+\ldots+x_p}{p} \\
 5 &amp;= \frac{1+3+5+7+x_5}{5} \\
 x_5 &amp;= 9
 \end{split}\]</span></p>
-<p>In other words, we can know the value of all but 1 observation in our sample to be able to estimate the mean of a distribution. Since <span class="math inline">\(n\)</span> is the sample size, having samples means more degrees of freedom.</p>
+<p>In other words, if we impose the mean as a constraint on our data, all but 1 observation in our sample is able to vary. Since <span class="math inline">\(n\)</span> is the sample size, having larger samples means more degrees of freedom.</p>
 <p>Regardless of the degrees of freedom a t-distribution has, it will look like an approximately-normal curve with greater variability than the normal distribution when plotted. This why some describe the distribution as having thick “tails.”</p>
 <div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="Continuous.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb77-2"><a href="Continuous.html#cb77-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_function</span>(<span class="at">fun =</span> dt, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">df =</span> <span class="dv">5</span>), <span class="at">color =</span> <span class="st">&quot;darkred&quot;</span>) <span class="sc">+</span></span>
@@ -215,23 +219,60 @@ Figure 6.1: t-distribution with 5 degrees of freedom
 </div>
 <p>I don’t recommend that you use ggplot without something in the data argument since it limits your ability to alter aesthetics. However, for the purpose of simply visualizing continuous curves like the t-distribution, we can use <code>geom_function</code>.</p>
 <p>As you see above, we need to provide <code>geom_function</code> a function as the first argument. <code>dt</code> is the density function for the t-distribution. By specifying the limits on the x-axis with <code>xlim</code> to -3 and 3, we isolated the visualization to the most important part of the curve.</p>
-<p>As mentioned earlier, a t-distribution gains more degrees of freedom as the sample size increases. If we plot several curves with different degrees of freedom next to each other, we would notice that t-distributions with larger degrees of freedom have narrower tails and look closer to a normal distribution.</p>
-<p>Why is this the case? Imagine that you are working for a political campaign and want to measure the strength of your candidate against others in a poll. Assuming that your sample for the poll is random, you will have a poll more representative of the population as your sample size increases. As a result, polls with larger and more representative samples are usually more accurate. The impact of each respondent’s opinion on the result of the poll decreases, meaning that the variability of distribution decreases.</p>
-<p>The change in variability as sample sizes increase is what gives some t-distributions thinner tails. Below, we’ll plot several different t-distributions with various degrees of freedom as well as a normal distribution.</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="Continuous.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a tibble or dataframe with five curves</span></span>
-<span id="cb78-2"><a href="Continuous.html#cb78-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb78-3"><a href="Continuous.html#cb78-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="at">by =</span> <span class="fl">0.001</span>),</span>
-<span id="cb78-4"><a href="Continuous.html#cb78-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">t1 =</span> <span class="fu">dt</span>(x, <span class="dv">3</span>),</span>
-<span id="cb78-5"><a href="Continuous.html#cb78-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">t2 =</span> <span class="fu">dt</span>(x, <span class="dv">5</span>),</span>
-<span id="cb78-6"><a href="Continuous.html#cb78-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">t3 =</span> <span class="fu">dt</span>(x, <span class="dv">7</span>),</span>
-<span id="cb78-7"><a href="Continuous.html#cb78-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">norm =</span> <span class="fu">dnorm</span>(x)) <span class="sc">%&gt;%</span> </span>
-<span id="cb78-8"><a href="Continuous.html#cb78-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">names_to =</span> <span class="st">&quot;Distribution&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;Density&quot;</span>) <span class="co"># Transform into three columns</span></span>
+<p>As mentioned earlier, a t-distribution gains more degrees of freedom as the sample size increases. If we plot several curves with different degrees of freedom next to each other, we would notice that t-distributions with larger degrees of freedom have narrower tails and look closer to a normal distribution. This is because the magnitude of the last non-independent observation’s effect on the mean weakens as there are more observations.</p>
+<p>Why is this the case? Imagine that you are working for an polling firm and want to measure the public’s attitudes towards a new policy. You use a <a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=&amp;cad=rja&amp;uact=8&amp;ved=2ahUKEwj2i9-mgujxAhUJ-Z4KHQx3DYUQFnoECAMQAA&amp;url=https%3A%2F%2Felectionstudies.org%2F2007anes_gallup_questioncomparisons%2F&amp;usg=AOvVaw0Q8BKck04Z4eMBT0hWyUqj">feeling thermometer</a> to gauge each individual’s favorability on a scale from 0 to 100, where numbers higher than 50 represent favorable views.</p>
+<p>Unless we poll every member in the public, we do not know the true mean or variance of the population’s views towards the policy. Thus, we introduce the sample mean (<span class="math inline">\(\bar{x}\)</span>) as a constraint, since we assume that random samples would accurately approximate the average person’s views, given that the sample is <strong>large enough</strong> to be representative.</p>
+<p>However, we must also make several other assumptions before using the t-distribution. For one, the response of poll participants must be <strong>normally distributed</strong> (or near normal).</p>
+<p>As mentioned previously, the sample size must also be <strong>large enough</strong> to avoid randomly-produced error. Although there is no definitive cutoff, polls with larger samples are usually more accurate. The impact of each respondent’s opinion on the result of the poll decreases, meaning that the variability of distribution decreases.</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="Continuous.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remember to set seeds before random processes!</span></span>
+<span id="cb78-2"><a href="Continuous.html#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
+<span id="cb78-3"><a href="Continuous.html#cb78-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-4"><a href="Continuous.html#cb78-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate random samples with mean = 50, sd = 12. Larger samples produce better approximations</span></span>
+<span id="cb78-5"><a href="Continuous.html#cb78-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-6"><a href="Continuous.html#cb78-6" aria-hidden="true" tabindex="-1"></a>sample_error <span class="ot">&lt;-</span> <span class="cf">function</span>(true_mean, simulations, n) {</span>
+<span id="cb78-7"><a href="Continuous.html#cb78-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(<span class="fu">abs</span>(true_mean <span class="sc">-</span> <span class="fu">replicate</span>(simulations, <span class="fu">mean</span>(<span class="fu">rnorm</span>(n, <span class="dv">50</span>, <span class="dv">12</span>)))))</span>
+<span id="cb78-8"><a href="Continuous.html#cb78-8" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb78-9"><a href="Continuous.html#cb78-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb78-10"><a href="Continuous.html#cb78-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
-<span id="cb78-11"><a href="Continuous.html#cb78-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> Density)) <span class="sc">+</span></span>
-<span id="cb78-12"><a href="Continuous.html#cb78-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> Distribution)) <span class="sc">+</span></span>
-<span id="cb78-13"><a href="Continuous.html#cb78-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_d</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Normal&quot;</span>, <span class="st">&quot;t, df = 3&quot;</span>, <span class="st">&quot;t, df = 5&quot;</span>, <span class="st">&quot;t, df = 7&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb78-14"><a href="Continuous.html#cb78-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>))</span></code></pre></div>
+<span id="cb78-10"><a href="Continuous.html#cb78-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="st">`</span><span class="at">n = 2</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sample_error</span>(<span class="dv">50</span>, <span class="dv">1000</span>, <span class="dv">2</span>),</span>
+<span id="cb78-11"><a href="Continuous.html#cb78-11" aria-hidden="true" tabindex="-1"></a>       <span class="st">`</span><span class="at">25</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sample_error</span>(<span class="dv">50</span>, <span class="dv">1000</span>, <span class="dv">25</span>),</span>
+<span id="cb78-12"><a href="Continuous.html#cb78-12" aria-hidden="true" tabindex="-1"></a>       <span class="st">`</span><span class="at">250</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sample_error</span>(<span class="dv">50</span>, <span class="dv">1000</span>, <span class="dv">250</span>),</span>
+<span id="cb78-13"><a href="Continuous.html#cb78-13" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>, <span class="at">caption =</span> <span class="st">&quot;Average Error of Sample Means after 1000 Simulations&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-4">Table 6.1: </span>Average Error of Sample Means after 1000 Simulations</caption>
+<thead>
+<tr class="header">
+<th align="right">n = 2</th>
+<th align="right">25</th>
+<th align="right">250</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">6.868</td>
+<td align="right">1.879</td>
+<td align="right">0.591</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="Continuous.html#cb79-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">as_vector</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">25</span>, <span class="dv">250</span>))</span>
+<span id="cb79-2"><a href="Continuous.html#cb79-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-3"><a href="Continuous.html#cb79-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sample_error</span>(<span class="dv">50</span>, <span class="dv">1000</span>, <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">25</span>, <span class="dv">250</span>))</span></code></pre></div>
+<pre><code>## [1] 5.570544</code></pre>
+<p>The change in variability as sample sizes increase is what gives some t-distributions thinner tails. Below, we’ll plot several different t-distributions with various degrees of freedom as well as a normal distribution.</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="Continuous.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a tibble or dataframe with five curves</span></span>
+<span id="cb81-2"><a href="Continuous.html#cb81-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-3"><a href="Continuous.html#cb81-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="at">by =</span> <span class="fl">0.001</span>),</span>
+<span id="cb81-4"><a href="Continuous.html#cb81-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">t1 =</span> <span class="fu">dt</span>(x, <span class="dv">3</span>),</span>
+<span id="cb81-5"><a href="Continuous.html#cb81-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">t2 =</span> <span class="fu">dt</span>(x, <span class="dv">5</span>),</span>
+<span id="cb81-6"><a href="Continuous.html#cb81-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">t3 =</span> <span class="fu">dt</span>(x, <span class="dv">7</span>),</span>
+<span id="cb81-7"><a href="Continuous.html#cb81-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">norm =</span> <span class="fu">dnorm</span>(x)) <span class="sc">%&gt;%</span> </span>
+<span id="cb81-8"><a href="Continuous.html#cb81-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">names_to =</span> <span class="st">&quot;Distribution&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;Density&quot;</span>) <span class="co"># Transform into three columns</span></span>
+<span id="cb81-9"><a href="Continuous.html#cb81-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-10"><a href="Continuous.html#cb81-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb81-11"><a href="Continuous.html#cb81-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> Density)) <span class="sc">+</span></span>
+<span id="cb81-12"><a href="Continuous.html#cb81-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> Distribution)) <span class="sc">+</span></span>
+<span id="cb81-13"><a href="Continuous.html#cb81-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_d</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Normal&quot;</span>, <span class="st">&quot;t, df = 3&quot;</span>, <span class="st">&quot;t, df = 5&quot;</span>, <span class="st">&quot;t, df = 7&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb81-14"><a href="Continuous.html#cb81-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tplots"></span>
 <img src="famousdistrib_files/figure-html/tplots-1.png" alt="t-distributions and normal distribution" width="80%" />
 <p class="caption">
@@ -242,10 +283,10 @@ Figure 6.2: t-distributions and normal distribution
 </div>
 <div id="Exponential" class="section level2" number="6.2">
 <h2><span class="header-section-number">6.2</span> Exponential Distribution</h2>
-<p>Recall the earlier section in which we discussed Poisson {#Poisson} processes. The exponential distribution models a waiting time with <span class="math inline">\(\lambda\)</span> as the rate. This is similar to the geometric {# geometric} distribution, which models the number of failures until one “success”; however, in this case, we are considering events and not successes/failures.</p>
-<p>If <span class="math inline">\(\lambda\)</span> is the rate of a Poisson process, the density funtion can be written as:</p>
+<p>Recall the earlier section in which we discussed <a href="Discrete.html#Poisson">Poisson</a> processes. The exponential distribution models a waiting time with <span class="math inline">\(\lambda\)</span> as the rate. This is similar to the <a href="#%20geometric">geometric</a> distribution, which models the number of failures until one “success”; however, in this case, we are considering events and not successes/failures.</p>
+<p>If <span class="math inline">\(\lambda\)</span> is the rate of a Poisson process, the density function can be written as:</p>
 <p><span class="math display">\[f(y)=\lambda e^{-\lambda y} \quad \textrm{for} \enspace y&gt;0\]</span></p>
-<p>Thus, the probability that <span class="math inline">\(Y=y\)</span> can be interpreted as “the likelihood that two events ocurred in y units of time.”</p>
+<p>Thus, the probability that <span class="math inline">\(Y=y\)</span> can be interpreted as “the likelihood that two events occurred in y units of time.”</p>
 <p>Let’s return to the adoption center example. Recall that the center has 10 adoptions per month on average. What is the probability that two pets are adopted in a week?</p>
 <p>If each month has 30 days then people are adopting <span class="math inline">\(1/3\)</span> of a pet each day on average (even though you can’t adopt a fraction of an animal!). We can then determine the rate as <span class="math inline">\(\lambda=1/3\)</span>.</p>
 <p>Plugging the parameter <span class="math inline">\(y&lt;7\)</span> and <span class="math inline">\(\lambda=1/3\)</span>:</p>
@@ -254,32 +295,32 @@ P(Y &lt; 7) &amp;= \int_{0}^{7} \frac{1}{3} e^{-1/3y}dy \\ &amp;= \frac{1}{3} \i
 \end{split}\]</span></p>
 <p>Our final answer can be thought of as: “There is a 90.3% chance probability that two animals are adopted before the end of a week.”</p>
 <p>If you prefer to avoid calculus, you can also use R to answer this problem using <code>pexp</code>, the corresponding distribution function.</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="Continuous.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pexp</span>(<span class="dv">7</span>, <span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>) <span class="co"># i.e. P(Y &lt; 7) since lower.tail = TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="Continuous.html#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pexp</span>(<span class="dv">7</span>, <span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>) <span class="co"># i.e. P(Y &lt; 7) since lower.tail = TRUE</span></span></code></pre></div>
 <pre><code>## [1] 0.903028</code></pre>
 <p>Why can’t we we simply find the the sum of the densities <code>1:6</code>? Remember that the exponential distribution is continuous, not discrete! So only calculating the individual densities at integer values would give us an underestimate.</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="Continuous.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">dexp</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="Continuous.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">dexp</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>))</span></code></pre></div>
 <pre><code>## [1] 0.7285453</code></pre>
 <p>Instead, we are required to provide an integral. To write a definite integral using R, we must provide a function and the two bounds.</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="Continuous.html#cb83-1" aria-hidden="true" tabindex="-1"></a>exp_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(y) <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span><span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">3</span><span class="sc">*</span>y) <span class="co"># Write exponential function</span></span>
-<span id="cb83-2"><a href="Continuous.html#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="fu">integrate</span>(exp_fun, <span class="dv">0</span>, <span class="dv">7</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="Continuous.html#cb86-1" aria-hidden="true" tabindex="-1"></a>exp_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(y) <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span><span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">3</span><span class="sc">*</span>y) <span class="co"># Write exponential function</span></span>
+<span id="cb86-2"><a href="Continuous.html#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="fu">integrate</span>(exp_fun, <span class="dv">0</span>, <span class="dv">7</span>)</span></code></pre></div>
 <pre><code>## 0.903028 with absolute error &lt; 1e-14</code></pre>
 <p>How can we visualize our interval between 0 and 7 days? Let’s again use <code>stat_function</code> to draw a curve.</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="Continuous.html#cb85-1" aria-hidden="true" tabindex="-1"></a>exp_correct <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb85-2"><a href="Continuous.html#cb85-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(</span>
-<span id="cb85-3"><a href="Continuous.html#cb85-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> dexp,</span>
-<span id="cb85-4"><a href="Continuous.html#cb85-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">args =</span> <span class="fu">list</span>(<span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>),</span>
-<span id="cb85-5"><a href="Continuous.html#cb85-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">7</span>),</span>
-<span id="cb85-6"><a href="Continuous.html#cb85-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">geom =</span> <span class="st">&quot;area&quot;</span>,</span>
-<span id="cb85-7"><a href="Continuous.html#cb85-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;skyblue1&quot;</span></span>
-<span id="cb85-8"><a href="Continuous.html#cb85-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb85-9"><a href="Continuous.html#cb85-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(</span>
-<span id="cb85-10"><a href="Continuous.html#cb85-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> dexp,</span>
-<span id="cb85-11"><a href="Continuous.html#cb85-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">args =</span> <span class="fu">list</span>(<span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>), <span class="co"># Remember, the arguments must be provided in a list</span></span>
-<span id="cb85-12"><a href="Continuous.html#cb85-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">30</span>),</span>
-<span id="cb85-13"><a href="Continuous.html#cb85-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">geom =</span> <span class="st">&quot;function&quot;</span>, <span class="co"># Choose a curve as the geometry</span></span>
-<span id="cb85-14"><a href="Continuous.html#cb85-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb85-15"><a href="Continuous.html#cb85-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">30</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">xend =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">30</span>, <span class="at">yend =</span> <span class="fu">dexp</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">30</span>, <span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)), <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb85-16"><a href="Continuous.html#cb85-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Days Between Adoptions&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="Continuous.html#cb88-1" aria-hidden="true" tabindex="-1"></a>exp_correct <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb88-2"><a href="Continuous.html#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(</span>
+<span id="cb88-3"><a href="Continuous.html#cb88-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> dexp,</span>
+<span id="cb88-4"><a href="Continuous.html#cb88-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">args =</span> <span class="fu">list</span>(<span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>),</span>
+<span id="cb88-5"><a href="Continuous.html#cb88-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">7</span>),</span>
+<span id="cb88-6"><a href="Continuous.html#cb88-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">geom =</span> <span class="st">&quot;area&quot;</span>,</span>
+<span id="cb88-7"><a href="Continuous.html#cb88-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;skyblue1&quot;</span></span>
+<span id="cb88-8"><a href="Continuous.html#cb88-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb88-9"><a href="Continuous.html#cb88-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(</span>
+<span id="cb88-10"><a href="Continuous.html#cb88-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> dexp,</span>
+<span id="cb88-11"><a href="Continuous.html#cb88-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">args =</span> <span class="fu">list</span>(<span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>), <span class="co"># Remember, the arguments must be provided in a list</span></span>
+<span id="cb88-12"><a href="Continuous.html#cb88-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">30</span>),</span>
+<span id="cb88-13"><a href="Continuous.html#cb88-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">geom =</span> <span class="st">&quot;function&quot;</span>, <span class="co"># Choose a curve as the geometry</span></span>
+<span id="cb88-14"><a href="Continuous.html#cb88-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb88-15"><a href="Continuous.html#cb88-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">30</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">xend =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">30</span>, <span class="at">yend =</span> <span class="fu">dexp</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">30</span>, <span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)), <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb88-16"><a href="Continuous.html#cb88-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Days Between Adoptions&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="famousdistrib_files/figure-html/exp%20comparison-1.png" alt="Correct and incorrect layering of exponential distribution layers" width="60%" />
 <p class="caption">
@@ -291,42 +332,42 @@ P(Y &lt; 7) &amp;= \int_{0}^{7} \frac{1}{3} e^{-1/3y}dy \\ &amp;= \frac{1}{3} \i
 <hr />
 <p>By what point after one adoption can we begin expecting another? To answer this question, we can look for the median of the distribution.</p>
 <p>Recall that “q” functions return a x-value after providing a quantile in the distribution. Here, we’ll use <code>qexp</code>.</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="Continuous.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qexp</span>(<span class="fl">0.5</span>, <span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="Continuous.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qexp</span>(<span class="fl">0.5</span>, <span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] 2.079442</code></pre>
 <p>The other measure of center for an exponential distribution is the mean. This is much easier to solve; if K is a Poisson random variable, <span class="math inline">\(E(K)=\frac{1}{\lambda}\)</span>. So on average, we can expect an adoption on day <span class="math inline">\(\frac{1}{1/3}=3\)</span>.</p>
 <hr />
 <p>Imagine that you are working for a rescue shelter for pets and want to present the information that you just learned–that there are about 3 days on average between any two adoptions in a month.</p>
 <p>We’ll build a deliverable visualization using the power of <code>ggplot</code>, <code>ggimage</code>, as well as your knowledge about the exponential distribution.</p>
 <p>First, load the new <code>ggimage</code> package. This allows us to include image files and other graphic objects in our visualizations. To learn more about it, you can read ggimage’s documentation <a href="https://cran.r-project.org/web/packages/ggimage/index.html">here</a>.</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="Continuous.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggimage) <span class="co"># Remember to use install.packages(&quot;ggimage&quot;) first</span></span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="Continuous.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggimage) <span class="co"># Remember to use install.packages(&quot;ggimage&quot;) first</span></span></code></pre></div>
 <p>In particular, we’ll need the package to include emojis of dogs and illustrate the average time period between adoptions. Think of adding the emojis as adding any other geometry. Beyond a coordinate position, the <code>geom_emoji</code> function requires an aesthetic called “image.” The special unicode required for dogs is “1f415.” We can also set the size of the image similar to geometries like <code>geom_point</code>.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-27"></span>
-<img src="famousdistrib_files/figure-html/unnamed-chunk-27-1.png" alt="Dog emoji" width="20%" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-5"></span>
+<img src="famousdistrib_files/figure-html/unnamed-chunk-5-1.png" alt="Dog emoji" width="20%" />
 <p class="caption">
 Figure 6.3: Dog emoji
 </p>
 </div>
 <p>…</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="Continuous.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb89-2"><a href="Continuous.html#cb89-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(</span>
-<span id="cb89-3"><a href="Continuous.html#cb89-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> dexp,</span>
-<span id="cb89-4"><a href="Continuous.html#cb89-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">args =</span> <span class="fu">list</span>(<span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>),</span>
-<span id="cb89-5"><a href="Continuous.html#cb89-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">3</span>),</span>
-<span id="cb89-6"><a href="Continuous.html#cb89-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">geom =</span> <span class="st">&quot;area&quot;</span>,</span>
-<span id="cb89-7"><a href="Continuous.html#cb89-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;skyblue1&quot;</span></span>
-<span id="cb89-8"><a href="Continuous.html#cb89-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb89-9"><a href="Continuous.html#cb89-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(</span>
-<span id="cb89-10"><a href="Continuous.html#cb89-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> dexp,</span>
-<span id="cb89-11"><a href="Continuous.html#cb89-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">args =</span> <span class="fu">list</span>(<span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>), </span>
-<span id="cb89-12"><a href="Continuous.html#cb89-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>),</span>
-<span id="cb89-13"><a href="Continuous.html#cb89-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">geom =</span> <span class="st">&quot;function&quot;</span>,</span>
-<span id="cb89-14"><a href="Continuous.html#cb89-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb89-15"><a href="Continuous.html#cb89-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">xend =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">yend =</span> <span class="fu">dexp</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)), <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb89-16"><a href="Continuous.html#cb89-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Days Between Adoptions&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Probability&quot;</span>) <span class="sc">+</span></span>
-<span id="cb89-17"><a href="Continuous.html#cb89-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_emoji</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="fl">0.05</span>,<span class="dv">3</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="fu">dexp</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3</span>), <span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)) <span class="sc">+</span> <span class="fl">0.025</span>, <span class="at">image =</span> <span class="st">&quot;1f415&quot;</span>), <span class="at">size =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb89-18"><a href="Continuous.html#cb89-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="fl">2.75</span>, <span class="at">y =</span> <span class="fu">dexp</span>(<span class="dv">1</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fl">0.01</span>, </span>
-<span id="cb89-19"><a href="Continuous.html#cb89-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">&quot;On average, two pets are adopted every three days&quot;</span>) <span class="sc">+</span></span>
-<span id="cb89-20"><a href="Continuous.html#cb89-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="Continuous.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb92-2"><a href="Continuous.html#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(</span>
+<span id="cb92-3"><a href="Continuous.html#cb92-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> dexp,</span>
+<span id="cb92-4"><a href="Continuous.html#cb92-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">args =</span> <span class="fu">list</span>(<span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>),</span>
+<span id="cb92-5"><a href="Continuous.html#cb92-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">3</span>),</span>
+<span id="cb92-6"><a href="Continuous.html#cb92-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">geom =</span> <span class="st">&quot;area&quot;</span>,</span>
+<span id="cb92-7"><a href="Continuous.html#cb92-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;skyblue1&quot;</span></span>
+<span id="cb92-8"><a href="Continuous.html#cb92-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb92-9"><a href="Continuous.html#cb92-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(</span>
+<span id="cb92-10"><a href="Continuous.html#cb92-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> dexp,</span>
+<span id="cb92-11"><a href="Continuous.html#cb92-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">args =</span> <span class="fu">list</span>(<span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>), </span>
+<span id="cb92-12"><a href="Continuous.html#cb92-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>),</span>
+<span id="cb92-13"><a href="Continuous.html#cb92-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">geom =</span> <span class="st">&quot;function&quot;</span>,</span>
+<span id="cb92-14"><a href="Continuous.html#cb92-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb92-15"><a href="Continuous.html#cb92-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">xend =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">yend =</span> <span class="fu">dexp</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)), <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb92-16"><a href="Continuous.html#cb92-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Days Between Adoptions&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Probability&quot;</span>) <span class="sc">+</span></span>
+<span id="cb92-17"><a href="Continuous.html#cb92-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_emoji</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="fl">0.05</span>,<span class="dv">3</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="fu">dexp</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3</span>), <span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)) <span class="sc">+</span> <span class="fl">0.025</span>, <span class="at">image =</span> <span class="st">&quot;1f415&quot;</span>), <span class="at">size =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb92-18"><a href="Continuous.html#cb92-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="fl">2.75</span>, <span class="at">y =</span> <span class="fu">dexp</span>(<span class="dv">1</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fl">0.01</span>, </span>
+<span id="cb92-19"><a href="Continuous.html#cb92-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">&quot;On average, two pets are adopted every three days&quot;</span>) <span class="sc">+</span></span>
+<span id="cb92-20"><a href="Continuous.html#cb92-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:dogplot"></span>
 <img src="famousdistrib_files/figure-html/dogplot-1.png" alt="Exponential plot with dogs" width="60%" />
 <p class="caption">
@@ -337,8 +378,8 @@ Figure 6.4: Exponential plot with dogs
 </div>
 <div id="Gamma" class="section level2" number="6.3">
 <h2><span class="header-section-number">6.3</span> Gamma Distribution</h2>
-<p>The exponential distribution is quite similar to the geometric distribution {#geometric} since they both consider the amount of time it takes for one event to occur. The main difference between the two is that geometric random variables model Bernoulli or binary processes and exponential random variables model poisson ones. Bernoulli processes consider independent trials, so if each trial is a day then we would ignore the possibility of having more than one adoption or “success” per day. Some might consider changing the trial unit to each animal in the shelter, but we cannot determine the probability of each animal being adopted, and we also can’t assume that they each animal’s probability is the same.</p>
-<p>If <span class="math inline">\(N\)</span> is based on poisson processses and has parameter <span class="math inline">\(\lambda\)</span>, the rate, <span class="math inline">\(N\)</span> represents the amount of time we must wait until <span class="math inline">\(r\)</span> events, thus following the <strong>gamma distribution</strong>.</p>
+<p>The exponential distribution is quite similar to the <a href="#geometric">geometric</a> distribution since they both consider the amount of time it takes for one event to occur. The main difference between the two is that geometric random variables model Bernoulli or binary processes and exponential random variables model poisson ones. Bernoulli processes consider independent trials, so if each trial is a day then we would ignore the possibility of having more than one adoption or “success” per day. Some might consider changing the trial unit to each animal in the shelter, but we cannot determine the probability of each animal being adopted, and we also can’t assume that they each animal’s probability is the same.</p>
+<p>If <span class="math inline">\(N\)</span> is based on poisson processes and has parameter <span class="math inline">\(\lambda\)</span>, the rate, <span class="math inline">\(N\)</span> represents the amount of time we must wait until <span class="math inline">\(r\)</span> events, thus following the <strong>gamma distribution</strong>.</p>
 <p><span class="math display">\[ P(N=n)=\frac{\lambda^r}{\Gamma(r)}n^{r-1}e^{-\lambda n} \quad \textrm{for} \enspace k&gt;0\]</span>
 If the <span class="math inline">\(\Gamma\)</span> (Gamma) function in the equation looks new to you, you can read more about it <a href="https://www.cantorsparadise.com/the-beautiful-gamma-function-and-the-genius-who-discovered-it-8778437565dc">here</a>.</p>
 <p>When <span class="math inline">\(r=1\)</span> the equation simplifies to the exponential distribution, making it a special case similar to the geometric distribution.</p>
@@ -348,44 +389,166 @@ If the <span class="math inline">\(\Gamma\)</span> (Gamma) function in the equat
 \end{split}\]</span></p>
 <p>Returning to the adoption example, the gamma distribution lets us figure out the number of days that it takes for <strong>more than</strong> one adoption to occur in an interval of time.</p>
 <p>For example, what is the probability that it takes less than 2 weeks for 3 pets to be adopted if 10 pets are adopted every month?</p>
-<p>Recall that <span class="math inline">\(\lambda = 1/3\)</span>, assuming that an adoption is equally likely to occur every day of the month. Therfore, if <span class="math inline">\(K\)</span> is a gamma random variable for the number of days it takes for 3 adoptions to occur, we can write the probability of <span class="math inline">\(K&lt;14 \enspace \textrm{days}\)</span></p>
+<p>Recall that <span class="math inline">\(\lambda = 1/3\)</span>, assuming that an adoption is equally likely to occur every day of the month. Therefore, if <span class="math inline">\(K\)</span> is a gamma random variable for the number of days it takes for 3 adoptions to occur, we can write the probability of <span class="math inline">\(K&lt;14 \enspace \textrm{days}\)</span></p>
 <p><span class="math display">\[ P(K&lt;14) = \int_0^{14} \frac{{1/3}^3}{\Gamma(3)}k^{3-1}e^{-k/3}dk \approx 0.844\]</span></p>
 <p>Or, two ways using R:</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="Continuous.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the gamma distribution function</span></span>
-<span id="cb90-2"><a href="Continuous.html#cb90-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pgamma</span>(<span class="dv">14</span>, <span class="at">shape =</span> <span class="dv">3</span>, <span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="Continuous.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the gamma distribution function</span></span>
+<span id="cb93-2"><a href="Continuous.html#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pgamma</span>(<span class="dv">14</span>, <span class="at">shape =</span> <span class="dv">3</span>, <span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] 0.8443188</code></pre>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="Continuous.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Is the same as writing this definite integral</span></span>
-<span id="cb92-2"><a href="Continuous.html#cb92-2" aria-hidden="true" tabindex="-1"></a>gamma_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(k, <span class="at">lambda =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="at">r =</span> <span class="dv">3</span>) (lambda<span class="sc">^</span>r)<span class="sc">/</span>(<span class="fu">gamma</span>(r)) <span class="sc">*</span> k<span class="sc">^</span>(r<span class="dv">-1</span>) <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span>lambda <span class="sc">*</span> k)</span>
-<span id="cb92-3"><a href="Continuous.html#cb92-3" aria-hidden="true" tabindex="-1"></a><span class="fu">integrate</span>(gamma_fun, <span class="dv">0</span>, <span class="dv">14</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="Continuous.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Is the same as writing this definite integral</span></span>
+<span id="cb95-2"><a href="Continuous.html#cb95-2" aria-hidden="true" tabindex="-1"></a>gamma_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(k, <span class="at">lambda =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="at">r =</span> <span class="dv">3</span>) (lambda<span class="sc">^</span>r)<span class="sc">/</span>(<span class="fu">gamma</span>(r)) <span class="sc">*</span> k<span class="sc">^</span>(r<span class="dv">-1</span>) <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span>lambda <span class="sc">*</span> k)</span>
+<span id="cb95-3"><a href="Continuous.html#cb95-3" aria-hidden="true" tabindex="-1"></a><span class="fu">integrate</span>(gamma_fun, <span class="dv">0</span>, <span class="dv">14</span>)</span></code></pre></div>
 <pre><code>## 0.8443188 with absolute error &lt; 9.4e-15</code></pre>
 <p>So there is an approximate 84.4% probability that the center has 3 adoptions in two weeks. How do you think that this probability changes as we alter <span class="math inline">\(r\)</span> or <span class="math inline">\(\lambda\)</span>?</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="Continuous.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a vector of &quot;day&quot; values</span></span>
-<span id="cb94-2"><a href="Continuous.html#cb94-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
-<span id="cb94-3"><a href="Continuous.html#cb94-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb94-4"><a href="Continuous.html#cb94-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a tibble with four gamma distributions, each with different r and lambda values</span></span>
-<span id="cb94-5"><a href="Continuous.html#cb94-5" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(x, </span>
-<span id="cb94-6"><a href="Continuous.html#cb94-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">gamma_1 =</span> <span class="fu">dgamma</span>(x, <span class="dv">3</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>), </span>
-<span id="cb94-7"><a href="Continuous.html#cb94-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">gamma_2 =</span> <span class="fu">dgamma</span>(x, <span class="dv">5</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>),</span>
-<span id="cb94-8"><a href="Continuous.html#cb94-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">gamma_3 =</span> <span class="fu">dgamma</span>(x, <span class="dv">5</span>, <span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>),</span>
-<span id="cb94-9"><a href="Continuous.html#cb94-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">gamma_4 =</span> <span class="fu">dgamma</span>(x, <span class="dv">5</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb94-10"><a href="Continuous.html#cb94-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Transform the data frame into longer format</span></span>
-<span id="cb94-11"><a href="Continuous.html#cb94-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">names_to =</span> <span class="st">&quot;Distribution&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;Density&quot;</span>)</span>
-<span id="cb94-12"><a href="Continuous.html#cb94-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb94-13"><a href="Continuous.html#cb94-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Now plot!</span></span>
-<span id="cb94-14"><a href="Continuous.html#cb94-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> Density, <span class="at">color =</span> Distribution)) <span class="sc">+</span></span>
-<span id="cb94-15"><a href="Continuous.html#cb94-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Distribution)) <span class="sc">+</span></span>
-<span id="cb94-16"><a href="Continuous.html#cb94-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Days&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>) <span class="sc">+</span></span>
-<span id="cb94-17"><a href="Continuous.html#cb94-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_d</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;r = 3, lambda = 1/3&quot;</span>,</span>
-<span id="cb94-18"><a href="Continuous.html#cb94-18" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;r = 5, lambda = 1/3&quot;</span>,</span>
-<span id="cb94-19"><a href="Continuous.html#cb94-19" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;r = 5, lambda = 2/3&quot;</span>,</span>
-<span id="cb94-20"><a href="Continuous.html#cb94-20" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;r = 5, lambda = 1/6&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="Continuous.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a vector of &quot;day&quot; values</span></span>
+<span id="cb97-2"><a href="Continuous.html#cb97-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb97-3"><a href="Continuous.html#cb97-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-4"><a href="Continuous.html#cb97-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a tibble with four gamma distributions, each with different r and lambda values</span></span>
+<span id="cb97-5"><a href="Continuous.html#cb97-5" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(x, </span>
+<span id="cb97-6"><a href="Continuous.html#cb97-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">gamma_1 =</span> <span class="fu">dgamma</span>(x, <span class="dv">3</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>), </span>
+<span id="cb97-7"><a href="Continuous.html#cb97-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">gamma_2 =</span> <span class="fu">dgamma</span>(x, <span class="dv">5</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>),</span>
+<span id="cb97-8"><a href="Continuous.html#cb97-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">gamma_3 =</span> <span class="fu">dgamma</span>(x, <span class="dv">5</span>, <span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>),</span>
+<span id="cb97-9"><a href="Continuous.html#cb97-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">gamma_4 =</span> <span class="fu">dgamma</span>(x, <span class="dv">5</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb97-10"><a href="Continuous.html#cb97-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Transform the data frame into longer format</span></span>
+<span id="cb97-11"><a href="Continuous.html#cb97-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">names_to =</span> <span class="st">&quot;Distribution&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;Density&quot;</span>)</span>
+<span id="cb97-12"><a href="Continuous.html#cb97-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-13"><a href="Continuous.html#cb97-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Now plot!</span></span>
+<span id="cb97-14"><a href="Continuous.html#cb97-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> Density, <span class="at">color =</span> Distribution)) <span class="sc">+</span></span>
+<span id="cb97-15"><a href="Continuous.html#cb97-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Distribution)) <span class="sc">+</span></span>
+<span id="cb97-16"><a href="Continuous.html#cb97-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Days&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>) <span class="sc">+</span></span>
+<span id="cb97-17"><a href="Continuous.html#cb97-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_d</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;r = 3, lambda = 1/3&quot;</span>,</span>
+<span id="cb97-18"><a href="Continuous.html#cb97-18" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;r = 5, lambda = 1/3&quot;</span>,</span>
+<span id="cb97-19"><a href="Continuous.html#cb97-19" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;r = 5, lambda = 2/3&quot;</span>,</span>
+<span id="cb97-20"><a href="Continuous.html#cb97-20" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;r = 5, lambda = 1/6&quot;</span>))</span></code></pre></div>
 <p><img src="famousdistrib_files/figure-html/gamma%20plot-1.png" width="60%" style="display: block; margin: auto;" /></p>
-<p>!! write something about viridis palletes being colorblind-friendly.</p>
 <hr />
 </div>
 <div id="χ2-distribution" class="section level2" number="6.4">
 <h2><span class="header-section-number">6.4</span> χ2 Distribution</h2>
+<p>The <span class="math inline">\(\chi^2\)</span> distribution is extremely helpful in the statistics world, whether used for hypothesis testing as well as modeling. For instance, <strong><span class="math inline">\(\chi^2\)</span> tests of independence</strong> are used to determine whether associations between variables/categories are <em>significant</em>. The test statistic that results from <strong><span class="math inline">\(\chi^2\)</span> goodness of fit tests</strong> also follow a <span class="math inline">\(\chi^2\)</span> distribution and is equipped when researchers want to investigate whether observed data follow certain ratios. Although modeling is beyond the lens of this guide, the test statistic from <a href="https://www.itl.nist.gov/div898/handbook/apr/section2/apr233.htm">likelihood ratio tests</a> follow a <span class="math inline">\(\chi^2\)</span> distribution and assess whether newer and larger models significantly improve upon older and simpler ones.</p>
+<p>We now know the uses of the <span class="math inline">\(\chi^2\)</span> distribution. But what actually is it? In a previous section, we learned that the <a href="#gamma">gamma</a> distribution models the probability of <span class="math inline">\(r\)</span> events occurring in a certain period of time, given that it is based on Poisson processes. The <span class="math inline">\(\chi^2\)</span> distribution is a specific case of the gamma distribution in which the parameters <span class="math inline">\(\lambda = 1/2\)</span> and <span class="math inline">\(r=k/2\)</span> where k is the degrees of freedom. After plugging in these parameters, this form of the gamma distribution can be written as:</p>
+<p><span class="math display">\[f(x)=\frac{x^{k/2-1}e^{-x/2}}{2^{k/2}\Gamma(k/2)} \enspace \textrm{for} \enspace x \geq 0\]</span></p>
+<p>Below is a plot of several <span class="math inline">\(\chi^2\)</span> distributions with different degrees of freedom.</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="Continuous.html#cb98-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="fl">0.2</span>) <span class="co"># Vector of possible values</span></span>
+<span id="cb98-2"><a href="Continuous.html#cb98-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-3"><a href="Continuous.html#cb98-3" aria-hidden="true" tabindex="-1"></a>chisq_1 <span class="ot">&lt;-</span> <span class="fu">dchisq</span>(x, <span class="dv">1</span>)</span>
+<span id="cb98-4"><a href="Continuous.html#cb98-4" aria-hidden="true" tabindex="-1"></a>chisq_2 <span class="ot">&lt;-</span> <span class="fu">dchisq</span>(x, <span class="dv">4</span>)</span>
+<span id="cb98-5"><a href="Continuous.html#cb98-5" aria-hidden="true" tabindex="-1"></a>chisq_3 <span class="ot">&lt;-</span> <span class="fu">dchisq</span>(x, <span class="dv">8</span>)</span>
+<span id="cb98-6"><a href="Continuous.html#cb98-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-7"><a href="Continuous.html#cb98-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(x, chisq_1, chisq_2, chisq_3) <span class="sc">%&gt;%</span></span>
+<span id="cb98-8"><a href="Continuous.html#cb98-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> chisq_1, <span class="st">`</span><span class="at">4</span><span class="st">`</span> <span class="ot">=</span> chisq_2, <span class="st">`</span><span class="at">8</span><span class="st">`</span> <span class="ot">=</span> chisq_3) <span class="sc">%&gt;%</span> </span>
+<span id="cb98-9"><a href="Continuous.html#cb98-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">names_to =</span> <span class="st">&quot;Degrees of Freedom&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;Density&quot;</span>)</span>
+<span id="cb98-10"><a href="Continuous.html#cb98-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-11"><a href="Continuous.html#cb98-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> Density, <span class="at">color =</span> <span class="st">`</span><span class="at">Degrees of Freedom</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb98-12"><a href="Continuous.html#cb98-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb98-13"><a href="Continuous.html#cb98-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">&quot;Value&quot;</span>, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">2</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:multChisq"></span>
+<img src="famousdistrib_files/figure-html/multChisq-1.png" alt="Chi-square Distributions with 1, 4, and 8 degrees of freedom" width="60%" />
+<p class="caption">
+Figure 6.5: Chi-square Distributions with 1, 4, and 8 degrees of freedom
+</p>
+</div>
+<hr />
+<div id="chi-square-and-normal-relationship" class="section level3" number="6.4.1">
+<h3><span class="header-section-number">6.4.1</span> Chi-square and Normal Relationship</h3>
+<p>We previously learned that random deviates from the normal distribution can be taken using <code>rnorm</code>. All Chi-square distributions can be thought of as the sum of these squared and independent deviates. We can therefore also write the Chi-square distribution with k degrees of freedom as:</p>
+<p><span class="math display">\[\sum_{i=1}^{k}Z_i^2 = Z_1^2 + Z^2_2 + \ldots + Z^2_k \sim \chi^2_{(k)}\]</span></p>
+<p>Where each of the <span class="math inline">\(Z^2_1,Z^2_2\ldots Z^2_k\)</span> are independent and squared random variables following the standard normal distribution.</p>
+<p>The simplest chi-square distribution is derived from one squared and standard normal random variable (i.e. mean = 0, standard deviation = 1). If the new random variable <span class="math inline">\(Y=Z_1^2\)</span>, then we can define Y as a chi-square random variable with <span class="math inline">\(k=1\)</span> degrees of freedom, <span class="math inline">\(\chi^2_{(1)}\)</span>.</p>
+<p>The plot below shows the relationship between the two random variables. It is difficult to decipher visually, but the densities for each value of the chi-square distribution are the same as normal distribution at the square root of those values. This perhaps most obvious at the intercept at <code>x=1</code> since the square root of 1 is 1. We can also draw a segment between 3 and <span class="math inline">\(\sqrt{3}\)</span>.</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="Continuous.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb99-2"><a href="Continuous.html#cb99-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm,</span>
+<span id="cb99-3"><a href="Continuous.html#cb99-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">color =</span> <span class="st">&quot;darkblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb99-4"><a href="Continuous.html#cb99-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> dchisq,</span>
+<span id="cb99-5"><a href="Continuous.html#cb99-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">args =</span> <span class="fu">list</span>(<span class="at">df =</span> <span class="dv">1</span>),</span>
+<span id="cb99-6"><a href="Continuous.html#cb99-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">color =</span> <span class="st">&quot;forestgreen&quot;</span>) <span class="sc">+</span></span>
+<span id="cb99-7"><a href="Continuous.html#cb99-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">label =</span> <span class="st">&quot;Normal Distribution&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;label&quot;</span>, <span class="at">x =</span> <span class="fl">0.5</span>, <span class="at">y =</span> <span class="fl">0.15</span>, <span class="at">color =</span> <span class="st">&quot;darkblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb99-8"><a href="Continuous.html#cb99-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">label =</span> <span class="st">&quot;Chi-square Distribution&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;label&quot;</span>, <span class="at">x =</span> <span class="dv">2</span>, <span class="at">y =</span> <span class="fl">0.3</span>, <span class="at">color =</span> <span class="st">&quot;forestgreen&quot;</span>) <span class="sc">+</span></span>
+<span id="cb99-9"><a href="Continuous.html#cb99-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Value&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>) <span class="sc">+</span></span>
+<span id="cb99-10"><a href="Continuous.html#cb99-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb99-11"><a href="Continuous.html#cb99-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="fl">0.5</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:chisqnormal"></span>
+<img src="famousdistrib_files/figure-html/chisqnormal-1.png" alt="Plot of the Chi-square distribution with 1 df and standard normal distribution" width="60%" />
+<p class="caption">
+Figure 6.6: Plot of the Chi-square distribution with 1 df and standard normal distribution
+</p>
+</div>
+<p>We can use this specific chi-square distribution with one degree of freedom to find the cumulative densities in a normal distribution. All that we have to do is acknowledge that our chi-square random variable is a standard normal random variable squared. In other words, if <span class="math inline">\(P(Z=x)=P(Z^2=x^2)\)</span>, i.e. the cumulative densities do not change after rewriting this chi-square distribution as the standard normal distribution squared.</p>
+<p>For instance, the probability that a normal random variable <span class="math inline">\(Z\)</span> is between -1.28 and 1.28 can be calculated with two methods: first by using the standard normal distribution and the second using the chi-square distribution with <span class="math inline">\(k=1\)</span> degrees of freedom.</p>
+<p><span class="math display">\[ P(-1.28 &lt; Z &lt;1.28) \approx 0.8 \\ P(Z^2&lt;1.28^2) = P(|Z| &lt; 1.28) =(\chi^2_{(1)}&lt;1.6384) \approx 0.8\]</span></p>
+<p>Similarly with R,</p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="Continuous.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">1.28</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fl">1.28</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## [1] 0.7994549</code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="Continuous.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="fl">1.6384</span>, <span class="at">df =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] 0.7994549</code></pre>
+<p>Both of which can be rounded to 0.8.</p>
+<p>We eventually use the chi-square distribution to observe more complicated situations with multiple independent and normal processes. For more the derivation of chi-square distributions with greater than 1 degrees of freedom, or if you want to learn more about this topic, see a full proof <a href="https://en.wikipedia.org/wiki/Proofs_related_to_chi-squared_distribution">here</a>.</p>
+<hr />
+</div>
+<div id="using-chi-square-distributions-for-testing" class="section level3" number="6.4.2">
+<h3><span class="header-section-number">6.4.2</span> Using Chi-square Distributions for Testing</h3>
+<p>Similar to previous distributions used for testing, we must reasonably assume that each observation in the data is independent of each other. The size condition can be confirmed by looking at whether each category in the analysis has at least <span class="math inline">\(x\)</span> observations. In general, statisticians look to make sure that the observed counts are greater than 5, but the threshold can change depending on the circumstance.</p>
+<p>The degrees of freedom can be calculated as <span class="math inline">\(k=(n-1)(i-1)\)</span> where the sample as <span class="math inline">\(n\)</span> observations and there are <span class="math inline">\(i\)</span> categories. Similar to the t-distribution, the degrees of freedom increases as we use larger data sets with more categories or observations.</p>
+<p>After we have determined the degrees of freedom, we calculate the <span class="math inline">\(\chi^2\)</span> test statistic using the following:</p>
+<p><span class="math display">\[ \begin{split} 
+&amp;\chi^2 =  \sum_{i=1}^{n}\frac{(O_i-E_i)^2}{E_i} \\
+\textrm{Where} \enspace &amp;O_i \enspace \textrm{is the observed count of the ith category} \\ 
+&amp;E_i \enspace \textrm{is the expected count of the ith category}
+\end{split}\]</span></p>
+<p>The function <code>chisq.test</code> also accomplishes this. What you provide in the function depends on whether you are doing a test for goodness of fit or independence.</p>
+<p>For <strong>goodness of fit</strong> tests (whether observed data follows expected ratios), you need to create two vectors:</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="Continuous.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vector of probabilities</span></span>
+<span id="cb104-2"><a href="Continuous.html#cb104-2" aria-hidden="true" tabindex="-1"></a>predicted <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.6</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span>)</span>
+<span id="cb104-3"><a href="Continuous.html#cb104-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-4"><a href="Continuous.html#cb104-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vector of observed values</span></span>
+<span id="cb104-5"><a href="Continuous.html#cb104-5" aria-hidden="true" tabindex="-1"></a>observed <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">66</span>, <span class="dv">27</span>, <span class="dv">15</span>)</span>
+<span id="cb104-6"><a href="Continuous.html#cb104-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-7"><a href="Continuous.html#cb104-7" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(observed, <span class="at">p =</span> predicted)</span></code></pre></div>
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  observed
+## X-squared = 2.5556, df = 2, p-value = 0.2787</code></pre>
+<p>For tests of <strong>independence</strong> (whether associations exist between rows and columns), you need to provide a matrix:</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="Continuous.html#cb106-1" aria-hidden="true" tabindex="-1"></a> matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">103</span>, <span class="dv">150</span>, <span class="dv">103</span>, <span class="dv">102</span>, <span class="dv">140</span>, <span class="dv">97</span>),</span>
+<span id="cb106-2"><a href="Continuous.html#cb106-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb106-3"><a href="Continuous.html#cb106-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;Group A&quot;</span>, <span class="st">&quot;Group B&quot;</span>), </span>
+<span id="cb106-4"><a href="Continuous.html#cb106-4" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">c</span>(<span class="st">&quot;Variable 1&quot;</span>, <span class="st">&quot;Variable 2&quot;</span>, <span class="st">&quot;Variable 3&quot;</span>)))</span>
+<span id="cb106-5"><a href="Continuous.html#cb106-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-6"><a href="Continuous.html#cb106-6" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(matrix)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Variable 1</th>
+<th align="right">Variable 2</th>
+<th align="right">Variable 3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Group A</td>
+<td align="right">103</td>
+<td align="right">150</td>
+<td align="right">103</td>
+</tr>
+<tr class="even">
+<td align="left">Group B</td>
+<td align="right">102</td>
+<td align="right">140</td>
+<td align="right">97</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="Continuous.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(matrix)</span></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  matrix
+## X-squared = 0.11395, df = 2, p-value = 0.9446</code></pre>
+<p>Great! This concludes the last distribution in this guide. Thank you so much for reading this guide, and I wish you luck as you continue your statistics journey! :)</p>
 
+</div>
 </div>
 </div>
             </section>
