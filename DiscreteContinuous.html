@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 From Discrete to Continous Cases | Visualizing Probability Distributions with ggplot</title>
+  <meta name="description" content="." />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 From Discrete to Continous Cases | Visualizing Probability Distributions with ggplot" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 From Discrete to Continous Cases | Visualizing Probability Distributions with ggplot" />
+  
+  <meta name="twitter:description" content="." />
+  
+
+<meta name="author" content="Ben Wallace" />
+
+
+<meta name="date" content="2021-07-27" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="Discrete.html"/>
+<link rel="next" href="Continuous.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="libs/viz-1.8.2/viz.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/grViz-binding-1.0.6.1/grViz.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Visualizing Probability Distributions with ggplot</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="ggplot.html"><a href="ggplot.html"><i class="fa fa-check"></i><b>2</b> Basic Concepts of ggplot</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ggplot.html"><a href="ggplot.html#geometries-and-aesthetic-mappings"><i class="fa fa-check"></i><b>2.1</b> Geometries and Aesthetic Mappings</a></li>
+<li class="chapter" data-level="2.2" data-path="ggplot.html"><a href="ggplot.html#altering-aesthetics-and-scalings"><i class="fa fa-check"></i><b>2.2</b> Altering Aesthetics and Scalings</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="Distributions.html"><a href="Distributions.html"><i class="fa fa-check"></i><b>3</b> Understanding Distributions</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="Distributions.html"><a href="Distributions.html#Uniform"><i class="fa fa-check"></i><b>3.1</b> Uniform Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="Discrete.html"><a href="Discrete.html"><i class="fa fa-check"></i><b>4</b> Other Discrete Distributions</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="Discrete.html"><a href="Discrete.html#Geometric"><i class="fa fa-check"></i><b>4.1</b> Geometric Distribution</a></li>
+<li class="chapter" data-level="4.2" data-path="Discrete.html"><a href="Discrete.html#Binomial"><i class="fa fa-check"></i><b>4.2</b> Binomial Distribution</a></li>
+<li class="chapter" data-level="4.3" data-path="Discrete.html"><a href="Discrete.html#negative-binomial-distribution"><i class="fa fa-check"></i><b>4.3</b> Negative Binomial Distribution</a></li>
+<li class="chapter" data-level="4.4" data-path="Discrete.html"><a href="Discrete.html#Poisson"><i class="fa fa-check"></i><b>4.4</b> Poisson Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="DiscreteContinuous.html"><a href="DiscreteContinuous.html"><i class="fa fa-check"></i><b>5</b> From Discrete to Continous Cases</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="DiscreteContinuous.html"><a href="DiscreteContinuous.html#normal-approximation-and-demoivres-problem"><i class="fa fa-check"></i><b>5.1</b> Normal Approximation and DeMoivre’s Problem</a></li>
+<li class="chapter" data-level="5.2" data-path="DiscreteContinuous.html"><a href="DiscreteContinuous.html#normal-distribution"><i class="fa fa-check"></i><b>5.2</b> Normal Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="Continuous.html"><a href="Continuous.html"><i class="fa fa-check"></i><b>6</b> Other Continuous Distributions</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="Continuous.html"><a href="Continuous.html#T"><i class="fa fa-check"></i><b>6.1</b> t-Distribution</a></li>
+<li class="chapter" data-level="6.2" data-path="Continuous.html"><a href="Continuous.html#Exponential"><i class="fa fa-check"></i><b>6.2</b> Exponential Distribution</a></li>
+<li class="chapter" data-level="6.3" data-path="Continuous.html"><a href="Continuous.html#Gamma"><i class="fa fa-check"></i><b>6.3</b> Gamma Distribution</a></li>
+<li class="chapter" data-level="6.4" data-path="Continuous.html"><a href="Continuous.html#χ2-distribution"><i class="fa fa-check"></i><b>6.4</b> χ2 Distribution</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="Continuous.html"><a href="Continuous.html#chi-square-and-normal-relationship"><i class="fa fa-check"></i><b>6.4.1</b> Chi-square and Normal Relationship</a></li>
+<li class="chapter" data-level="6.4.2" data-path="Continuous.html"><a href="Continuous.html#using-chi-square-distributions-for-testing"><i class="fa fa-check"></i><b>6.4.2</b> Using Chi-square Distributions for Testing</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Visualizing Probability Distributions with ggplot</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="DiscreteContinuous" class="section level1" number="5">
+<h1><span class="header-section-number">Chapter 5</span> From Discrete to Continous Cases</h1>
+<div id="normal-approximation-and-demoivres-problem" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Normal Approximation and DeMoivre’s Problem</h2>
+<p>In a way, the binomial distribution is the parent of the normal distribution. I’ll explain.</p>
+<p>Several centuries ago, mathematician Abraham DeMoivre was asked to solve a gambling problem requiring him to flip a coin many times and counts the total number of heads. After repeatedly playing the game, he found that his results resembled a unique bellcurve shape.</p>
+<p>In this section, we will simulate his experiment:</p>
+<ul>
+<li>First, we will use R to create a coin. The heads side of our fair coin will be represented with a “H” and tails with a “T.”</li>
+</ul>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="DiscreteContinuous.html#cb57-1" aria-hidden="true" tabindex="-1"></a>coin <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;H&quot;</span>,<span class="st">&quot;T&quot;</span>)</span></code></pre></div>
+<ul>
+<li>Next, we will use <code>sample</code> to simulate random coin flips. The first argument of the function is for the elements of our random sampling process. The second <code>size</code> is the number of times that we will flip the coin. Finally, we will set <code>replace</code> to <code>TRUE</code> so that we keep both sides of our coin after flipping.</li>
+</ul>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="DiscreteContinuous.html#cb58-1" aria-hidden="true" tabindex="-1"></a>flips <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">flip_num =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3600</span>, </span>
+<span id="cb58-2"><a href="DiscreteContinuous.html#cb58-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">outcome =</span> <span class="fu">sample</span>(coin, <span class="at">size =</span> <span class="dv">3600</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb58-3"><a href="DiscreteContinuous.html#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-4"><a href="DiscreteContinuous.html#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(flips, <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 5 x 2
+##   flip_num outcome
+##      &lt;int&gt; &lt;chr&gt;  
+## 1        1 T      
+## 2        2 H      
+## 3        3 T      
+## 4        4 H      
+## 5        5 H</code></pre>
+<ul>
+<li>Now, let’s save the total number of heads.</li>
+</ul>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="DiscreteContinuous.html#cb60-1" aria-hidden="true" tabindex="-1"></a>heads <span class="ot">&lt;-</span> flips <span class="sc">%&gt;%</span> </span>
+<span id="cb60-2"><a href="DiscreteContinuous.html#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(outcome <span class="sc">==</span> <span class="st">&quot;H&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb60-3"><a href="DiscreteContinuous.html#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()</span>
+<span id="cb60-4"><a href="DiscreteContinuous.html#cb60-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-5"><a href="DiscreteContinuous.html#cb60-5" aria-hidden="true" tabindex="-1"></a>heads</span></code></pre></div>
+<pre><code>## # A tibble: 1 x 1
+##       n
+##   &lt;int&gt;
+## 1  1794</code></pre>
+<ul>
+<li>Our last step is to find a way to repeat this game of 3600 flips. We will do so by creating a function.</li>
+</ul>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="DiscreteContinuous.html#cb62-1" aria-hidden="true" tabindex="-1"></a>get_heads <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb62-2"><a href="DiscreteContinuous.html#cb62-2" aria-hidden="true" tabindex="-1"></a>  fair_coin <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;H&quot;</span>, <span class="st">&quot;T&quot;</span>) <span class="co"># Repeating code from the previous lines.</span></span>
+<span id="cb62-3"><a href="DiscreteContinuous.html#cb62-3" aria-hidden="true" tabindex="-1"></a>  flip <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">flip_num =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3600</span>, </span>
+<span id="cb62-4"><a href="DiscreteContinuous.html#cb62-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">outcome =</span> <span class="fu">sample</span>(fair_coin, <span class="at">size =</span> <span class="dv">3600</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb62-5"><a href="DiscreteContinuous.html#cb62-5" aria-hidden="true" tabindex="-1"></a>  heads_count <span class="ot">&lt;-</span> flip <span class="sc">%&gt;%</span> <span class="fu">filter</span>(outcome <span class="sc">==</span> <span class="st">&quot;H&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">count</span>()</span>
+<span id="cb62-6"><a href="DiscreteContinuous.html#cb62-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(heads_count)</span>
+<span id="cb62-7"><a href="DiscreteContinuous.html#cb62-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<ul>
+<li>Using this function, we will repeat the coin flip game 1000 times and count the number of heads using <code>replicate</code>. Read more about the function’s documentation by typing <code>?replicate</code> into the console.</li>
+</ul>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="DiscreteContinuous.html#cb63-1" aria-hidden="true" tabindex="-1"></a>outcomes <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">game_num =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>,</span>
+<span id="cb63-2"><a href="DiscreteContinuous.html#cb63-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">heads =</span> <span class="fu">as.numeric</span>(<span class="fu">replicate</span>(<span class="dv">1000</span>, <span class="fu">get_heads</span>(), <span class="at">simplify =</span> <span class="cn">TRUE</span>))) </span>
+<span id="cb63-3"><a href="DiscreteContinuous.html#cb63-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-4"><a href="DiscreteContinuous.html#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(outcomes, <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 5 x 2
+##   game_num heads
+##      &lt;int&gt; &lt;dbl&gt;
+## 1        1  1803
+## 2        2  1790
+## 3        3  1831
+## 4        4  1855
+## 5        5  1806</code></pre>
+<ul>
+<li>What does this look like? We will first save a ggplot object called <code>demoivre_plot</code> and then make a histogram.</li>
+</ul>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="DiscreteContinuous.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting our game outcomes</span></span>
+<span id="cb65-2"><a href="DiscreteContinuous.html#cb65-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-3"><a href="DiscreteContinuous.html#cb65-3" aria-hidden="true" tabindex="-1"></a>demoivre_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(outcomes, <span class="fu">aes</span>(<span class="at">x =</span> heads))</span>
+<span id="cb65-4"><a href="DiscreteContinuous.html#cb65-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb65-5"><a href="DiscreteContinuous.html#cb65-5" aria-hidden="true" tabindex="-1"></a>demoivre_plot <span class="sc">+</span></span>
+<span id="cb65-6"><a href="DiscreteContinuous.html#cb65-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">25</span>) <span class="sc">+</span></span>
+<span id="cb65-7"><a href="DiscreteContinuous.html#cb65-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Heads&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Count&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:coinplot-hist"></span>
+<img src="famousdistrib_files/figure-html/coinplot-hist-1.png" alt="Coin game simulation with geom_histogram" width="60%" />
+<p class="caption">
+Figure 5.1: Coin game simulation with geom_histogram
+</p>
+</div>
+<p>You can start to see the bell shape taking form in Figure <a href="DiscreteContinuous.html#fig:coinplot-hist">5.1</a>. However, this is even easier to see with <code>geom_density()</code> which takes the same aesthetic mapping as <code>geom_histogram</code>.</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="DiscreteContinuous.html#cb66-1" aria-hidden="true" tabindex="-1"></a>demoivre_plot <span class="sc">+</span></span>
+<span id="cb66-2"><a href="DiscreteContinuous.html#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">fill =</span> <span class="st">&quot;lightsteelblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb66-3"><a href="DiscreteContinuous.html#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Heads&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:coinplot-density"></span>
+<img src="famousdistrib_files/figure-html/coinplot-density-1.png" alt="Coin game simulation with geom_density" width="60%" />
+<p class="caption">
+Figure 5.2: Coin game simulation with geom_density
+</p>
+</div>
+<p>This unique bellcurve roughly follows the <strong>normal distribution</strong>.</p>
+<p>This distribution is useful beyond the coin flipping game. It is also resembles many everyday phenomena such as heights, IQ scores, salaries, and blood pressure. Because of this, when we know that an outcomes, people, or observations are independent and normally distributed, we can make <em>inferences</em> about the larger picture.</p>
+<hr />
+</div>
+<div id="normal-distribution" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Normal Distribution</h2>
+<p>Now let’s return to the normal distribution. We can define it as follows:</p>
+<p><span class="math display">\[f(x)=(2\pi)^{-1/2}e^{-x^2/2} \quad \textrm{for} \enspace -\infty &lt; x &lt; \infty\]</span></p>
+<p>The fact that <span class="math inline">\(x\)</span> can take non-positive and non-integer values differentiates the normal distribution from <a href="Discrete.html#Discrete">discrete distributions</a>. These such distributions are considered <strong>continuous</strong>.</p>
+<p>The density function <code>dnorm(x)</code> can be thought of as f(x). The first argument x contains a vector of numbers that will yield their density. Let’s try this with <span class="math inline">\(x = 1.5\)</span> on a standard normal distribution. This means that the mean of the distribution is 0 and the standard deviation is 1.</p>
+<p>How likely is it that a point would be 1.5 standard deviations above the mean?</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="DiscreteContinuous.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dnorm</span>(<span class="fl">1.5</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>) <span class="co">#The mean and sd arguments are set to these values by default.</span></span></code></pre></div>
+<pre><code>## [1] 0.1295176</code></pre>
+<p>To interpret this density, simply think of 13% as the probability that an observation would be 1.5 standard deviations greater than a mean.</p>
+<p>There are many real world scenarios in which we could apply this. For instance, the probability of an American male having a height that is 1.5 standard deviations greater than average (i.e. 76 inches or 6 feet and 3 inches) is about 13%.</p>
+<hr />
+<p>Oftentimes, we don’t have a standardized distribution with 0 as the mean and 1 as the standard deviation. To demonstrate this, we’ll return to our height example. The average height of men in the United States is 70 inches with 2 inches as the standard deviation. Thus, we must reevaluate the <code>mean</code> and <code>sd</code> arguments.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="DiscreteContinuous.html#cb69-1" aria-hidden="true" tabindex="-1"></a>normal <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="dv">70</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p>We can visualize this differently than discrete distributions. <code>stat_function</code> is a unique tool within ggplot that plots continuous curves. There are several required arguments:</p>
+<ol style="list-style-type: decimal">
+<li>a geometry such as “function,” “point,” “area,” etc.,</li>
+<li>a continuous function,</li>
+<li>lower and upper limits on the x and/or x axis,</li>
+<li>and a list of arguments for the function.</li>
+</ol>
+<p>We listed our arguments for a normal curve above. After plotting this curve, we will add a vertical line at the mean using <code>geom_vline</code>. For this geometry, we are required to provide an x-intercept.</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="DiscreteContinuous.html#cb70-1" aria-hidden="true" tabindex="-1"></a>normal_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb70-2"><a href="DiscreteContinuous.html#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(</span>
+<span id="cb70-3"><a href="DiscreteContinuous.html#cb70-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">geom =</span> <span class="st">&quot;function&quot;</span>,</span>
+<span id="cb70-4"><a href="DiscreteContinuous.html#cb70-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> dnorm,</span>
+<span id="cb70-5"><a href="DiscreteContinuous.html#cb70-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">61</span>, <span class="dv">79</span>),</span>
+<span id="cb70-6"><a href="DiscreteContinuous.html#cb70-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">args =</span> normal <span class="co"># This is the list of arguments from above</span></span>
+<span id="cb70-7"><a href="DiscreteContinuous.html#cb70-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb70-8"><a href="DiscreteContinuous.html#cb70-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">70</span>, <span class="at">color =</span> <span class="st">&quot;lightsteelblue&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb70-9"><a href="DiscreteContinuous.html#cb70-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Height (inches)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>)</span>
+<span id="cb70-10"><a href="DiscreteContinuous.html#cb70-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-11"><a href="DiscreteContinuous.html#cb70-11" aria-hidden="true" tabindex="-1"></a>normal_plot</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:normal-plot"></span>
+<img src="famousdistrib_files/figure-html/normal-plot-1.png" alt="Normal distribution of U.S. male heights" width="60%" />
+<p class="caption">
+Figure 5.3: Normal distribution of U.S. male heights
+</p>
+</div>
+<p>Unlike the geometric and binomial distributions, the normal distribution is symmetric about the mean. When a height is much greater or smaller than the average, it is less likely to occur.</p>
+<hr />
+<p>Now that we have made our density plot, we can again capture an interval of values in the distribution with our “p” distribution function <code>pnorm()</code>. If the shortest Duke basketball player (in the 2020-21 season) is 6 feet or 72 inches tall, what percentage of the American male population is shorter than the basketball team?</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="DiscreteContinuous.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">pnorm</span>(<span class="dv">72</span>, <span class="dv">70</span>, <span class="dv">2</span>), <span class="at">digits =</span> <span class="dv">3</span>) <span class="sc">*</span> <span class="dv">100</span> <span class="co"># Multiply by 100 to get a percentage</span></span></code></pre></div>
+<pre><code>## [1] 84.1</code></pre>
+<p>To understand what the lower 84.1% of the normal distribution looks like, we will create two geometries with <code>stat_function</code> in Figure <a href="DiscreteContinuous.html#fig:pnorm-plot">5.4</a>. The first will shade the entire distribution gray. On top of that, the second <code>stat_function</code> geometry fills the area of the distribution lower than 72 inches blue.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="DiscreteContinuous.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb73-2"><a href="DiscreteContinuous.html#cb73-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="co"># Plot the entire distribution</span></span>
+<span id="cb73-3"><a href="DiscreteContinuous.html#cb73-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">geom =</span> <span class="st">&quot;area&quot;</span>,</span>
+<span id="cb73-4"><a href="DiscreteContinuous.html#cb73-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">fill =</span> <span class="st">&quot;lightgray&quot;</span>,</span>
+<span id="cb73-5"><a href="DiscreteContinuous.html#cb73-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb73-6"><a href="DiscreteContinuous.html#cb73-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">61</span>, <span class="dv">79</span>),</span>
+<span id="cb73-7"><a href="DiscreteContinuous.html#cb73-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">args =</span> normal) <span class="sc">+</span></span>
+<span id="cb73-8"><a href="DiscreteContinuous.html#cb73-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="co"># Change the color of heights &lt; 72 inches.</span></span>
+<span id="cb73-9"><a href="DiscreteContinuous.html#cb73-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">geom =</span> <span class="st">&quot;area&quot;</span>,</span>
+<span id="cb73-10"><a href="DiscreteContinuous.html#cb73-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>,</span>
+<span id="cb73-11"><a href="DiscreteContinuous.html#cb73-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">61</span>, <span class="dv">72</span>),</span>
+<span id="cb73-12"><a href="DiscreteContinuous.html#cb73-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">args =</span> normal</span>
+<span id="cb73-13"><a href="DiscreteContinuous.html#cb73-13" aria-hidden="true" tabindex="-1"></a>                ) <span class="sc">+</span></span>
+<span id="cb73-14"><a href="DiscreteContinuous.html#cb73-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Height (inches)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:pnorm-plot"></span>
+<img src="famousdistrib_files/figure-html/pnorm-plot-1.png" alt="U.S. male heights below 72 inches" width="60%" />
+<p class="caption">
+Figure 5.4: U.S. male heights below 72 inches
+</p>
+</div>
+<p>As the blue portion of the plot makes clear, a majority of American men have heights below 72 inches.</p>
+<hr />
+<p>We use <code>rnorm</code> whenever we want to draw random samples from the normal distribution. On its own, the function helps us better understand the natural variation of real world processes that draw from normal distributions. If we repeat this sampling many times, we’ll have a plot that more closely resembles the <em>true</em> distribution.</p>
+<p>Let’s apply this concept again to height. Imagine that you took a random sample of 50 US men and took their height.</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="DiscreteContinuous.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Take sample</span></span>
+<span id="cb74-2"><a href="DiscreteContinuous.html#cb74-2" aria-hidden="true" tabindex="-1"></a>sample_50 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">deviates =</span> <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="dv">70</span>, <span class="dv">2</span>))</span>
+<span id="cb74-3"><a href="DiscreteContinuous.html#cb74-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-4"><a href="DiscreteContinuous.html#cb74-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot as a histogram</span></span>
+<span id="cb74-5"><a href="DiscreteContinuous.html#cb74-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sample_50, <span class="fu">aes</span>(<span class="at">x =</span> deviates)) <span class="sc">+</span></span>
+<span id="cb74-6"><a href="DiscreteContinuous.html#cb74-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:sample-heights"></span>
+<img src="famousdistrib_files/figure-html/sample-heights-1.png" alt="Heights of U.S. men, n = 50" width="60%" />
+<p class="caption">
+Figure 5.5: Heights of U.S. men, n = 50
+</p>
+</div>
+<p>If we took a larger sample, we would get something that looks more normally distributed.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="DiscreteContinuous.html#cb75-1" aria-hidden="true" tabindex="-1"></a>sample_5000 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">deviates =</span> <span class="fu">rnorm</span>(<span class="dv">5000</span>, <span class="dv">70</span>, <span class="dv">2</span>))</span>
+<span id="cb75-2"><a href="DiscreteContinuous.html#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-3"><a href="DiscreteContinuous.html#cb75-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sample_5000, <span class="fu">aes</span>(<span class="at">x =</span> deviates)) <span class="sc">+</span></span>
+<span id="cb75-4"><a href="DiscreteContinuous.html#cb75-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:large-sample"></span>
+<img src="famousdistrib_files/figure-html/large-sample-1.png" alt="Heights of U.S. men, n = 5000" width="60%" />
+<p class="caption">
+Figure 5.6: Heights of U.S. men, n = 5000
+</p>
+</div>
+<p>The plots below will more finely measure this progression as sample sizes increase:</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="DiscreteContinuous.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a function that randomly samples from normal distribution</span></span>
+<span id="cb76-2"><a href="DiscreteContinuous.html#cb76-2" aria-hidden="true" tabindex="-1"></a>norm_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(mean, sd, n){</span>
+<span id="cb76-3"><a href="DiscreteContinuous.html#cb76-3" aria-hidden="true" tabindex="-1"></a>  temp <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">deviates =</span> <span class="fu">rnorm</span>(n, mean, sd))</span>
+<span id="cb76-4"><a href="DiscreteContinuous.html#cb76-4" aria-hidden="true" tabindex="-1"></a>  plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(temp, <span class="fu">aes</span>(<span class="at">x =</span> deviates)) <span class="sc">+</span></span>
+<span id="cb76-5"><a href="DiscreteContinuous.html#cb76-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>)</span>
+<span id="cb76-6"><a href="DiscreteContinuous.html#cb76-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(plot)</span>
+<span id="cb76-7"><a href="DiscreteContinuous.html#cb76-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb76-8"><a href="DiscreteContinuous.html#cb76-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-9"><a href="DiscreteContinuous.html#cb76-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Produce plots</span></span>
+<span id="cb76-10"><a href="DiscreteContinuous.html#cb76-10" aria-hidden="true" tabindex="-1"></a>sample_50 <span class="ot">&lt;-</span> <span class="fu">norm_plot</span>(<span class="dv">70</span>, <span class="dv">2</span>, <span class="dv">50</span>)</span>
+<span id="cb76-11"><a href="DiscreteContinuous.html#cb76-11" aria-hidden="true" tabindex="-1"></a>sample_500 <span class="ot">&lt;-</span> <span class="fu">norm_plot</span>(<span class="dv">70</span>, <span class="dv">2</span>, <span class="dv">500</span>)</span>
+<span id="cb76-12"><a href="DiscreteContinuous.html#cb76-12" aria-hidden="true" tabindex="-1"></a>sample_5000 <span class="ot">&lt;-</span> <span class="fu">norm_plot</span>(<span class="dv">70</span>, <span class="dv">2</span>, <span class="dv">5000</span>)</span>
+<span id="cb76-13"><a href="DiscreteContinuous.html#cb76-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-14"><a href="DiscreteContinuous.html#cb76-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot together</span></span>
+<span id="cb76-15"><a href="DiscreteContinuous.html#cb76-15" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(<span class="cn">NULL</span>, normal_plot, <span class="cn">NULL</span>, sample_50, sample_500, sample_5000, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:samples-comp"></span>
+<img src="famousdistrib_files/figure-html/samples-comp-1.png" alt="Comparison of samples to normal distribution" width="60%" />
+<p class="caption">
+Figure 5.7: Comparison of samples to normal distribution
+</p>
+</div>
+<p>Now that we have looked at the normal distribution, let’s continue to look at other continuous random variables.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="Discrete.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="Continuous.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/04-from_discrete_continuous.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["famousdistrib.pdf", "famousdistrib.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
