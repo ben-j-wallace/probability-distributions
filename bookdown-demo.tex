@@ -1,0 +1,2236 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{book}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Learning Famous Statistical Distributions with R},
+  pdfauthor={Ben Wallace},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\usepackage{booktabs}
+\usepackage{amsthm}
+\makeatletter
+\def\thm@space@setup{%
+  \thm@preskip=8pt plus 2pt minus 4pt
+  \thm@postskip=\thm@preskip
+}
+\makeatother
+
+%% New Commands
+
+\newcommand{\smspace}{\hspace{0.2}}}
+\newcommand{\medspace}{\hspace{0.7}}}
+
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage[]{natbib}
+\bibliographystyle{apalike}
+
+\title{Learning Famous Statistical Distributions with R}
+\author{Ben Wallace}
+\date{2/5/2021}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\hypertarget{introduction}{%
+\chapter{Introduction}\label{introduction}}
+
+This is a guide to understanding and visualizing several important discrete and continuous distributions in the statistics world. We will use several R packages in the process.
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{stats} (installed by default in RStudio) to retrieve statistical distributions.
+\item
+  \texttt{tibble} to coerce data frames into tibbles. What is a tibble?
+\item
+  \texttt{ggplot2} to produce geometries from visualizations.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{) }\CommentTok{\# Includes both tibble and ggplot2 packages}
+\CommentTok{\# or the development version}
+\CommentTok{\# devtools::install\_github("tidyverse")}
+\end{Highlighting}
+\end{Shaded}
+
+This guide is intended for those that are new to statistics and/or data science and are somewhat familiar with the R language. If you would like a more comprehensive introduction to R, I recommend both of these free and accessible books:
+
+\begin{itemize}
+\tightlist
+\item
+  R for Data Science
+\item
+  R for Statistics
+\end{itemize}
+
+I find it helpful to begin this guide with an overview of the function \texttt{ggplot}, which will be the first chapter. This includes an important conceptual basis for aesthetics, geometries, mappings, and scales.
+
+The lessons learned in ggplot chapter will then be applied to the remainder of the book. In each chapter, we will introduce a statistical distribution and use ggplot to better visualize our concepts. We will also go over several important functions from the \texttt{stats} package including
+
+\begin{itemize}
+\item
+  ``d'' functions, which return a vector of \textbf{densities}.
+\item
+  ``p'' functions, which give us a cumulative \textbf{probability} of the distribution (also known as a distribution function).
+\item
+  ``q'' functions returns a probability corresponding to a given \textbf{quantile}.
+\item
+  and finally, ``r'' functions generate \textbf{random} values from a given distribution.
+\end{itemize}
+
+\hypertarget{ggplot}{%
+\chapter{Basic Concepts of ggplot}\label{ggplot}}
+
+A visualization can be anything. It can be a drawing, a photograph, a sculpture, a well-decorated cake\ldots{} you get the idea. However, data scientists and statisticians are often not very skilled at all of these art forms, so they are limited to their tools at hand: functions, code, and geometries.
+
+This leads us to data visualizations. What separates a data visualization from a drawing is the tools used to construct it. In this guide, our blank canvas is a function called \texttt{ggplot}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{ggplot}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-2-1} 
+
+}
+
+\caption{An empty plot, how sad!}\label{fig:unnamed-chunk-2}
+\end{figure}
+
+Everytime that we want to visualize something, we must use this function. The stuff that fills up this space are called \textbf{geometries}. Here are just a few that ggplot has avaiable to us.
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{geom\_rect} produces rectangles.
+\item
+  \texttt{geom\_point} creates dots.
+\item
+  \texttt{geom\_line} draws lines.
+\item
+  \texttt{geom\_bar} makes a barplot.
+\item
+  \texttt{geom\_function} uses functions to draw a continuous curve.
+\end{itemize}
+
+If the geometries are the shapes on our ggplot canvas, how do we put them on there? This is where aesthetics and mapping come in. When we call the function \texttt{ggplot} we need to connect our data to aesthetic mappings which are then applied to various geometries.
+
+But where do we use aesthetics mappings? The \texttt{mapping} argument in the \texttt{ggplot} and \texttt{geom} functions are what connect variables from our dataset. Lets look at a dataset of Marvel superheroes and apply the following aesthetics:
+
+Years since joining Marvel → x
+
+Appearances → y
+
+Gender → color
+
+Now we will use the \texttt{aes} function to define our mappings for a simple scatterplot. We will also use the \texttt{labs} function to label our axes and title and an additional \texttt{size} argument to make our points larger.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ avengers, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ years\_since\_joining,}
+                                      \AttributeTok{y =}\NormalTok{ appearances,}
+                                      \AttributeTok{color =}\NormalTok{ gender)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"\textquotesingle{}Age\textquotesingle{} of Superheroes and Appearances"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Years since Joining Marvel"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Appearances"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-4-1} \end{center}
+
+We used two arguments in the gpplot function: data and mapping. Next, we added the geometry \texttt{geom\_point} using a plus sign (+). The aesthetic mapping in the ggplot function are then passed onto \texttt{geom\_point}.
+
+Even though we must include data and mappings to produce a visualization, we do not always have to name the arguments themselves. For instance, we could simply write:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(avengers, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ years\_since\_joining,}
+                     \AttributeTok{y =}\NormalTok{ appearances,}
+                     \AttributeTok{color =}\NormalTok{ gender)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+Aesthetic mappings can also produce different geometries by simply changing the function. For example, instead of using \texttt{geom\_point} we can use \texttt{geom\_rect} to draw rectangles or squares.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(avengers, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ years\_since\_joining,}
+                     \AttributeTok{y =}\NormalTok{ appearances,}
+                     \AttributeTok{fill =}\NormalTok{ gender)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_rect}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xmin =}\NormalTok{ years\_since\_joining }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{,}
+                \AttributeTok{xmax =}\NormalTok{ years\_since\_joining }\SpecialCharTok{+} \DecValTok{1}\NormalTok{,}
+                \AttributeTok{ymin =}\NormalTok{ appearances }\SpecialCharTok{{-}} \DecValTok{100}\NormalTok{,}
+                \AttributeTok{ymax =}\NormalTok{ appearances }\SpecialCharTok{+} \DecValTok{100}\NormalTok{)) }\SpecialCharTok{+}
+    \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"\textquotesingle{}Age\textquotesingle{} of Superheroes and Appearances"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Years since Joining Marvel"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Appearances"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-6-1} \end{center}
+
+Notice that the \texttt{geom\_rect} geometry requires aesthetic mappings beyond those in \texttt{geom\_point}, including the minimums and maximums for x and y. The color aesthetic of \texttt{geom\_point} turns to fill in \texttt{geom\_rect} since the rectangles are not points; they are shapes with empty space.
+
+So far we have established that aesthetics can be passed onto different geometries.
+
+The following diagram recaps where we are at now.
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-7-1} \end{center}
+
+Generally, we want to provide mappings to the ggplot function so that they pass to all of our geometries. Including them in every line of code would be repetitive.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Don\textquotesingle{}t do this!}
+\FunctionTok{ggplot}\NormalTok{(avengers, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ years\_since\_joining,}
+                     \AttributeTok{y =}\NormalTok{ appearances,}
+                     \AttributeTok{color =}\NormalTok{ gender)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ years\_since\_joining,}
+                 \AttributeTok{y =}\NormalTok{ appearances,}
+                 \AttributeTok{color =}\NormalTok{ gender))}
+
+\CommentTok{\# Do this instead!}
+\FunctionTok{ggplot}\NormalTok{(avengers, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ years\_since\_joining,}
+                     \AttributeTok{y =}\NormalTok{ appearances,}
+                     \AttributeTok{color =}\NormalTok{ gender)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+But there are plenty of instances in which we wouldn't want to keep our aesthetics limited to the ggplot function line--for example, plots with two different groups or those with different scales on the y axis (although it is not generally recommended to have multiple scales on an axis since it is confusing). Let's return to the Avengers plot but keep the \texttt{color} argument in \texttt{geom\_point} so that the color of our text doesn't differ by gender.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(avengers, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ years\_since\_joining, }\AttributeTok{y =}\NormalTok{ appearances)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{color =}\NormalTok{ gender), }\AttributeTok{size =} \DecValTok{5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =}\NormalTok{ name\_alias), }\AttributeTok{size =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"\textquotesingle{}Age\textquotesingle{} of Superheroes and Appearances"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Years since Joining Marvel"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Appearances"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-9-1} \end{center}
+
+This doesn't look pretty but you get the idea. A general rule to follow with data visualizations is to avoid mapping one aesthetic to multiple variables. For instance, a plot in which the color is used to illustrate both an Avenger's gender and their name would be confusing.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Don\textquotesingle{}t do this!}
+\FunctionTok{ggplot}\NormalTok{(avengers, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ years\_since\_joining, }\AttributeTok{y =}\NormalTok{ appearances)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{color =}\NormalTok{ gender), }\AttributeTok{size =} \DecValTok{5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{color =}\NormalTok{ name\_alias, }\AttributeTok{label =}\NormalTok{ name\_alias), }\AttributeTok{size =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"\textquotesingle{}Age\textquotesingle{} of Superheroes and Appearances"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Years since Joining Marvel"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Appearances"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-10-1} \end{center}
+
+Sadly, Steve Rogers is not a gender and neither are the other Avenger names in the legend. This is why we should not map one aesthetic to more than one variable.
+
+Now, let's introduce a way to change our aesthetics further. There are some arguments within geom functions that allow us to do this. For instance, you might have noticed that I used \texttt{size} to make points and labels larger in the previous plots. We can also use \texttt{color} or \texttt{fill} to make adjustments to our geoms.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(avengers, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ years\_since\_joining,}
+                     \AttributeTok{y =}\NormalTok{ appearances)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{color =} \StringTok{"tomato"}\NormalTok{, }\AttributeTok{size =} \DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-11-1} \end{center}
+
+But previously we have related color with an Avenger's gender. ggplot uses some default colors to differentiate male and female Avengers but we can change this further with \textbf{scales}. Every scale function has three components:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \texttt{scale\_}
+\item
+  The name of the aesthetic we are scaling. In this case, \texttt{color}.
+\item
+  A method of applying the scale. In this case, we'll use \texttt{manual}.
+\end{enumerate}
+
+So to combine all of the previous steps together, we would call the function\texttt{scale\_color\_manual} to directly alter the colors of our aesthetic related to gender.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(avengers, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ years\_since\_joining,}
+                     \AttributeTok{y =}\NormalTok{ appearances,}
+                     \AttributeTok{color =}\NormalTok{ gender)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"Tomato"}\NormalTok{, }\StringTok{"Navy"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-12-1} \end{center}
+
+We've not only learned about the gender gap in the Marvel universe but also how to apply scales to our aesthetics! There are a number of scales that we can use further. For example, \texttt{scale\_alpha\_binned} allows us to alter the transparency of points after providing a \texttt{range} between 0-1. The \texttt{breaks} argument separates our observations into different groups.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(avengers, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ years\_since\_joining,}
+                     \AttributeTok{y =}\NormalTok{ appearances,}
+                     \AttributeTok{alpha =}\NormalTok{ appearances)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_alpha\_continuous}\NormalTok{(}\AttributeTok{range =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.2}\NormalTok{, }\DecValTok{1}\NormalTok{),}
+                         \AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{2000}\NormalTok{, }\DecValTok{3000}\NormalTok{, }\DecValTok{4000}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-13-1} \end{center}
+
+An important fact to remember is that mapping a variable to more than one aesthetic sometimes exaggerate differences in data. In this case, using two aesthetics--y and alpha--for appearance count draws the eye to the Avengers with the most appearances. This is why any data scientist must consider the \href{https://socviz.co/index.html\#preface}{principles of data visualization} and how certain techniques mislead or distort data.
+
+So far, we have learned how to call the \texttt{ggplot} function, apply aesthetic mappings, layer geometries, and alter aesthetics with scales. Any data visualization, regardless of its complexity, follows this formula.
+
+Hopefully this chapter has provided you a some more confidence as you begin producing your own visualizations. However, this is by no means an exhaustive tutorial. To learn more about data visualizations here are some useful resources:
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://www.amazon.com/gp/product/0596809158/ref=as_li_tf_tl?ie=UTF8\&camp=1789\&creative=9325\&creativeASIN=0596809158\&linkCode=as2\&tag=cooforr09-20}{R Cookbook}
+\item
+  \href{http://www.cookbook-r.com/}{Cookbook for R}
+\item
+  \href{https://www.r-graph-gallery.com/index.html}{The R Graph Gallery}
+\item
+  \href{https://www.rfordatasci.com/}{R for Data Science Online Community}
+\end{itemize}
+
+The rest of this guide specifically uses our new visualization tool to learn about the statistical distributions that govern our world. Click on to learn more!
+
+\hypertarget{Distributions}{%
+\chapter{Understanding Distributions}\label{Distributions}}
+
+Every distribution discovered in the probability world is determined by a \textbf{random variable}. These variables are the not the same ones that you were exposed to in algebra or calculus class. Instead, they are used to map random processes, like rolling dice or playing the lottery, to readable notation.
+
+We'll begin with a simple example of this by flipping a coin. Let the random variable X (usually random variables are capital letters) denote this process. It can take two forms, heads or tails. We can use a binary 0 or 1 to show this:
+
+\[X = \{0,1\}\]
+
+You might be asking yourself: ``What does this have to do with probability?'' We begin by defining the random variable so that we can later discover its mathematical attributes, such as its mean or variance, for example.
+
+We can also define the probability that the random variable X (the coin) takes the form of heads or tails by using probability notation.
+
+\[P(X = x)\]
+Where x can equal 0 or 1. we can interpret the statement above as ``the probability that the random variable X equals x.'' So what is that probability? By common sense, we can conclude that the probability that you get heads is \(P(X=1)=1/2\)
+
+In other, more complicated probability distributions, we use random variables to mark these processes without having to explain them each time.
+
+\hypertarget{Uniform}{%
+\section{Uniform Distribution}\label{Uniform}}
+
+We'll begin our journey with uniform distribution. Given \(a < b\), we can define this distribution's \textbf{density} as:
+
+\[ P(X=x) = \frac{1}{b-a}\hspace{0.7cm}for\hspace{0.2cm}a\leq x\leq b \]
+
+When we refer to densities we are talking about probabilities. The two terms are interchangeable, but the term \textbf{density} emphasizes the finite probability space that a distribution occupies.
+
+How do we get this equation? Imagine drawing a rectangle in the interval (a,b) with height 1/(b-a).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_rect}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xmin =} \DecValTok{0}\NormalTok{, }\AttributeTok{xmax =} \DecValTok{1}\NormalTok{, }\AttributeTok{ymin =} \DecValTok{0}\NormalTok{, }\AttributeTok{ymax =} \DecValTok{1}\NormalTok{), }
+            \AttributeTok{fill =} \ConstantTok{NA}\NormalTok{,}
+            \AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"x"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{""}\NormalTok{, }\StringTok{"h"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-16-1} 
+
+}
+
+\caption{Remember Scales? See if you can understand the code}\label{fig:unnamed-chunk-16}
+\end{figure}
+
+We have the height as \(\frac{1}{(b-a)}\). We know this since the cumulative area of a distribution must be 1 and the width is b-a. Using the area of a rectangle with h being the height of the uniform distribution.
+
+\[(b-a)h=1\]
+
+For the equation to hold, h must equal 1/(b-a).
+
+Let's define X as a \textbf{discrete} random variable that is uniform on 1 through 10. The term ``discrete'' means that X can only be integers, and the fact that its probabilities are uniform means that every integer has an equal probability of occurring. Therefore:
+
+\[
+\begin{split}
+&X=\{1,2,...,10\}\\&P(X=x)=\frac{1}{10-1}=1/9\quad\textrm{for}\quad1\leq x\leq 10 
+\end{split}
+\]
+
+The first line outlines the random variable X and the numbers that it can take. The second line then calculates the probability of the random variable taking the integers 1-10 as 1/9. In other words, the \textbf{density}, or individual probability, for each of \(1\leq x\leq 10\) is 1/9.
+
+The first \texttt{stats} function we can use with the uniform distribution is \texttt{dunif} which also returns the density at point x in the distribution given left and right bounds. This is quite easy to determine in the uniform distribution because \textbf{every point has the same density of h}- in other words, the height. \texttt{dunif} has 3 arguments.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  A vector of values to calculate densities for.
+\item
+  The minimum or \texttt{min} of the distribution.
+\item
+  The maximum or \texttt{max} of the distribution.
+\end{enumerate}
+
+We'll return to our example where the beginning and end of the uniform distribution is at x = 1 and x = 10, respectively. What are the densities at x = 1, 5, and 10?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dunif}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{), }\AttributeTok{min =} \DecValTok{1}\NormalTok{, }\AttributeTok{max =} \DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.1111111 0.1111111 0.1111111
+\end{verbatim}
+
+You are correct if you guessed 1/9 or approximatey 0.111! If \(a = 1\), \(b = 10\) then by definition \(h = 1/9\). Thus, as we calculated earlier, every point in the distribution has a density of 1/9.
+
+We can visualize this by drawing a rectangle using \texttt{geom\_rect} and then adding points with \texttt{geom\_point}. Remember that certain geometries require aesthetics beyond x and y.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_rect}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xmin =} \DecValTok{1}\NormalTok{, }\AttributeTok{xmax =} \DecValTok{10}\NormalTok{, }\AttributeTok{ymin =} \DecValTok{0}\NormalTok{, }\AttributeTok{ymax =} \DecValTok{1}\NormalTok{), }\AttributeTok{fill =} \ConstantTok{NA}\NormalTok{, }
+            \AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"x"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{), }\AttributeTok{y =} \DecValTok{1}\NormalTok{), }\AttributeTok{size =} \DecValTok{5}\NormalTok{, }\AttributeTok{color =} \StringTok{"navy"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-18-1} \end{center}
+
+The \texttt{punif()} function helps us find the cumulative density between at the qth quantile. Using a different rectangle with \(a = 0\), \(b = 4\), and \(h = 1/4\), we can find the proportion of the distribution between the minimum of 0 and maximum of 2 by writing the following:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{punif}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{4}\NormalTok{, }\AttributeTok{lower.tail =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# Remember: we don\textquotesingle{}t always have to name our arguments if we know the order.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5
+\end{verbatim}
+
+We can similarly write:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sum}\NormalTok{(}\FunctionTok{dunif}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{1}\NormalTok{, }\AttributeTok{min =} \DecValTok{0}\NormalTok{, }\AttributeTok{max =} \DecValTok{4}\NormalTok{)) }\CommentTok{\# Not including 2.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5
+\end{verbatim}
+
+There are three arguments in this function: a vector of quantiles, a minimum, maximum, and a binary \texttt{lower.tail} argument. By default this is set to \texttt{TRUE}.
+
+We can also think about the \texttt{punif()} function as drawing a smaller rectangle from 0 to 2 (if \texttt{lower.tail\ =\ FALSE}) and calculating its area. Below, this is the same as the percent of the total area that the navy rectangle occupies.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_rect}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xmin =} \DecValTok{0}\NormalTok{, }\AttributeTok{xmax =} \DecValTok{2}\NormalTok{, }\AttributeTok{ymin =} \DecValTok{0}\NormalTok{, }\AttributeTok{ymax =} \DecValTok{1}\SpecialCharTok{/}\DecValTok{4}\NormalTok{),  }\CommentTok{\# Small rectangle}
+            \AttributeTok{alpha =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }
+            \AttributeTok{fill =} \StringTok{"navy"}\NormalTok{, }
+            \AttributeTok{color =} \StringTok{"navy"}\NormalTok{, }
+            \AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{geom\_rect}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xmin =} \DecValTok{0}\NormalTok{, }\AttributeTok{xmax =} \DecValTok{4}\NormalTok{, }\AttributeTok{ymin =} \DecValTok{0}\NormalTok{, }\AttributeTok{ymax =} \DecValTok{1}\SpecialCharTok{/}\DecValTok{4}\NormalTok{), }\CommentTok{\# Large rectangle}
+              \AttributeTok{fill =} \ConstantTok{NA}\NormalTok{, }
+              \AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"x"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-21-1} \end{center}
+
+\[ area \hspace{0.2 cm}= \hspace{0.2 cm}base \hspace{0.2cm} * \hspace{0.2 cm}height\]
+
+\[area = 2*0.25=0.5\]
+
+Now we will consider the opposite scenario where we want to find the x-value that correponds with the 50th percentile of our distribution. This is the purpose of \texttt{qunif()}. We already know from using the distribution function \texttt{punif()} that this is 2.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{qunif}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{4}\NormalTok{) }\CommentTok{\#lower.tail is also set to TRUE by default}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2
+\end{verbatim}
+
+The last function \texttt{runif()} generates random deviates within the distribution. There are three arguments in this function:
+
+\begin{itemize}
+\item
+  n, the number of deviates we want to produce
+\item
+  min, the left bound of the uniform distribution
+\item
+  max, the right bound of the uniform distribution
+\end{itemize}
+
+We'll use the \texttt{round()} function to round them to the hundredths place.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create object of deviates}
+
+\NormalTok{unif\_dev }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(}\FunctionTok{runif}\NormalTok{(}\DecValTok{10}\NormalTok{, }\AttributeTok{min =} \DecValTok{0}\NormalTok{, }\AttributeTok{max =} \DecValTok{4}\NormalTok{), }\AttributeTok{digits =} \DecValTok{2}\NormalTok{)}
+
+\CommentTok{\# Plot}
+
+\FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_rect}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xmin =} \DecValTok{0}\NormalTok{, }\AttributeTok{xmax =} \DecValTok{4}\NormalTok{, }\AttributeTok{ymin =} \DecValTok{0}\NormalTok{, }\AttributeTok{ymax =} \DecValTok{1}\SpecialCharTok{/}\DecValTok{4}\NormalTok{), }
+            \AttributeTok{fill =} \ConstantTok{NA}\NormalTok{,}
+            \AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ unif\_dev, }\AttributeTok{y =} \DecValTok{1}\SpecialCharTok{/}\DecValTok{4}\NormalTok{), }\AttributeTok{size =} \DecValTok{5}\NormalTok{, }\AttributeTok{color =} \StringTok{"navy"}\NormalTok{) }\SpecialCharTok{+} \CommentTok{\# Plot deviates}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"x"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{4}\NormalTok{, }\AttributeTok{by =} \DecValTok{1}\NormalTok{), }\AttributeTok{labels =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{4}\NormalTok{, }\AttributeTok{by =} \DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-23-1} \end{center}
+
+\hypertarget{Discrete}{%
+\chapter{Discrete Distributions}\label{Discrete}}
+
+\hypertarget{Geometric}{%
+\section{Geometric Distribution}\label{Geometric}}
+
+For the next distribution, imagine a basketball player that is not particularly good. Whenever he takes a free throw, there is a 10\% probability that he makes it. How many free throws can we expect him to shoot before he makes one?
+
+The geometric distribution helps us answer this question. We can think of this as a spread of N trials required to reach a probability p in the following equation.
+
+\[P(N = n) = (1-p)^{n} p \hspace{0.7cm}for\hspace{0.2cm} n=0,1,...,\infty\]
+
+Since trials can only be measured in integers, the geometric distribution is a type of \textbf{discrete distribution}.
+
+Although there is a more in-depth proof, the formula for this distribution is already quite intuitive. First, the geometric distribution needs n failures and one success for N to equal n.~Likewise, if the probability of a success is represented by \(p\), the probability of a failure must be \(1-p\).
+
+When can we use a geometric distribution, and does it apply to the free throw example? In order to model a random process with the geometric distribution, it must meet the following assumptions:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Every ``trial'' must be independent of each other. In other words, the outcome of one trial does not have any bearing on the other outcomes.
+\item
+  There are only ``successes'' and ``failures.'' If a response has more than two outcomes, we should not use the geometric distribution.
+\item
+  The probability of success remains consistent for each trial.
+\end{enumerate}
+
+It is possible that these assumptions may not be fully met in our case study. For example, does the basketball player get tired over time, thus decreasing the probability of a successful free throw? This would violate the third assumption.
+
+The geometric distribution has a mean or expected value of \(\frac{1-p}{p}\). This means that if we had many similar basketball players shoot free throws, their long run average ``failures'' would be (\(\frac{1-0.1}{0.1}=9\)), i.e.~their average ``successful'' free throw would be on shot 10.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Now that we have found the long run mean of the geometric distribution, let's see how we can visualize the first thirty shots that the basketball player takes. Again, we'll use a d(density) function (in this case called \texttt{dgeom}) to produce the individual densities for each of the shots in the total distribution. \texttt{dgeom} has 3 arguments.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  A vector of integers in order to return their corresponding densities. We can imagine this as the probability of \(x\) failures before the first success. Here, we'll use \texttt{0:30} to represent the integers 0, 1, 2, \ldots{} , 29, 30.
+\item
+  The \texttt{prob} or probability of a successful free throw.
+\item
+  An optional \texttt{log} argument.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create a data frame with the first 30 values, incremented by 1, as well as a geometric distribution.}
+\NormalTok{dgeom }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{failures =} \DecValTok{0}\SpecialCharTok{:}\DecValTok{30}\NormalTok{,}
+                \AttributeTok{density =} \FunctionTok{dgeom}\NormalTok{(}\AttributeTok{x =} \DecValTok{0}\SpecialCharTok{:}\DecValTok{30}\NormalTok{, }\AttributeTok{prob =} \FloatTok{0.1}\NormalTok{, }\AttributeTok{log =} \ConstantTok{FALSE}\NormalTok{))}
+
+\CommentTok{\# Create plot}
+\FunctionTok{ggplot}\NormalTok{(dgeom) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ failures, }\AttributeTok{y =}\NormalTok{ density), }\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Missed Shots"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-25-1} \end{center}
+
+Each ith value on the x axis and its corresponding jth y value can be conceptualized as ``There is a j probability that the basketball player had i failures before his first successful free throw.''
+
+As suggested in the plot above, the probability that a shot is the first success approaches 0 as the observation number approaches infinity.
+
+Now let's talk about the \texttt{stat} argument in \texttt{geom\_bar}. By default, this is set to \texttt{"count"}. This means that the height of an x-value's bar is determined by the number of times that it appears in a dataset. By changing this argument to \texttt{"identity}", ggplot looks for a corresponding y aesthetic to determine the height of the bar.
+
+If we don't alter the behavior of \texttt{geom\_bar} we would get a plot that looks like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Don\textquotesingle{}t do this!}
+\FunctionTok{ggplot}\NormalTok{(dgeom) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ failures)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Missed Shots"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-26-1} \end{center}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+To calculate the probability of a range of outcomes we can use the function \texttt{pgeom()}. For example, how likely is it that the player can make a free throw in 9 or fewer shots? To find this, we'll plug in \(q = 8\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create a cumulative density function}
+\FunctionTok{pgeom}\NormalTok{(}\DecValTok{8}\NormalTok{, }\FloatTok{0.1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.6125795
+\end{verbatim}
+
+We plug in \(q=8\) instead of \(q=9\) because the first argument of function requires the number of failures until the first succcess. In other words, the value that \texttt{pgeom} returns can be thought of as the probability that we have less than or equal to 8 failures before the first successful free throw.
+
+When using a ``p'' or distribution function with \texttt{lower.tail\ =\ TRUE}, the first argument is our right bound. If we change to \texttt{lower.tail\ =\ FALSE}, the first argument becomes our left bound.
+
+We can think of our calculation above as the same as finding the area of the binomial distribution from 0 to 8--i.e.~the total area of the first nine rectangles. We will fill the first nine bars blue and the rest gray.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(dgeom) }\SpecialCharTok{+} \CommentTok{\# Insert the vector of densities into the data argument}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ failures, }\AttributeTok{y =}\NormalTok{ density),}
+           \AttributeTok{stat =} \StringTok{"identity"}\NormalTok{,}
+           \AttributeTok{fill =} \FunctionTok{ifelse}\NormalTok{(dgeom}\SpecialCharTok{$}\NormalTok{failures }\SpecialCharTok{\textless{}=} \DecValTok{8}\NormalTok{, }\StringTok{"skyblue1"}\NormalTok{, }\StringTok{"grey35"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Failed Shots"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-28-1} \end{center}
+
+Here are a few things to remember from the code above before we move on.
+
+-The \texttt{ifelse(test,\ yes,\ no)} function is in base R and allows us to set a condition for the fill aesthetic of our bar plot. We are essentially telling ggplot to fill each bar blue if the \texttt{shot\_num} is less than or equal to 9. Otherwise, fill the rest of the bars gray.
+
+-By default, the \texttt{lower.tail} argument is set to \texttt{TRUE}, meaning that we are finding the area of the distribution from the first shot to the ninth shot. However, if we set the \texttt{lower.tail} argument to \texttt{FALSE}, we will get the area of the distribution after the eighth shot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{pgeom}\NormalTok{(}\DecValTok{8}\NormalTok{, }\AttributeTok{prob =} \FloatTok{0.1}\NormalTok{, }\AttributeTok{lower.tail =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.3874205
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# As represented on a bar plot}
+\FunctionTok{ggplot}\NormalTok{(dgeom) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ failures, }\AttributeTok{y =}\NormalTok{ density),}
+           \AttributeTok{stat =} \StringTok{"identity"}\NormalTok{,}
+           \AttributeTok{fill =} \FunctionTok{ifelse}\NormalTok{(dgeom}\SpecialCharTok{$}\NormalTok{failures }\SpecialCharTok{\textgreater{}} \DecValTok{8}\NormalTok{, }\StringTok{"skyblue1"}\NormalTok{, }\StringTok{"grey35"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Failed Shots"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-30-1} \end{center}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+The \texttt{qgeom()} function can be thought of as the inverse of \texttt{pgeom()}. Because of this, we enter in a cumulative density (value from 0-1) into the function and it returns the shot number in which we would expect to reach that cumulative density, from left to right on a number line.
+
+Like \texttt{pgeom()}, keep in mind that \texttt{lower.tail} is set to \texttt{TRUE} by default.
+
+By what shot can we begin expecting the player have already made a free throw? To answer this question, we will enter 50\% as a cumulative density.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{qgeom}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\AttributeTok{prob =} \FloatTok{0.1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dgeom }\OtherTok{\textless{}{-}}\NormalTok{ dgeom }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{cume\_dist =} \FunctionTok{cumsum}\NormalTok{(density))}
+
+\FunctionTok{ggplot}\NormalTok{(dgeom) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ failures, }\AttributeTok{y =}\NormalTok{ density),}
+           \AttributeTok{stat =} \StringTok{"identity"}\NormalTok{,}
+           \AttributeTok{fill =} \FunctionTok{ifelse}\NormalTok{(dgeom}\SpecialCharTok{$}\NormalTok{cume\_dist }\SpecialCharTok{\textless{}=}\NormalTok{.}\DecValTok{5}\NormalTok{, }\StringTok{"skyblue1"}\NormalTok{, }\StringTok{"grey35"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Shot Number"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-32-1} \end{center}
+
+There is quite a bit to unpack here. We use \texttt{mutate()} to create a new variable for the cumulative density at each shot. This is the sum of a shot's density and all of the previous shots before it.
+
+Next, we return to the \texttt{ifelse()} function to determine which bars to fill. We can interpret our code as ``If the cumulative density of this shot is less than or equal to .5, fill it blue; otherwise, fill it gray.''
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Finally, imagine that 1,000 exact copies of the basketball player shoot free throws. Below is the distribution of those outcomes. The function \texttt{rgeom()} simulates each of the 1,000 players and returns the number of their first successful shot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rand\_geom }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{deviates =} \FunctionTok{rgeom}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\FloatTok{0.1}\NormalTok{))}
+
+\FunctionTok{ggplot}\NormalTok{(rand\_geom) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ deviates),}
+                 \AttributeTok{binwidth =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"First Shot"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Frequency"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{10}\NormalTok{)) }\CommentTok{\# Added more ticks on x axis}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-33-1} \end{center}
+
+As stated at the beginning of this chapter, the geometric distribution can be thought of the spread of N trials required to get probability p.~Because of this, as we increase the number of simulated basketball players, we reach a distribution more and more similar to the actual binomial distribution.
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-34-1} \end{center}
+
+\hypertarget{Binomial}{%
+\section{Binomial Distribution}\label{Binomial}}
+
+While we would use the geometric distribution to model the number of failed free throws until a successful shot, the \textbf{binomial distribution} instead considers the probability of successful free throws in a fixed number of attempts. It is defined belowbelow:
+
+\[P(K = k) = C_{n,k}p^{k}(1-p)^{n-k}\\\textrm{where} \hspace{0.2cm}C_{n,k}\hspace{0.2cm}\textrm{is the number of ways that we can pick k successes in n trials.}\]
+
+At first glance, this formula is complicated, but it can be easily divided into two parts:
+
+\begin{itemize}
+\item
+  \(C_{k,n}\) represents the number of ways we can select k successes in n trials. This combination can be calculated as \(C_{n,k}=\frac{n!}{k!(n-k)!}\).
+\item
+  \(p^{k}(1-p)^{n-k}\) or the probability of getting k successes and therefore n-k failures.
+\end{itemize}
+
+We multiply the scenarios term by the probability term to account for the fact that there are multiple ways that we can get to the kth success. A basketball player does not need to make k shots in a particular order.
+
+For example, if we are interested in the probability that the basketball player shoots 30 free throws and makes 3 of them, we can plug these numbers into our equation.
+
+\begin{itemize}
+\item
+  We have n = 30 independent trials, assuming that the player shoots at the same place and does not get tired.
+\item
+  We want to have k = 3 successful free throws and n- k = 27 unsuccessful ones.
+\item
+  Recall that the probability of a successful shot is p = 10\%. Thus, a missed shot has probability 1 - p = 90\%.
+\end{itemize}
+
+Thus, our density formula allows us to find the probability of a basketball player making 3 shots using simple multiplication.
+
+\[P(K = 3) = C_{30,3}(.10)^{3}(1-.10)^{27}\approx.2361\]
+
+With R, the function \texttt{dbinom()} similarly accomplishes this.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# The arguments do not all need to be named, but I will do so here.}
+\FunctionTok{dbinom}\NormalTok{(}\AttributeTok{x =} \DecValTok{3}\NormalTok{, }\AttributeTok{size =} \DecValTok{30}\NormalTok{, }\AttributeTok{prob =}\NormalTok{ .}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.2360879
+\end{verbatim}
+
+In other words, the probability that the basketball player shoots 30 free throws and makes \textbf{exactly} 3 of them is about 0.2361.
+
+As we begin visualizing this with \texttt{ggplot()}, we should return to our strategy from the geometric chapter by creating a data frame or tibble with two columns--one to signify all of the possible number of successes that we can have, and another of their corresponding probabilities or densities.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dbinom }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{shots =} \DecValTok{0}\SpecialCharTok{:}\DecValTok{30}\NormalTok{,}
+                 \AttributeTok{density =} \FunctionTok{dbinom}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{30}\NormalTok{, }\AttributeTok{size =} \DecValTok{30}\NormalTok{, }\AttributeTok{prob =}\NormalTok{ .}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+We can now plot this with \texttt{geom\_bar()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(dbinom) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ shots, }\AttributeTok{y =}\NormalTok{ density),}
+           \AttributeTok{stat =} \StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Successful Shots"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{30}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-37-1} \end{center}
+
+As seen above, it is quite unlikely that the basketball player will make more than 10 shots. In fact, their probabilities aren't even large enough for the bars to register on the plot.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+In some scenarios in the statistics world, we aren't only interested in the probability of getting \textbf{exactly} k successes; we may want to consider a range of outcomes. For example, a personal coach who records the basketball player's progress wants to determine the probability that he makes 3 \textbf{or fewer} shots out of 30.
+
+Using the previous chapters, we can assume that we would want to use the distribution function \texttt{pbinom()} to answer this question.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Before you continue, think about what the four arguments mean. Why would we set the lower.tail to TRUE instead of FALSE?}
+\FunctionTok{pbinom}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{30}\NormalTok{, }\FloatTok{0.1}\NormalTok{, }\AttributeTok{lower.tail =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.6474392
+\end{verbatim}
+
+The first argument in the above function is similar to the other ``p'' functions since it can be thought of as the ``right bound'' of interest. We can imagine the \texttt{pbinom()} function as finding the area of the binomial distribution from 0 to 3.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(dbinom) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ shots, }\AttributeTok{y =}\NormalTok{ density),}
+           \AttributeTok{stat =} \StringTok{"identity"}\NormalTok{,}
+           \AttributeTok{fill =} \FunctionTok{ifelse}\NormalTok{(dbinom}\SpecialCharTok{$}\NormalTok{shots }\SpecialCharTok{\textless{}=} \DecValTok{3}\NormalTok{, }\StringTok{"purple2"}\NormalTok{, }\StringTok{"lightgray"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Successful Shots"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-39-1} \end{center}
+
+Just as we used it in the geometric distribution section, the \texttt{ifelse()} function allows us to fill our bars with different colors depending on the ``shot'' value. The interpretation here is ``fill the bar purple if number of successful shots is three or fewer. If not, fill the bar gray.''
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Like the other ``r'' functions,\texttt{rbinom()} randomly simulates the outcomes of a distribution. In this case, the function returns the number of successful free throws made all of the simulations. This is useful because it helps us better understand the natural random process.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ranbinom }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{deviates =} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DecValTok{30}\NormalTok{, .}\DecValTok{10}\NormalTok{))}
+
+\FunctionTok{glimpse}\NormalTok{(ranbinom)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 1,000
+## Columns: 1
+## $ deviates <int> 6, 1, 2, 6, 3, 6, 4, 3, 6, 3, 1, 2, 4, 3, 1, 5, 6, 4, 2, 1, 2~
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(ranbinom) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ deviates), }\AttributeTok{stat =} \StringTok{"count"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{10}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Successful Shots"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Frequency"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-40-1} \end{center}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{negative-binomial-distribution}{%
+\section{Negative Binomial Distribution}\label{negative-binomial-distribution}}
+
+Finally, we'll introduce the \textbf{negative binomial distribution}. Similar to the from the geometric distribution, we are interested in modeling the number of failures in a binary process. However, we are not only interested in how long it takes for one success; we are interested in modeling the number of failures until a particular number (\(r\)) of successes.
+
+\[
+\begin{equation}
+P(Y=y) = \binom{y + r - 1}{r-1} (1-p)^{y}(p)^r \quad \textrm{for}\quad y = 0, 1, \ldots, \infty.
+\end{equation}
+\]
+
+An interesting case appears when we set \(r=1\), i.e.~the number of failures until one success.
+
+\[
+\begin{split}
+P(Y=1) &= \binom{y + 1 - 1}{1-1} (1-p)^{y} (p)^1 \\ &= \binom{y}{0} (1-p)^yp \\ &=(1-p)^yp \quad \textrm{for} \quad y = 0, 1, \ldots, \infty
+\end{split}
+\]
+
+Notice how the last line of this looks exactly like the \textbf{geometric distribution}? This is because the geometric distribution is a special case of the negative binomial distribution.
+
+Now let's return to the basketball example. As we have established before, there is about a 4\% chance that our player makes 8 failures before his first successful shot. What is the probability that he makes 8 failures before his second successful shot?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dnbinom}\NormalTok{(}\DecValTok{8}\NormalTok{, }\DecValTok{2}\NormalTok{, }\FloatTok{0.1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.03874205
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dnbinom }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{failures =} \DecValTok{0}\SpecialCharTok{:}\DecValTok{30}\NormalTok{,}
+                  \AttributeTok{density =} \FunctionTok{dnbinom}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{30}\NormalTok{, }\DecValTok{2}\NormalTok{, }\FloatTok{0.1}\NormalTok{))}
+
+\FunctionTok{ggplot}\NormalTok{(dnbinom, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ failures, }\AttributeTok{y =}\NormalTok{ density)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"turquoise1"}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Failed Shots"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{, }
+       \AttributeTok{title =} \StringTok{"Number of Failures until Second Free Throw"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-41-1} \end{center}
+
+Now that we have a new parameter r, how does the distribution change as it increases or decreases?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nbinom\_plot }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x, size, prob)\{}
+\NormalTok{  temp }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{failures =}\NormalTok{ x,}
+                 \AttributeTok{density =} \FunctionTok{dnbinom}\NormalTok{(x, size, prob),}
+                 \AttributeTok{cume\_density =} \FunctionTok{cumsum}\NormalTok{(density))}
+\NormalTok{  median }\OtherTok{\textless{}{-}}\NormalTok{ temp }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(}\FunctionTok{between}\NormalTok{(cume\_density, .}\DecValTok{5}\NormalTok{, .}\DecValTok{55}\NormalTok{))}
+\NormalTok{  plot }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(temp, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ failures, }\AttributeTok{y =}\NormalTok{ density)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_density}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =}\NormalTok{ median}\SpecialCharTok{$}\NormalTok{failures[}\DecValTok{1}\NormalTok{]) }\SpecialCharTok{+}
+    \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{y =} \ConstantTok{NULL}\NormalTok{)}
+  \FunctionTok{return}\NormalTok{(plot)}
+\NormalTok{\}}
+
+\NormalTok{p1 }\OtherTok{\textless{}{-}} \FunctionTok{nbinom\_plot}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, }\DecValTok{3}\NormalTok{, }\FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"r = 3, prob = 0.1"}\NormalTok{)}
+\NormalTok{p2 }\OtherTok{\textless{}{-}} \FunctionTok{nbinom\_plot}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, }\DecValTok{5}\NormalTok{, }\FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"r = 5, prob = 0.1"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Failures"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{)}
+\NormalTok{p3 }\OtherTok{\textless{}{-}} \FunctionTok{nbinom\_plot}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, }\DecValTok{7}\NormalTok{, }\FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"r = 7, prob = 0.1"}\NormalTok{)}
+\NormalTok{p4 }\OtherTok{\textless{}{-}} \FunctionTok{nbinom\_plot}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, }\DecValTok{5}\NormalTok{, }\FloatTok{0.15}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"r = 5, prob = 0.15"}\NormalTok{)}
+\NormalTok{p5 }\OtherTok{\textless{}{-}} \FunctionTok{nbinom\_plot}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, }\DecValTok{5}\NormalTok{, }\FloatTok{0.08}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"r = 5, prob = 0.05"}\NormalTok{)}
+
+\FunctionTok{plot\_grid}\NormalTok{(p1, }\ConstantTok{NULL}\NormalTok{, p4, }\ConstantTok{NULL}\NormalTok{, p2, }\ConstantTok{NULL}\NormalTok{, p3, }\ConstantTok{NULL}\NormalTok{, p5, }\AttributeTok{ncol =} \DecValTok{3}\NormalTok{, }\AttributeTok{nrow =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-42-1} \end{center}
+
+As you can see, the center of the distribution moves right as \(r\) increases or the probability of a success decreases.
+
+\hypertarget{poisson-distribution}{%
+\chapter{Poisson Distribution}\label{poisson-distribution}}
+
+Unlike those based on Bernoulli processes (binary and independent outcomes), a \textbf{Poisson} process considers the number of times an event occurs in a given time or space. If \(K\), for instance, is the number of events in an interval, we'll model it with the \textbf{Poisson Distribution}.
+
+\[
+P(K=k) = \frac{e^{-\lambda}\lambda^k}{k!} \quad \textrm{for} \quad \mathrm{k} = 0, 1, \ldots, \infty \\
+\textrm{Where} \enspace \lambda \enspace \textrm{is the average number of events in a unit of time}
+\]
+
+Now, we'll put this formula into practice.
+
+Consider a pet shelter which has an average of 10 adoptions per month. Every month, they rescue 9 pets. If the shelter currently has 40 pets, what is the probability that have less than 45 pets at the end of the month in order to prevent overcrowding?
+
+From above, we can deduce that the shelter would need to have \emph{more than} 4 adoptions in order to prevent overcrowding.
+
+\$\$
+
+\begin{split}
+
+\textrm{Total pets} &= \textrm{Current pets} \enspace + \enspace \textrm{Rescues} \enspace - \enspace \textrm{Adoptions} \\
+
+45 &> 40 + 9 - \textrm{Adoptions} \\
+
+\textrm{Adoptions} &> 4
+
+\end{split}
+
+\$\$
+Plugging in \(\lambda = 10\) and \(k=5,6,7,\ldots40\)
+
+\$\$
+
+\begin{split}
+P(K=5) + P(K=6) \ldots + P(K=40) &= \frac{e^{-10}10^5}{5!} &+ \frac{e^{-10}10^6}{6!} &+ \ldots + \frac{e^{-10}10^{40}}{40!} \\
+
+&=\frac{2500}{3e^{10}} &+ \frac{12500}{9e^{10}} &+ \ldots + \frac{10^{40}}{e^{10}40!} \\
+
+&= 0.03783 &+ 0.06305 &+ \ldots +0 \\
+
+&\approx 0.97075
+
+\end{split}
+
+\$\$
+
+There is about a 97\% probability that the pet rescue center has at least 5 adoptions. In other words, it's quite likely that they will not have overcrowding.
+
+Using R, we can use the density function \texttt{dpois} and more easily calculate the densities from 5 to 40 adoptions.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sum}\NormalTok{(}\FunctionTok{dpois}\NormalTok{(}\DecValTok{5}\SpecialCharTok{:}\DecValTok{40}\NormalTok{, }\AttributeTok{lambda =} \DecValTok{10}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.9707473
+\end{verbatim}
+
+The \texttt{ppois} distribution function also work here.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ppois}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{10}\NormalTok{, }\AttributeTok{lower.tail =} \ConstantTok{FALSE}\NormalTok{) }\CommentTok{\# 4 is not included}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.9707473
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{adoptions }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{num\_adopt =} \DecValTok{0}\SpecialCharTok{:}\DecValTok{40}\NormalTok{,}
+                    \AttributeTok{density =} \FunctionTok{dpois}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{40}\NormalTok{, }\DecValTok{10}\NormalTok{))}
+
+\FunctionTok{ggplot}\NormalTok{(adoptions, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ num\_adopt, }\AttributeTok{y =}\NormalTok{ density)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{, }
+           \AttributeTok{fill =} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{between}\NormalTok{(adoptions}\SpecialCharTok{$}\NormalTok{num\_adopt, }\DecValTok{5}\NormalTok{, }\DecValTok{40}\NormalTok{), }\StringTok{"orchid1"}\NormalTok{, }\StringTok{"black"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Number of Adoptions per Month"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Density"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-45-1} \end{center}
+
+As we have established, the probability mass function for a poisson distribution has a mean of \(E(K) = \lambda\). The above plot seems to agree with this, since the distribution is roughly symmetric about 10.
+
+The \textbf{standard deviation} of a poisson distribution is \(\sqrt{\lambda}\). In this case, one standard deviation would be \(\sqrt{10}\approx3.16\).
+
+How does the distribution change as we manipulate our parameter \(\lambda\)? Applied to our example, how do the overall spread of adoptions change as the average number of adoptions change per month?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pois\_plot }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x, lambda)\{}
+\NormalTok{  temp }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{num\_adopt =}\NormalTok{ x,}
+                 \AttributeTok{density =} \FunctionTok{dpois}\NormalTok{(x, lambda),}
+                 \AttributeTok{cume\_density =} \FunctionTok{cumsum}\NormalTok{(density))}
+\NormalTok{  plot }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(temp, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ num\_adopt, }\AttributeTok{y =}\NormalTok{ density)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.2}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{y =} \ConstantTok{NULL}\NormalTok{)}
+  \FunctionTok{return}\NormalTok{(plot)}
+\NormalTok{\}}
+
+\NormalTok{adoptplot\_1 }\OtherTok{\textless{}{-}} \FunctionTok{pois\_plot}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{40}\NormalTok{, }\DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Lambda = 2"}\NormalTok{)}
+\NormalTok{adoptplot\_2 }\OtherTok{\textless{}{-}} \FunctionTok{pois\_plot}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{40}\NormalTok{, }\DecValTok{3}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Lambda = 3"}\NormalTok{)}
+\NormalTok{adoptplot\_3 }\OtherTok{\textless{}{-}} \FunctionTok{pois\_plot}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{40}\NormalTok{, }\DecValTok{5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Lambda = 5"}\NormalTok{)}
+\NormalTok{adoptplot\_4 }\OtherTok{\textless{}{-}} \FunctionTok{pois\_plot}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{40}\NormalTok{, }\DecValTok{10}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Lambda = 10"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Number of Adoptions"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{)}
+
+\FunctionTok{plot\_grid}\NormalTok{(}\ConstantTok{NULL}\NormalTok{, adoptplot\_4, }\ConstantTok{NULL}\NormalTok{, adoptplot\_1, adoptplot\_2, adoptplot\_3, }\AttributeTok{nrow =} \DecValTok{2}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-46-1} \end{center}
+
+As you the plots above illustrate, the poisson distribution becomes more symmetric as \(\lambda\) increases. When \(\lambda\) is realtively small, the distribution is more right-skewed.
+
+\hypertarget{Continuous}{%
+\chapter{Continuous Distributions}\label{Continuous}}
+
+\hypertarget{normal-approximation-of-binomial-distribution}{%
+\section{Normal approximation of Binomial Distribution}\label{normal-approximation-of-binomial-distribution}}
+
+In a way, the binomial distribution is the parent of the normal distribution. I'll explain.
+
+Several centuries ago, mathematician Abraham DeMoivre was asked to solve a gambling game in which one flips a coin many times and counts the number of heads. After repeatedly playing the game, he found that his results resembled a unique bellcurve shape.
+
+In this section, we will simulate his experiment:
+
+\begin{itemize}
+\tightlist
+\item
+  First, we will use R to create a coin. The heads side of our fair coin will be represented with a ``H'' and tails with a ``T''.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{coin }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"H"}\NormalTok{,}\StringTok{"T"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  Next, we will use \texttt{sample} to simulate random coin flips. The first argument of the function is for the elements of our random sampling process. The second \texttt{size} is the number of times that we will flip the coin. Finally, we will set \texttt{replace} to \texttt{TRUE} so that we keep both sides of our coin after flipping.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{flips }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{flip\_num =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{3600}\NormalTok{, }
+                \AttributeTok{outcome =} \FunctionTok{sample}\NormalTok{(coin, }\AttributeTok{size =} \DecValTok{3600}\NormalTok{, }\AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{))}
+
+\FunctionTok{head}\NormalTok{(flips, }\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 2
+##   flip_num outcome
+##      <int> <chr>  
+## 1        1 T      
+## 2        2 H      
+## 3        3 T      
+## 4        4 H      
+## 5        5 T
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Now, let's save the total number of heads.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{heads }\OtherTok{\textless{}{-}}\NormalTok{ flips }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(outcome }\SpecialCharTok{==} \StringTok{"H"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{count}\NormalTok{()}
+
+\NormalTok{heads}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 1
+##       n
+##   <int>
+## 1  1787
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Our last step is to find a way to repeat this game of 3600 flips. We will do so by creating a function. If function-writing is unfamiliar to you, I encourage you to read this \href{https://r4ds.had.co.nz/functions.html}{friendly introduction}.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{get\_heads }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{() \{}
+\NormalTok{  fair\_coin }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"H"}\NormalTok{, }\StringTok{"T"}\NormalTok{) }\CommentTok{\# Repeating code from the previous lines.}
+\NormalTok{  flip }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{flip\_num =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{3600}\NormalTok{, }
+                 \AttributeTok{outcome =} \FunctionTok{sample}\NormalTok{(fair\_coin, }\AttributeTok{size =} \DecValTok{3600}\NormalTok{, }\AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{))}
+\NormalTok{  heads\_count }\OtherTok{\textless{}{-}}\NormalTok{ flip }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(outcome }\SpecialCharTok{==} \StringTok{"H"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{count}\NormalTok{()}
+  \FunctionTok{return}\NormalTok{(heads\_count)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  Using this function, we will repeat the coin flip game 1000 times and count the number of heads using \texttt{replicate}. Read more about the function's documentation by typing \texttt{?replicate} into the console.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{outcomes }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{game\_num =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{1000}\NormalTok{,}
+                   \AttributeTok{heads =} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{replicate}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\FunctionTok{get\_heads}\NormalTok{(), }\AttributeTok{simplify =} \ConstantTok{TRUE}\NormalTok{))) }
+
+\FunctionTok{head}\NormalTok{(outcomes, }\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 2
+##   game_num heads
+##      <int> <dbl>
+## 1        1  1807
+## 2        2  1781
+## 3        3  1786
+## 4        4  1832
+## 5        5  1817
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  What does this look like? We will first save a ggplot object called \texttt{demoivre\_plot} and then make a histogram.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Plotting our game outcomes}
+
+\NormalTok{demoivre\_plot }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(outcomes, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ heads))}
+  
+\NormalTok{demoivre\_plot }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{bins =} \DecValTok{25}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Heads"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Count"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-53-1} \end{center}
+
+You can start to see the bell shape taking form. However, this is even easier to see with \texttt{geom\_density()} which takes the same aesthetic mapping as \texttt{geom\_histogram}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{demoivre\_plot }\SpecialCharTok{+}
+  \FunctionTok{geom\_density}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.4}\NormalTok{, }\AttributeTok{fill =} \StringTok{"lightsteelblue"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Heads"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-54-1} \end{center}
+
+This unique bellcurve roughly follows the \textbf{normal distribution}.
+
+This distribution is useful beyond the coin flipping game. It is also explains many everyday phenomena such as heights, IQ scores, salaries, and blood pressure. Because of this, when we know that an outcomes, people, or observations are independent and random, we can make \emph{inferences} about the larger picture.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{normal-distribution}{%
+\section{Normal Distribution}\label{normal-distribution}}
+
+Now let's return to the normal distribution. We can define it as follows:
+
+\[f(x)=(2\pi)^{-1/2}e^{-x^2/2}\]
+
+The density function \texttt{dnorm(x)} can be thought of as f(x). The first argument x contains a vector of numbers that will yield their density. Let's try this with \(x = 1.5\) on a standard normal distribution. This means that the mean of the distribution is 0 and the standard deviation is 1.
+
+How likely is it that a point would be 1.5 standard deviations above the mean?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dnorm}\NormalTok{(}\FloatTok{1.5}\NormalTok{, }\AttributeTok{mean =} \DecValTok{0}\NormalTok{, }\AttributeTok{sd =} \DecValTok{1}\NormalTok{) }\CommentTok{\#The mean and sd arguments are set to these values by default.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.1295176
+\end{verbatim}
+
+To interpret this density, simply think of \texttt{\{r\}round(dnorm(1.5,\ 0,\ 1)} as the probability that an observation would be 1.5 standard deviations greater than a mean.
+
+There are many real world scenarios in which we could apply this. For instance, the probability of an American male having a height that is 1.5 standard deviations greater than average (i.e.~76 inches or 6 feet and 3 inches) is about 13\%.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Oftentimes, we don't have a standardized distribution with 0 as the mean and 1 as the standard deviation. To demonstrate this, we'll return to our height example. The average height of men in the United States is 70 inches with 2 inches as the standard deviation. Thus, we must reevaluate the \texttt{mean} and \texttt{sd} arguments.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{normal }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{mean =} \DecValTok{70}\NormalTok{, }\AttributeTok{sd =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+We can visualize this differently than discrete distributions. \texttt{stat\_function} is a unique tool within ggplot that plots continuous curves. There are several required arguments:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  a geometry such as ``function'', ``point'', ``area,'' etc.,
+\item
+  a continuous function,
+\item
+  lower and upper limits on the x and/or x axis,
+\item
+  and a list of arguments for the function.
+\end{enumerate}
+
+We listed our arguments for a normal curve above. After plotting this curve, we will add a vertical line at the mean using \texttt{geom\_vline}. For this geometry, we are required to provide an x-intercept.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{normal\_plot }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{stat\_function}\NormalTok{(}
+    \AttributeTok{geom =} \StringTok{"function"}\NormalTok{,}
+    \AttributeTok{fun =}\NormalTok{ dnorm,}
+    \AttributeTok{xlim =} \FunctionTok{c}\NormalTok{(}\DecValTok{61}\NormalTok{, }\DecValTok{79}\NormalTok{),}
+    \AttributeTok{args =}\NormalTok{ normal }\CommentTok{\# This is the list of arguments from above}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =} \DecValTok{70}\NormalTok{, }\AttributeTok{color =} \StringTok{"lightsteelblue"}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Height (inches)"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{)}
+
+\NormalTok{normal\_plot}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-57-1} \end{center}
+
+Unlike the geometric and binomal distributions, the normal distribution is symmetric about the mean. When a height is much greater or smaller than the average, it is less likely to occur.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Now that we have made our density plot, we can again capture an interval of values in the distribution with our ``p'' distribution function \texttt{pnorm()}. If the shortest Duke basketball player (in the 2020-21 season) is 6 feet or 72 inches tall, what percentage of the American male population is shorter than the basketball team?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{round}\NormalTok{(}\FunctionTok{pnorm}\NormalTok{(}\DecValTok{72}\NormalTok{, }\DecValTok{70}\NormalTok{, }\DecValTok{2}\NormalTok{), }\AttributeTok{digits =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{*} \DecValTok{100} \CommentTok{\# Multiply by 100 to get a percentage}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 84.1
+\end{verbatim}
+
+To understand what the lower 84.1\% of the normal distribution looks like, we will create two geometries with \texttt{stat\_function}. The first will shade the entire distribution gray. On top of that, the second \texttt{stat\_function} geometry fills the area of the distribution lower than 72 inches blue.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{stat\_function}\NormalTok{(}\AttributeTok{fun =}\NormalTok{ dnorm, }\CommentTok{\# Plot the entire distribution}
+                \AttributeTok{geom =} \StringTok{"area"}\NormalTok{,}
+                \AttributeTok{fill =} \StringTok{"lightgray"}\NormalTok{,}
+                \AttributeTok{color =} \StringTok{"black"}\NormalTok{,}
+                \AttributeTok{xlim =} \FunctionTok{c}\NormalTok{(}\DecValTok{61}\NormalTok{, }\DecValTok{79}\NormalTok{),}
+                \AttributeTok{args =}\NormalTok{ normal) }\SpecialCharTok{+}
+  \FunctionTok{stat\_function}\NormalTok{(}\AttributeTok{fun =}\NormalTok{ dnorm, }\CommentTok{\# Change the color of heights \textless{} 72 inches.}
+                \AttributeTok{geom =} \StringTok{"area"}\NormalTok{,}
+                \AttributeTok{fill =} \StringTok{"steelblue"}\NormalTok{,}
+                \AttributeTok{xlim =} \FunctionTok{c}\NormalTok{(}\DecValTok{61}\NormalTok{, }\DecValTok{72}\NormalTok{),}
+                \AttributeTok{args =}\NormalTok{ normal}
+\NormalTok{                ) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Height (inches)"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-59-1} \end{center}
+
+As the blue portion of the plot makes clear, a majority of American men have heights below 72 inches.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+We use \texttt{rnorm} whenever we want to draw random samples from the normal distribution. On its own, the function helps us better understand the natural variation of real world processes that draw from normal distributions. If we repeat this sampling many times, we'll have a plot that more closely resembles the \emph{true} distribution.
+
+Let's apply this concept again to height. Imagine that you took a random sample of 50 US men and took their height.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Take sample}
+\NormalTok{sample\_50 }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{deviates =} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{50}\NormalTok{, }\DecValTok{70}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+
+\CommentTok{\# Plot as a histogram}
+\FunctionTok{ggplot}\NormalTok{(sample\_50, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ deviates)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{bins =} \DecValTok{20}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-60-1} \end{center}
+
+If we took a larger sample, we would get something that looks more normally distributed.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sample\_5000 }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{deviates =} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{5000}\NormalTok{, }\DecValTok{70}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+
+\FunctionTok{ggplot}\NormalTok{(sample\_5000, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ deviates)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{bins =} \DecValTok{20}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-61-1} \end{center}
+
+The plots below will more finely measure this progression as sample sizes increase:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create a function that randomly samples from normal distribution}
+\NormalTok{norm\_plot }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(mean, sd, n)\{}
+\NormalTok{  temp }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{deviates =} \FunctionTok{rnorm}\NormalTok{(n, mean, sd))}
+\NormalTok{  plot }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(temp, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ deviates)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{bins =} \DecValTok{20}\NormalTok{)}
+  \FunctionTok{return}\NormalTok{(plot)}
+\NormalTok{\}}
+
+\CommentTok{\# Produce plots}
+\NormalTok{sample\_50 }\OtherTok{\textless{}{-}} \FunctionTok{norm\_plot}\NormalTok{(}\DecValTok{70}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{50}\NormalTok{)}
+\NormalTok{sample\_500 }\OtherTok{\textless{}{-}} \FunctionTok{norm\_plot}\NormalTok{(}\DecValTok{70}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{500}\NormalTok{)}
+\NormalTok{sample\_5000 }\OtherTok{\textless{}{-}} \FunctionTok{norm\_plot}\NormalTok{(}\DecValTok{70}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{5000}\NormalTok{)}
+
+\CommentTok{\# Plot together}
+\NormalTok{cowplot}\SpecialCharTok{::}\FunctionTok{plot\_grid}\NormalTok{(}\ConstantTok{NULL}\NormalTok{, normal\_plot, }\ConstantTok{NULL}\NormalTok{, sample\_50, sample\_500, sample\_5000, }\AttributeTok{ncol =} \DecValTok{3}\NormalTok{, }\AttributeTok{nrow =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-62-1} \end{center}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Finally,
+
+\hypertarget{introduction-1}{%
+\section{Introduction}\label{introduction-1}}
+
+This is a guide to understanding and visualizing several important discrete and continuous distributions in the statistics world. We will use several R packages in the process.
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{stats} (installed by default in RStudio) to retrieve statistical distributions.
+\item
+  \texttt{tibble} to coerce data frames into tibbles. What is a tibble?
+\item
+  \texttt{ggplot2} to produce geometries from visualizations.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(tibble)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+We will also set a seed so that our analysis can be replicated. Why is this important?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2000}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Click on the distribution below that you would like to read more about:
+
+\begin{itemize}
+\tightlist
+\item
+  Uniform
+\item
+  Geometric
+\item
+  Normal
+\item
+  Exponential
+\item
+  Poisson
+\item
+  Power Laws
+\end{itemize}
+
+For each of the following distributions the first letter of its corresponding functions signifies what the function yields.
+
+\begin{itemize}
+\item
+  ``d'' functions return a vector of \textbf{densities}.
+\item
+  ``p'' functions give us a cumulative \textbf{probability} of the distribution.
+\item
+  ``q'' functions returns a probability corresponding to a given \textbf{quantile}
+\item
+  and finally, ``r'' functions generate \textbf{random} values from a given distribution.
+\end{itemize}
+
+\hypertarget{uniform-distribution}{%
+\section{Uniform Distribution}\label{uniform-distribution}}
+
+Given \(a < b\), we can define a uniform distribution as
+
+\[ f(x) = \frac{1}{b-a}\hspace{0.7cm}for\hspace{0.2cm}a\leq x\leq b \]
+
+How do we get this equation? Imagine drawing a rectangle in the interval (a,b) with height 1/(b-a).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_rect}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xmin =} \DecValTok{0}\NormalTok{, }\AttributeTok{xmax =} \DecValTok{1}\NormalTok{, }\AttributeTok{ymin =} \DecValTok{0}\NormalTok{, }\AttributeTok{ymax =} \DecValTok{1}\NormalTok{), }\AttributeTok{fill =} \ConstantTok{NA}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"x"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{""}\NormalTok{, }\StringTok{"h"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-64-1} \end{center}
+
+We have the height as 1/(b-a). We know this since the cumulative area of a distribution must be 1 and the width is b-a. Using the area of a rectangle with h being the height of the uniform distribution.
+
+\[(b-a)h=1\]
+
+For the equation to hold, h must equal 1/(b-a).
+
+The first \texttt{stats} function we can use with the uniform distribution is \texttt{dunif(x,\ min\ =\ 0,\ max\ =\ 1)} which returns the density at point x in the distribution given left and right bounds. This is quite easy to determine in the uniform distribution because \textbf{every point has the same density of h}- in other words, the height.
+
+We'll start with an example where the beginning and end of the uniform distribution is at x = 0 and x = 1, respectively. What are the densities at x = 0, 0.5, and 1?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dunif}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{min =} \DecValTok{0}\NormalTok{, }\AttributeTok{max =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1 1 1
+\end{verbatim}
+
+You are correct if you guessed 1! If a = 0, b = 1 then by definition h = 1. Thus, every point in the distribution has a density of 1.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_rect}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xmin =} \DecValTok{0}\NormalTok{, }\AttributeTok{xmax =} \DecValTok{1}\NormalTok{, }\AttributeTok{ymin =} \DecValTok{0}\NormalTok{, }\AttributeTok{ymax =} \DecValTok{1}\NormalTok{), }\AttributeTok{fill =} \ConstantTok{NA}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"x"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{y =} \DecValTok{1}\NormalTok{), }\AttributeTok{size =} \DecValTok{5}\NormalTok{, }\AttributeTok{color =} \StringTok{"navy"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-66-1} \end{center}
+
+The \texttt{punif(q,\ min\ =\ 0,\ max\ =\ 1)} function helps us find the cumulative density between at the qth quantile. Using a different rectangle with a = 0, b = 4, and h = 1/4, we can find the proportion of the distribution between the minimum of 0 and maximum of 2 by writing the following:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{punif}\NormalTok{(}\DecValTok{2}\NormalTok{, }\AttributeTok{min =} \DecValTok{0}\NormalTok{, }\AttributeTok{max =} \DecValTok{4}\NormalTok{, }\AttributeTok{lower.tail =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5
+\end{verbatim}
+
+There are three arguments in this function: a vector of quantiles, a minimum, maximum, and a binary \texttt{lower.tail} argument. By default this is set to \texttt{TRUE}.
+
+We can also think about the \texttt{punif()} function as drawing a smaller rectangle from 0 to 2 (if \texttt{lower.tail\ =\ FALSE}) and calculating its area. Below, this is the same as the percent of the total area that the navy rectangle occupies.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_rect}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xmin =} \DecValTok{0}\NormalTok{, }\AttributeTok{xmax =} \DecValTok{2}\NormalTok{, }\AttributeTok{ymin =} \DecValTok{0}\NormalTok{, }\AttributeTok{ymax =} \DecValTok{1}\SpecialCharTok{/}\DecValTok{4}\NormalTok{), }
+            \AttributeTok{alpha =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }
+            \AttributeTok{fill =} \StringTok{"navy"}\NormalTok{, }
+            \AttributeTok{color =} \StringTok{"navy"}\NormalTok{, }
+            \AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{geom\_rect}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xmin =} \DecValTok{0}\NormalTok{, }\AttributeTok{xmax =} \DecValTok{4}\NormalTok{, }\AttributeTok{ymin =} \DecValTok{0}\NormalTok{, }\AttributeTok{ymax =} \DecValTok{1}\SpecialCharTok{/}\DecValTok{4}\NormalTok{), }
+              \AttributeTok{fill =} \ConstantTok{NA}\NormalTok{, }
+              \AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"x"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-68-1} \end{center}
+
+\[ area \hspace{0.2 cm}= \hspace{0.2 cm}base \hspace{0.2cm} * \hspace{0.2 cm}height\]
+
+\[area = 2*0.25=0.5\]
+
+Now we will consider the opposite scenario where we want to find the x-value that correponds with the 50th percentile of our distribution. This is the purpose of \texttt{qunif(p,\ min\ =\ 0,\ max\ =\ 1)}. We already know from using the distribution function \texttt{punif()} that this is 2.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{qunif}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\AttributeTok{min =} \DecValTok{0}\NormalTok{, }\AttributeTok{max =} \DecValTok{4}\NormalTok{, }\AttributeTok{lower.tail =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\#lower.tail is also set to TRUE by default}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2
+\end{verbatim}
+
+The last function \texttt{runif(n,\ min\ =\ 0,\ max\ =\ 1)} generates random deviates within the distribution. There are three arguments in this function:
+
+\begin{itemize}
+\item
+  n, the number of deviates we want to produce
+\item
+  min, the left bound of the uniform distribution
+\item
+  max, the right bound of the uniform distribution
+\end{itemize}
+
+We'll use the \texttt{round()} function to round them to the hundredths place.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{unif\_dev }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(}\FunctionTok{runif}\NormalTok{(}\DecValTok{10}\NormalTok{, }\AttributeTok{min =} \DecValTok{0}\NormalTok{, }\AttributeTok{max =} \DecValTok{4}\NormalTok{), }\AttributeTok{digits =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_rect}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xmin =} \DecValTok{0}\NormalTok{, }\AttributeTok{xmax =} \DecValTok{4}\NormalTok{, }\AttributeTok{ymin =} \DecValTok{0}\NormalTok{, }\AttributeTok{ymax =} \DecValTok{1}\SpecialCharTok{/}\DecValTok{4}\NormalTok{), }
+            \AttributeTok{fill =} \ConstantTok{NA}\NormalTok{,}
+            \AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"x"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =}\NormalTok{ unif\_dev, }\AttributeTok{alpha =} \FloatTok{0.4}\NormalTok{, }\AttributeTok{color =} \StringTok{"navy"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{4}\NormalTok{, }\AttributeTok{by =} \DecValTok{1}\NormalTok{), }\AttributeTok{labels =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{4}\NormalTok{, }\AttributeTok{by =} \DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-71-1} \end{center}
+
+\emph{How do we interpret them?}
+
+\hypertarget{geometric-distribution}{%
+\section{Geometric Distribution}\label{geometric-distribution}}
+
+For the next distribution, imagine a basketball player that is not particularly good. Whenever he takes a free throw, there is a 10\% probability that he makes it. How many free throws can we expect him to shoot before he makes one?
+
+The geometric (p) distribution helps us answer this question. We can think of this as a spread of N trials required to reach a probability p.
+
+\[P(N = n) = (1-p)^{n-1} p \hspace{0.7cm}for\hspace{0.2cm} n\geq1\]
+
+Although there is a more in-depth proof, the formula for this distribution is already quite intuitive. If the geometric distribution has all of the N trials needed before a success, we would have n-1 failures followed by one success for N = n.
+
+The geometric distribution has a mean of 1/p.~We'll prove it below. If you don't want to read this, feel free to skip to the next section.
+
+\emph{Proof}
+
+This proof requires knowledge of expected value, the mean of a random variable's distribution if it is only nonnegative integers. In these cases, the expected value can be written as:
+
+\[EX=\sum_{n=1}^{\infty}P(X\geq n)\]
+
+This proof will begin with the definition of the geometric series (sounds familiar?).
+
+\[\sum_{k=0}^{\infty}x^k=\frac{1}{x}\]
+
+Our first step is to take the derivative of both sides. Since the k=0 term is 0, we can drop it altogether.
+
+\[\sum_{k=1}^{\infty}kx^{k-1}=\frac{1}{(1-x)^2}\]
+
+Now, we can introduce the parameter p from the geometric distribution. By setting x = 1-p
+
+\[\sum_{k=1}^{\infty}k(1-p)^{k-1}=\frac{1}{(1-p)^2}\]
+
+Now multiply each side by p.
+
+\[\sum_{k=1}^{\infty}kP(N=k)=\sum_{k=1}^{\infty}k(1-p)^{k-1}p=\frac{1}{p}\]
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Now that we have found the mean of the geometric distribution, let's see how we can visualize the first thirty shots that the basketball player takes. Again, we'll use the geometric distribution's d(density) function \texttt{dgeom(x,\ prob,\ log\ =\ FALSE)} to produce the individual densities for each of the shots in the total distribution.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create a data frame with the first 30 values, incremented by 1, as well as a geometric distribution.}
+
+\NormalTok{dgeom }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{shot\_num =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{30}\NormalTok{, }
+                \AttributeTok{density =} \FunctionTok{dgeom}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{30}\NormalTok{, }\AttributeTok{prob =} \FloatTok{0.1}\NormalTok{, }\AttributeTok{log =} \ConstantTok{FALSE}\NormalTok{))}
+
+\CommentTok{\# Create plot}
+
+\FunctionTok{ggplot}\NormalTok{(dgeom) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ shot\_num, }\AttributeTok{y =}\NormalTok{ density), }\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Shot Number"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-72-1} \end{center}
+
+Each ith value on the x axis and its corresponding jth y value can be conceptualized as ``On the ith observation, there is a j probability that the basketball player had his first successful free throw.''
+
+As suggested in the plot above, the probability that we reach our first success approaches 0 as the observation number approaches infinity.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+To calculate the probability of a range of outcomes we can use the function \texttt{pgeom(q,\ prob,\ lower.tail\ =\ FALSE)}. For example, how likely is it that the player can make a free throw in 9 or fewer shots? To find this, we'll plug in q = 9.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create a cumulative density function}
+\FunctionTok{pgeom}\NormalTok{(}\DecValTok{9}\NormalTok{, }\AttributeTok{prob =} \FloatTok{0.1}\NormalTok{, }\AttributeTok{lower.tail =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.6513216
+\end{verbatim}
+
+When using a ``p'' or distribution function, we can imagine the first argument as our right bound when \texttt{lower.tail\ =\ TRUE}.
+
+Visualized, this is same as finding the area of the binomial distribution from 1 shot to 9 shots, i.e.~the total area of the first nine rectangles. We will fill the first nine bars blue and the rest gray.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(dgeom) }\SpecialCharTok{+} \CommentTok{\# Insert the vector of densities into the data argument}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ shot\_num, }\AttributeTok{y =}\NormalTok{ density), }
+           \AttributeTok{stat =} \StringTok{"identity"}\NormalTok{, }
+           \AttributeTok{fill =} \FunctionTok{ifelse}\NormalTok{(dgeom}\SpecialCharTok{$}\NormalTok{shot\_num }\SpecialCharTok{\textless{}=} \DecValTok{9}\NormalTok{, }\StringTok{"skyblue1"}\NormalTok{, }\StringTok{"lightgray"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Observation"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-74-1} \end{center}
+
+The \texttt{ifelse(test,\ yes,\ no)} function is in base R and allows us to set a condition for the fill aesthetic of our bar plot. We are essentially telling ggplot to fill each bar blue if the \texttt{shot\_num} is less than or equal to 9. Otherwise, fill the rest of the bars gray.
+
+By default, the \texttt{lower.tail} argument is set to \texttt{TRUE}, meaning that we are finding the area of the distribution from the first shot to the ninth shot. However, if we set the \texttt{lower.tail} argument to \texttt{FALSE}, we will get the area of the distribution after the tenth shot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{pgeom}\NormalTok{(}\DecValTok{9}\NormalTok{, }\AttributeTok{prob =} \FloatTok{0.1}\NormalTok{, }\AttributeTok{lower.tail =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.3486784
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# As represented on a bar plot}
+
+\FunctionTok{ggplot}\NormalTok{(dgeom) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ shot\_num, }\AttributeTok{y =}\NormalTok{ density), }
+           \AttributeTok{stat =} \StringTok{"identity"}\NormalTok{, }
+           \AttributeTok{fill =} \FunctionTok{ifelse}\NormalTok{(dgeom}\SpecialCharTok{$}\NormalTok{shot\_num }\SpecialCharTok{\textgreater{}} \DecValTok{9}\NormalTok{, }\StringTok{"skyblue1"}\NormalTok{, }\StringTok{"lightgray"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Shot Number"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-76-1} \end{center}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+The \texttt{qgeom()} function can be thought of as the inverse of \texttt{pgeom()}. Because of this, we enter in a cumulative density (value from 0-1) into the function and it returns the shot number in which we would expect to reach that cumulative density, from left to right on a number line.
+
+Like \texttt{pgeom()}, keep in mind that \texttt{lower.tail} is set to \texttt{TRUE} by default.
+
+By what shot can we begin expecting the player have already made a free throw? To answer this question, we will enter 50\% as a cumulative density.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{qgeom}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\AttributeTok{prob =} \FloatTok{0.1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dgeom }\OtherTok{\textless{}{-}}\NormalTok{ dgeom }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{cume\_dist =} \FunctionTok{cumsum}\NormalTok{(density))}
+
+\FunctionTok{ggplot}\NormalTok{(dgeom) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ shot\_num, }\AttributeTok{y =}\NormalTok{ density), }
+           \AttributeTok{stat =} \StringTok{"identity"}\NormalTok{, }
+           \AttributeTok{fill =} \FunctionTok{ifelse}\NormalTok{(dgeom}\SpecialCharTok{$}\NormalTok{cume\_dist }\SpecialCharTok{\textless{}=}\NormalTok{.}\DecValTok{5}\NormalTok{, }\StringTok{"skyblue1"}\NormalTok{, }\StringTok{"lightgray"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Shot Number"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-79-1} \end{center}
+
+There is quite a bit to unpack here. We use \texttt{mutate()} to create a new variable for the cumulative density at each shot. This is the sum of a shot's density and all of the previous shots before it.
+
+Next, we return to the \texttt{ifelse()} function to determine which bars to fill. We can interpret our code as ``If the cumulative density of this shot is less than or equal to .5, fill it blue; otherwise, fill it gray.''
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Finally, imagine that 1,000 exact copies of the basketball player shoot free throws. Below is the distribution of those outcomes. The function \texttt{rgeom()} simulates each of the 1,000 players and returns the number of their first successful shot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rand\_geom }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{deviants =} \FunctionTok{rgeom}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\FloatTok{0.1}\NormalTok{))}
+
+\FunctionTok{ggplot}\NormalTok{(rand\_geom) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ deviants), }
+                 \AttributeTok{binwidth =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"First Shot"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Frequency"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{10}\NormalTok{)) }\CommentTok{\# Added more ticks on x axis}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-80-1} \end{center}
+
+\hypertarget{binomial-distribution}{%
+\section{Binomial Distribution}\label{binomial-distribution}}
+
+While we would use the geometric distribution understand the likelihood that a basketball player makes his first shot for each attempt, the binomial distribution instead allows us think about the probability of successful free throws in a fixed number of attempts. We define it below:
+
+\[P(K = k) = C_{n,k}p^{k}(1-p)^{n-k}\] where \(C_{n,k}\) is the number of ways that we can pick k successes in n trials.
+
+At first glance, this formula is complicated, but it can be divided into two parts:
+
+\begin{itemize}
+\item
+  \(C_{k,n}\) or the number of scenarios in which we can have k successes in n trials and (add footnote)
+\item
+  \(p^{k}(1-p)^{n-k}\) or the probability of getting k successes and therefore n-k failures.
+\end{itemize}
+
+We multiply the scenarios term by the probability term to account for the fact that there are multiple ways that we can get to the kth success.
+
+(footnote): The calculation of the combinatorial coefficient \(C_{n,k}\) requires some knowledge about combinations. You can read more about it here.
+
+For example, if we are interested in the probability that the basketball player shoots 30 free throws and makes 3 of them, we can plug these numbers into our equation.
+
+\begin{itemize}
+\item
+  We have n = 30 independent trials, assuming that the player shoots at the same place and does not get tired.
+\item
+  We want to have k = 3 successful free throws and n- k = 27 unsuccessful ones.
+\item
+  Recall that the probability of a successful shot is p = 10\%. Thus, a missed shot has probability 1 - p = 90\%.
+\end{itemize}
+
+\[P(k = 3) = C_{30,3}(.10)^{3}(1-.10)^{27}=.2361\]
+
+In R, the function \texttt{dbinom()} similarly accomplishes this.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dbinom}\NormalTok{(}\DecValTok{3}\NormalTok{, }\AttributeTok{size =} \DecValTok{30}\NormalTok{, }\AttributeTok{prob =}\NormalTok{ .}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.2360879
+\end{verbatim}
+
+In other words, the probability that the basketball player shoots 30 free throws and makes exactly 3 of them is about 0.2361.
+
+As we begin visualizing this with \texttt{ggplot()}, we should return to our earlier strategy with the geometric distribution by creating a data frame or tibble with two columns--one to signify all of the possible number of successes that we can have, and another of their corresponding probabilities or densities.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dbinom }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{shots =} \DecValTok{0}\SpecialCharTok{:}\DecValTok{30}\NormalTok{,}
+                 \AttributeTok{density =} \FunctionTok{dbinom}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{30}\NormalTok{, }\AttributeTok{size =} \DecValTok{30}\NormalTok{, }\AttributeTok{prob =}\NormalTok{ .}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+We can now plot this with \texttt{geom\_bar()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(dbinom) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ shots, }\AttributeTok{y =}\NormalTok{ density), }
+           \AttributeTok{stat =} \StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Successful Shots"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{30}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-83-1} \end{center}
+
+As seen above, it is quite unlikely that the basketball player will make more than 10 shots. In fact, their probabilities aren't even large enough for the bars to show up on the graph.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+In some scenarios in the statistics world, we aren't only interested in the probability of getting \textbf{exactly} k successes; we are also interested in getting a range of outcomes. For example, what is the probability that a basketball player makes 3 \textbf{or fewer} shots out of 30?
+
+Using the previous chapters, we can assume that we would want to use the function \texttt{pbinom()} to answer this question.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{pbinom}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{30}\NormalTok{, }\FloatTok{0.1}\NormalTok{, }\AttributeTok{lower.tail =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.6474392
+\end{verbatim}
+
+The first argument in the above function is similar to the other ``p'' functions since it can be thought of as the ``right bound'' of interest. We can imagine the \texttt{pbinom()} function as finding the area of the binomial distribution from 0 to 3.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(dbinom) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ shots, }\AttributeTok{y =}\NormalTok{ density), }
+           \AttributeTok{stat =} \StringTok{"identity"}\NormalTok{, }
+           \AttributeTok{fill =} \FunctionTok{ifelse}\NormalTok{(dbinom}\SpecialCharTok{$}\NormalTok{shots }\SpecialCharTok{\textless{}=} \DecValTok{3}\NormalTok{, }\StringTok{"purple2"}\NormalTok{, }\StringTok{"lightgray"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Successful Shots"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-85-1} \end{center}
+
+The \texttt{ifelse()} function returns similarly to how we used it in the geometric distribution section. The interpretation here is ``fill the bar purple if number of successful shots is three or fewer. If not, fill the bar gray.''
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Like the other ``r'' functions,\texttt{rbinom()} randomly simulates the outcomes of a distribution. In this case, the function returns the number of successful free throws made all of the simulations. This is useful because it helps us better understand the natural random process.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ranbinom }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{deviants =} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DecValTok{30}\NormalTok{, .}\DecValTok{10}\NormalTok{))}
+
+\FunctionTok{glimpse}\NormalTok{(ranbinom)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 1,000
+## Columns: 1
+## $ deviants <int> 5, 6, 7, 2, 3, 6, 5, 2, 2, 2, 3, 2, 5, 5, 5, 5, 4, 5, 3, 3, 1~
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(ranbinom) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ deviants), }\AttributeTok{stat =} \StringTok{"count"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{10}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Successful Shots"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Frequency"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-86-1} \end{center}
+
+\hypertarget{normal-distribution-1}{%
+\section{Normal Distribution}\label{normal-distribution-1}}
+
+In a way, the binomial distribution is the parent of the normal distribution. I'll explain.
+
+Several centuries ago, mathematician Abraham DeMoivre was asked to solve a gambling game, in which one flips a coin a bunch (3600 in fact) times and counts the number of heads. After playing the game many times, he found that his results created a unique bellcurve shape.
+
+In this next section, we will simulate his experiment:
+
+\begin{itemize}
+\tightlist
+\item
+  First, we will use R to create a coin. The heads side of our fair coin will be represented with a ``H'', tails with a ``T''.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{coin }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"H"}\NormalTok{,}\StringTok{"T"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  Next, we will use \texttt{sample(x,\ size,\ replace\ =\ FALSE)} to simulate random coin flips. The first argument of the function is for the elements of our random sampling process. The second is the number of times that we will flip the coin. Finally, we will set replace to TRUE so that we keep both sides of our coin after flipping.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{flips }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{flip\_num =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{3600}\NormalTok{, }
+                \AttributeTok{outcome =} \FunctionTok{sample}\NormalTok{(coin, }\AttributeTok{size =} \DecValTok{3600}\NormalTok{, }\AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{))}
+
+\FunctionTok{head}\NormalTok{(flips, }\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 2
+##   flip_num outcome
+##      <int> <chr>  
+## 1        1 H      
+## 2        2 H      
+## 3        3 H      
+## 4        4 T      
+## 5        5 H
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Now, let's save the number of heads.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{heads }\OtherTok{\textless{}{-}}\NormalTok{ flips }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(outcome }\SpecialCharTok{==} \StringTok{"H"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{count}\NormalTok{()}
+
+\NormalTok{heads}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 1
+##       n
+##   <int>
+## 1  1827
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Our last step is to find a way to repeat this game of 3600 flips. We will do so 1000 times using the \texttt{do()} function.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{get\_heads }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x) \{}
+\NormalTok{  fair\_coin }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"H"}\NormalTok{, }\StringTok{"T"}\NormalTok{) }\CommentTok{\# Repeating code from the previous lines.}
+\NormalTok{  flip }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{flip\_num =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{3600}\NormalTok{, }
+                 \AttributeTok{outcome =} \FunctionTok{sample}\NormalTok{(fair\_coin, }\AttributeTok{size =} \DecValTok{3600}\NormalTok{, }\AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{))}
+\NormalTok{  heads\_count }\OtherTok{\textless{}{-}}\NormalTok{ flip }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(outcome }\SpecialCharTok{==} \StringTok{"H"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{count}\NormalTok{()}
+  \FunctionTok{return}\NormalTok{(heads\_count)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  Using this function, we will repeat the coin flip game 1000 times and count the number of heads.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{outcomes }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{game\_num =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{1000}\NormalTok{,}
+                   \AttributeTok{heads =} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{replicate}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\FunctionTok{get\_heads}\NormalTok{(), }\AttributeTok{simplify =} \ConstantTok{TRUE}\NormalTok{))) }
+
+\FunctionTok{head}\NormalTok{(outcomes, }\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 2
+##   game_num heads
+##      <int> <dbl>
+## 1        1  1852
+## 2        2  1813
+## 3        3  1802
+## 4        4  1810
+## 5        5  1803
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  What does this
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Plotting our game outcomes}
+
+\NormalTok{demoivre\_plot }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(outcomes, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ heads))}
+  
+\NormalTok{demoivre\_plot }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{bins =} \DecValTok{25}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Heads"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Count"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-92-1} \end{center}
+
+You can start to see the bell shape taking form. However, this is even easier to see with \texttt{geom\_density()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{demoivre\_plot }\SpecialCharTok{+}
+  \FunctionTok{geom\_density}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.4}\NormalTok{, }\AttributeTok{fill =} \StringTok{"lightsteelblue"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Heads"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-93-1} \end{center}
+
+This unique bellcurve roughly follows the \textbf{normal distribution}.
+
+This distribution is useful beyond counting coin flips. It is also explains many everyday phenomena such as heights, IQ scores, salaries, and blood pressure. Because of this, when we know that an outcomes, people, or observations are independent and random, we can make \emph{inferences} about the larger picture.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Now let's return to the normal distribution. We can define it as follows:
+
+\[f(x)=(2\pi)^{-1/2}e^{-x^2/2}\]
+
+The density function \texttt{dnorm(x,\ mean\ =\ 0,\ sd\ =\ 1,\ log\ =\ FALSE)} can be thought of as f(x). The first argument x contains a vector of numbers that will yield their density. Let's try this with x = 1.5 on a standard normal distribution with mean = 0 and sd = 1; in other words, a point 1.5 standard deviations above the mean.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dnorm}\NormalTok{(}\FloatTok{1.5}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.1295176
+\end{verbatim}
+
+To interpret this density, simply think of \texttt{round(dnorm(1.5,\ 0,\ 1)} as the probability that an observation would be 1.5 standard deviations greater than a mean.
+
+There are many real world scenarios in which we could apply this. For instance, the probability of an American male having a height that is 1.5 standard deviations greater than average (i.e.~76 inches or 6 feet and 3 inches) is about 13\%.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Oftentimes, we don't have a standardized distribution with 0 as the mean and 1 as the standard deviation. To demonstrate this, if we our height example, the average height of men in the United States is 70 inches with 2 inches as the standard deviation. Thus, we must reevaluate the \texttt{mean} and \texttt{sd} arguments.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{height }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{inches =} \DecValTok{61}\SpecialCharTok{:}\DecValTok{79}\NormalTok{,}
+                 \AttributeTok{densities =} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{61}\SpecialCharTok{:}\DecValTok{79}\NormalTok{, }\AttributeTok{mean =} \DecValTok{70}\NormalTok{, }\AttributeTok{sd =} \DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+We can visualize this similarly to the ``d'' density plots in previous chapters. I will add in a vertical line with \texttt{geom\_vline()} to mark the mean of the distribution.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(height) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ inches, }\AttributeTok{y =}\NormalTok{ densities), }\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =} \DecValTok{70}\NormalTok{, }\AttributeTok{color =} \StringTok{"lightsteelblue"}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-96-1} \end{center}
+
+Unlike the geometric and binomal distributions, the normal distribution is symmetric about the mean. When a height is very different than the average, it is less likely to occur.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Now that we have made our density plot, we can again think about capturing an interval of values in the distribution with our ``p'' distribution function \texttt{pnorm(q,\ mean\ =\ 0,\ sd\ =\ 1,\ lower.tail\ =\ TRUE)}. If the shortest Duke basketball player (in the 2020-21 season) is 6 feet or 72 inches tall, what percentage of the American male population is shorter than the basketball team?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{round}\NormalTok{(}\FunctionTok{pnorm}\NormalTok{(}\DecValTok{72}\NormalTok{, }\DecValTok{70}\NormalTok{, }\DecValTok{2}\NormalTok{), }\AttributeTok{digits =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{*} \DecValTok{100} \CommentTok{\# Multiply by 100 to get a percentage}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 84.1
+\end{verbatim}
+
+As in previous chapters, the \texttt{ifelse()} function lets us shade parts of our plot in different colors. This time, we will use \texttt{geom\_density()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{normal }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{mean =} \DecValTok{70}\NormalTok{, }\AttributeTok{sd =} \DecValTok{2}\NormalTok{)}
+
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ height, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ inches)) }\SpecialCharTok{+}
+  \FunctionTok{stat\_function}\NormalTok{(}\AttributeTok{fun =}\NormalTok{ dnorm,}
+                \AttributeTok{geom =} \StringTok{"area"}\NormalTok{,}
+                \AttributeTok{fill =} \StringTok{"lightgray"}\NormalTok{,}
+                \AttributeTok{color =} \StringTok{"black"}\NormalTok{,}
+                \AttributeTok{xlim =} \FunctionTok{c}\NormalTok{(}\FunctionTok{min}\NormalTok{(height}\SpecialCharTok{$}\NormalTok{inches), }\FunctionTok{max}\NormalTok{(height}\SpecialCharTok{$}\NormalTok{inches)),}
+                \AttributeTok{args =}\NormalTok{ normal) }\SpecialCharTok{+}
+  \FunctionTok{stat\_function}\NormalTok{(}\AttributeTok{fun =}\NormalTok{ dnorm,}
+                \AttributeTok{geom =} \StringTok{"area"}\NormalTok{,}
+                \AttributeTok{fill =} \StringTok{"steelblue"}\NormalTok{,}
+                \AttributeTok{xlim =} \FunctionTok{c}\NormalTok{(}\DecValTok{72}\NormalTok{, }\FunctionTok{max}\NormalTok{(height}\SpecialCharTok{$}\NormalTok{inches)),}
+                \AttributeTok{args =}\NormalTok{ normal}
+\NormalTok{                ) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Inches"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-98-1} \end{center}
+
+  \bibliography{book.bib,packages.bib}
+
+\end{document}
