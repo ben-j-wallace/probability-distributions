@@ -6,7 +6,7 @@ output:
 
 A visualization can be anything. It can be a drawing, a photograph, a sculpture, a well-decorated cake... you get the idea. However, data scientists and statisticians are often not very skilled at all of these art forms, so they are limited to their tools at hand: functions, code, and geometries.
 
-This leads us to data visualizations. What separates a data visualization from a drawing is the tools used to construct it. In this guide, our blank canvas is a function called `ggplot`.
+This leads us to data visualizations. What separates a data visualization from a drawing are the tools used to construct it. In this guide, our blank canvas is a function called `ggplot`.
 
 ```{r, empty-plot, message= FALSE, warning = FALSE, fig.cap="An empty plot", out.width="80%", fig.asp=.75, fig.align="center"}
 library(tidyverse)
